@@ -55,7 +55,7 @@ const spiritNeed=[
     [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50]
 ]
 function CalcSpiritNeed(i){
-    for(let i=0;i<expNeed.length;i++){
+    for(let i=0;i<spiritNeed.length;i++){
         if(player.spiritLv[i]<=spiritNeed[i][0]){
             return spiritNeed[i][1]
         }
