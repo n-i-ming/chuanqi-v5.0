@@ -36,7 +36,7 @@ const idFrom={
 const bagDisplayList=[2,3,0,5,1,4]
 const pelletAttribute=[
     [n(1000),n(100),n(100),0.01,0.01,0.01,0,n(1000)],
-    [n(5000),n(500),n(500),0.01,0.01,0.01,0,n(10000)],
+    [n(5000),n(500),n(500),0.01,0.01,0.01,5,n(10000)],
 ]
 const weaponFrontName=[
     "","凡品·","<text style='color:blue'>精品</text>·","<text style='color:purple'>完美</text>·","<text style='color:orange'>仙品</text>·"
