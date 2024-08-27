@@ -6,6 +6,7 @@ function CalcAttribute(){
     player.criticalDamage=n(200)
     player.damageAdd=n(100)
     player.damageMinus=n(0)
+    player.maxDifficulty=immortalAttribute[player.immortalLv][4]
 
     for(let i=0;i<pelletAttribute.length;i++){
         player.hpmax=player.hpmax.add(pelletAttribute[i][0].mul(player.pelletNum[i][0]))
@@ -16,6 +17,11 @@ function CalcAttribute(){
         for(let id in weaponAttribute[i][1]){
             player[id]=player[id].add(weaponAttribute[i][1][id]*player.weaponType[i])
         }
+    }
+    player.damageAdd=player.damageAdd.add(n(10).mul(player.meridianLv[0][0]))
+    player.damageMinus=player.damageMinus.add(n(10).mul(player.meridianLv[1][0]))
+    for(let id in immortalAttribute[player.immortalLv][2]){
+        player[id]=player[id].add(immortalAttribute[player.immortalLv][2][id])
     }
 
     for(let i=0;i<pelletAttribute.length;i++){
@@ -36,8 +42,14 @@ function CalcAttribute(){
     player.hit=player.hit.mul(n(1).add(n(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2)).div(100)))
     player.hpmax=player.hpmax.mul(n(1).add(n(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.ceil(player.meridianLv[1][1]/2)).div(100)))
     player.def=player.def.mul(n(1).add(n(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.floor(player.meridianLv[1][1]/2)).div(100)))
-    player.damageAdd=player.damageAdd.add(n(5).mul(player.meridianLv[0][0]))
-    player.damageMinus=player.damageMinus.add(n(5).mul(player.meridianLv[1][0]))
+    for(let id in immortalAttribute[player.immortalLv][1]){
+        player[id]=player[id].mul(n(1).add(n(immortalAttribute[player.immortalLv][1][id]).div(100)))
+    }
+    for(let id in player.transmigrationLv){
+        player[id]=player[id].mul(n(1.01).pow(player.transmigrationLv[id]))
+    }
+    player.damageAdd=player.damageAdd.mul(n(1.01).pow(player.divineLv))
+    player.damageMinus=player.damageMinus.mul(n(1.01).pow(player.divineLv))
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 }
 const expNeed=[
@@ -85,6 +97,87 @@ function SpiritUpgrade(id,type){
         }
         else{
             logs.push("成功升级 "+["生命","攻击","防御","命中"][id]+"修炼 "+count+"级")
+        }
+    }
+}
+const transmigrationNeed=[
+    [10,n(10000)],[20,n(30000)],[30,n(50000)],[50,n(100000)],[70,n(200000)]
+]
+function CalcTransmigrationNeed(id){
+    for(let i=0;i<transmigrationNeed.length;i++){
+        if(player.transmigrationLv[id]<transmigrationNeed[i][0]){
+            return transmigrationNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function TransmigrationUpgrade(id,type){
+    if(player.transmigrationLv[id]>=player[id].logBase(2).floor()){
+        return
+    }
+    if(type==0){
+        if(player.money.lt(CalcTransmigrationNeed(id))){
+            logs.push("金币不够")
+        }
+        else{
+            player.money=player.money.sub(CalcTransmigrationNeed(id))
+            player.transmigrationLv[id]+=1
+            logs.push("成功转生 "+attributeToName[id]+" 1次")
+        }
+    }
+    else{
+        let count=0
+        while(player.money.gte(CalcTransmigrationNeed(id)) && player.transmigrationLv[id]<player[id].logBase(2).floor()){
+            player.money=player.money.sub(CalcTransmigrationNeed(id))
+            player.transmigrationLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功转生 "+attributeToName[id]+" "+count+"次")
+        }
+    }
+}
+const divineNeed=[
+    [50,n(30000)],[100,n(100000)],[150,n(150000)],[200,n(300000)],[300,n(500000)]
+]
+function CalcDivineNeed(){
+    for(let i=0;i<divineNeed.length;i++){
+        if(player.divineLv<divineNeed[i][0]){
+            return divineNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function DivineUpgrade(type){
+    let mx=player.transmigrationLv["hpmax"]+player.transmigrationLv["atk"]+player.transmigrationLv["def"]+player.transmigrationLv["hit"]
+    if(player.divineLv>=mx){
+        return
+    }
+    if(type==0){
+        if(player.money.lt(CalcDivineNeed())){
+            logs.push("金币不够")
+        }
+        else{
+            player.money=player.money.sub(CalcDivineNeed())
+            player.divineLv[id]+=1
+            logs.push("成功凝聚 1滴神力")
+        }
+    }
+    else{
+        let count=0
+        while(player.money.gte(CalcDivineNeed()) && player.divineLv<mx){
+            player.money=player.money.sub(CalcDivineNeed())
+            player.divineLv+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功凝聚 "+count+"滴神力")
         }
     }
 }

@@ -72,6 +72,12 @@ addLayer("tree-tab",{
         // dif*=1000
         player.tmtmtm=Date.now()/1e3
         CalcAttribute()
+        if(document.getElementById("difficulty")!==undefined && document.getElementById("difficulty")!==null && document.getElementById("difficulty").value.length==0){
+            document.getElementById("difficulty").value=player.nowDifficulty
+        }
+        if(document.getElementById("difficulty")!==undefined && document.getElementById("difficulty")!==null && document.getElementById("difficulty").value.length>0){
+            document.getElementById("difficulty").value=Math.max(0,Math.min(player.maxDifficulty,toNumber(document.getElementById("difficulty").value))).toString()
+        }
         if(player.inHanging!=-1){
             player.hangingTime+=dif
         }
@@ -88,13 +94,15 @@ addLayer("tree-tab",{
         ["display-text",function(){
             let str=""
             str+="<table><tr>"
-            str+="<td>"+format(player.lv,0)+"级</td>"
+            str+="<td>"+immortalAttribute[player.immortalLv][0]+"·"+format(player.lv,0)+"级</td>"
             str+="<td style='width:50px'></td>"
             str+="<td>战力"+format(player.fightAbility,0)+"</td>"
             str+="<td style='width:50px'></td>"
             str+="<td>经验 "+format(player.exp,0)+"/"+format(CalcExpNeed(),0)+"</td>"
             str+="<td style='width:50px'></td>"
             str+="<td>金币 "+format(player.money,0)+"</td>"
+            str+="<td style='width:50px'></td>"
+            str+="<td>修为 "+format(player.cultivation,0)+"</td>"
             str+="</tr></table>"
             return str
         }],
@@ -120,6 +128,9 @@ addLayer("tree-tab",{
             }
             else if(player.nowBigTab=='fight'){
                 if(player.fightTabId==-1){
+                    str+="挂机难度"+player.nowDifficulty+"/"+player.maxDifficulty+"<br><input id='difficulty' style='width:200px' type='number' patter='[0-9]*' oninput='validateNumber(event)'>"
+                    str+="<button onclick='player.nowDifficulty=toNumber(document.getElementById("+'"'+"difficulty"+'"'+").value)'>确认</button>"
+                    str+="<br><br>"
                     for(let i=0;i<subTabList[1].length;i++){
                         str+="<button style='margin-left:2px' onclick='player.fightTabId="+i+"'>"+subTabList[1][i]+"</button>"
                     }

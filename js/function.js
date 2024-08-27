@@ -42,3 +42,34 @@ function TryUpgradeMeridian(id){
         NotEnough(3)
     }
 }
+function TryUpgradeImmortal(id){
+    if(player.cultivation.lt(immortalAttribute[player.immortalLv][3])){
+        logs.push("修为不够")
+    }
+    else{
+        player.cultivation=player.cultivation.sub(immortalAttribute[player.immortalLv][3])
+        if(random()<=0.1*(player.immortalTimes+1)){
+            player.immortalLv+=1
+            player.immortalTimes=0
+            logs.push("飞升 "+immortalAttribute[player.immortalLv][0]+" 成功")
+        }
+        else{
+            player.immortalTimes+=1
+            logs.push("飞升 "+immortalAttribute[player.immortalLv+1][0]+" 失败 , 再接再厉")
+        }
+    }
+}
+function validateNumber(event) {
+    var input = event.target;
+    if(input.value.length==0){
+        input.value='0'
+        return
+    }
+    if (input.value % 1 !== 0 || input.value <= 0) {
+      // 输入值不是整数或者小于等于0，则设置为上一个有效值
+      input.value = input.oldValue;
+    } else {
+      // 有效值更新
+      input.oldValue = input.value;
+    }
+  }
