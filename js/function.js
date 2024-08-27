@@ -76,9 +76,9 @@ function TryBuildConceal(id){
         logs.push("金币不够")
     }
     else{
-        player.concealType[id]+=1
         player.bag[8]-=n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]).toNumber()
         player.money=player.money.sub(n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]).mul(50000))
+        player.concealType[id]+=1
         logs.push(concealFrontName[player.concealType[id]-1]+concealAttribute[id][0]
             +" 成功炼制成 "+concealFrontName[player.concealType[id]]+concealAttribute[id][0])
     }
