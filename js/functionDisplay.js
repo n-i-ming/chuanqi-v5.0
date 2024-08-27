@@ -142,12 +142,12 @@ function getMainSubTabDisplay(){
         if(player.meridianLv[0][0]!=meridianAttribute.length-1 || player.meridianLv[1][0]!=meridianAttribute.length-1){
             str+="<tr>"
             if(player.meridianLv[0][0]!=meridianAttribute.length-1)
-            str+="<td>消耗 "+(player.meridianLv[0][1]==10?"金钱×"+(10000*meridianAttribute[player.meridianLv[0][0]][0]):"银针×"+(meridianAttribute[player.meridianLv[0][0]][0]))+"</td>"
+            str+="<td>消耗 "+(player.meridianLv[0][1]==10?"金币×"+(10000*meridianAttribute[player.meridianLv[0][0]][0]):"银针×"+(meridianAttribute[player.meridianLv[0][0]][0]))+"</td>"
             else
             str+="<td>　</td>"
             str+="<td style='width:200px'></td>"
             if(player.meridianLv[1][0]!=meridianAttribute.length-1)
-            str+="<td>消耗 "+(player.meridianLv[1][1]==10?"金钱×"+(10000*meridianAttribute[player.meridianLv[1][0]][0]):"银针×"+(meridianAttribute[player.meridianLv[1][0]][0]))+"</td>"
+            str+="<td>消耗 "+(player.meridianLv[1][1]==10?"金币×"+(10000*meridianAttribute[player.meridianLv[1][0]][0]):"银针×"+(meridianAttribute[player.meridianLv[1][0]][0]))+"</td>"
             else
             str+="<td>　</td>"
             str+="</tr>"
@@ -230,6 +230,45 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="</table>"
     }
+    else if(player.mainTabId==9){
+        str+="<table>"
+        let list=["经验","金币","修为"]
+        for(let i=0;i<list.length;i++){
+            str+="<tr>"
+            str+="<td style='text-align:left;width:150px'>"+list[i]+"神庙 "+format(player.templeLv[i],0)+"级</td>"
+            str+="<td style='text-align:left;width:150px'>"+list[i]+"+"+format(player.templeLv[i],0)+"%</td>"
+            str+="<td style='text-align:right'>消耗 琥珀×"+format(CalcTempleNeed(i),0)+"</td>"
+            str+="<td style='text-align:right'><button onclick='TempleUpgrade("+i+",0)'>升级</button></td>"
+            str+="<td style='text-align:left'><button onclick='TempleUpgrade("+i+",1)' style='margin-left:-10px'>一键升级</button></td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
+    else if(player.mainTabId==10){
+        str+="<table>"
+        for(let i=0;i<concealAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='text-align:left;width:200px'>"+concealFrontName[player.concealType[i]]+concealAttribute[i][0]+"</td>"
+            str+="<td style='text-align:left;'>"
+            for(let id in concealAttribute[i][1]){
+                str+=attributeToName[id]+"+"+(player.concealType[i]==0?0:format(n(2).pow(player.concealType[i]-1).mul(concealAttribute[i][1][id]),1))+" "
+            }
+            for(let id in concealAttribute[i][2]){
+                str+=attributeToName[id]+"+"+(player.concealType[i]==0?0:format(n(2).pow(player.concealType[i]-1).mul(concealAttribute[i][2][id]),1))+"% "
+            }
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.concealType[i]==3)str+=" colspan=2"
+            str+=">"
+            if(player.concealType[i]<3){
+                str+="消耗 陨铁×"+format(n(2).pow(player.concealType[i]).mul(concealAttribute[i][3]),0)
+                +" 金币×"+format(n(2).pow(player.concealType[i]).mul(concealAttribute[i][3]).mul(50000),0)+"</td><td><button onclick='TryBuildConceal("+i+")'>合成</button>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -283,11 +322,11 @@ function getFightSubTabDisplay(){
         str+="</tr><tr>"
         str+="<td style='text-align:left'>掉落</td>"
         str+="</tr><tr>"
-        str+="<td colspan=3 style='text-align:left'>经验×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)),0)+"</td>"
+        str+="<td colspan=3 style='text-align:left'>经验×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)).mul(player.expMul),0)+"</td>"
         str+="</tr><tr>"
-        str+="<td colspan=3 style='text-align:left'>金币×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)),0)+"</td>"
+        str+="<td colspan=3 style='text-align:left'>金币×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)).mul(player.moneyMul),0)+"</td>"
         str+="</tr><tr>"
-        str+="<td colspan=3 style='text-align:left'>修为×"+format(n(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty))).pow(0.5),0)+"</td>"
+        str+="<td colspan=3 style='text-align:left'>修为×"+format(n(monster[id].drop.pow(0.5).mul(n(1.01).pow(player.inFightDifficulty))).mul(player.cultivationMul),0)+"</td>"
         for(let i=0;i<monster[id].dropList.length;i++){
             str+="</tr><tr>"
             str+="<td colspan=3 style='text-align:left'>"+idToName[monster[id].dropList[i][1]]+"×"+format(monster[id].dropList[i][2],0)+" 1/"+format(monster[id].dropList[i][0],0)+"</td>"
@@ -325,9 +364,9 @@ function EnterFight(id){
 function QuitFight(){
     if(player.inHanging==1){
         player.hangingTime=Math.floor(player.hangingTime)
-        let expgain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty))
-        let moneygain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty))
-        let cultivationgain=n(monster[player.onMonsterId].drop).pow(0.5).mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty))
+        let expgain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.expMul)
+        let moneygain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.moneyMul)
+        let cultivationgain=n(monster[player.onMonsterId].drop).pow(0.5).mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul)
         player.exp=player.exp.add(expgain)
         player.money=player.money.add(moneygain)
         player.cultivation=player.cultivation.add(cultivationgain)

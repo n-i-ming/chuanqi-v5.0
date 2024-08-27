@@ -11,7 +11,7 @@ function TryMakePellet(id,wh){
         logs.push("成功炼制 "+(id+1)+"品"+["生命","攻击","防御"][wh]+"丹药×"+count)
     }
 }
-function TryBuildWeapon(id,wh){
+function TryBuildWeapon(id){
     if(player.bag[weaponAttribute[id][3]]<(player.weaponType[id]+1)*weaponAttribute[id][4]){
         NotEnough(weaponAttribute[id][3])
     }
@@ -42,7 +42,7 @@ function TryUpgradeMeridian(id){
         NotEnough(3)
     }
 }
-function TryUpgradeImmortal(id){
+function TryUpgradeImmortal(){
     if(player.cultivation.lt(immortalAttribute[player.immortalLv][3])){
         logs.push("修为不够")
     }
@@ -59,6 +59,21 @@ function TryUpgradeImmortal(id){
         }
     }
 }
+function TryBuildConceal(id){
+    if(n(player.bag[8]).lt(n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]))){
+        NotEnough(8)
+    }
+    else if(player.money.lt(n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]).mul(50000))){
+        logs.push("金币不够")
+    }
+    else{
+        player.concealType[id]+=1
+        player.bag[8]-=n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]).toNumber()
+        player.money=player.money.sub(n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]).mul(50000))
+        logs.push(concealFrontName[player.concealType[id]-1]+concealAttribute[id][0]
+            +" 成功炼制成 "+concealFrontName[player.concealType[id]]+concealAttribute[id][0])
+    }
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){
@@ -72,4 +87,4 @@ function validateNumber(event) {
       // 有效值更新
       input.oldValue = input.value;
     }
-  }
+}

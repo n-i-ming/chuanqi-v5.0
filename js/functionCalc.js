@@ -23,6 +23,12 @@ function CalcAttribute(){
     for(let id in immortalAttribute[player.immortalLv][2]){
         player[id]=player[id].add(immortalAttribute[player.immortalLv][2][id])
     }
+    for(let i=0;i<concealAttribute.length;i++){
+        if(player.concealType[i]>0)
+        for(let id in concealAttribute[i][1]){
+            player[id]=player[id].add(n(concealAttribute[i][1][id]).mul(n(2).pow(player.concealType[i]-1)))
+        }
+    }
 
     for(let i=0;i<pelletAttribute.length;i++){
         player.hpmax=player.hpmax.mul(1+pelletAttribute[i][3]*player.pelletNum[i][0])
@@ -50,7 +56,20 @@ function CalcAttribute(){
     }
     player.damageAdd=player.damageAdd.mul(n(1.01).pow(player.divineLv))
     player.damageMinus=player.damageMinus.mul(n(1.01).pow(player.divineLv))
+    for(let i=0;i<concealAttribute.length;i++){
+        if(player.concealType[i]>0)
+        for(let id in concealAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(n(concealAttribute[i][2][id]).mul(n(2).pow(player.concealType[i]-1)).div(100)))
+        }
+    }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
+
+    player.expMul=n(1)
+    player.moneyMul=n(1)
+    player.cultivationMul=n(1)
+    player.expMul=player.expMul.mul(n(1).add(0.01*player.templeLv[0]))
+    player.moneyMul=player.moneyMul.mul(n(1).add(0.01*player.templeLv[1]))
+    player.cultivationMul=player.cultivationMul.mul(n(1).add(0.01*player.templeLv[2]))
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)]
@@ -178,6 +197,43 @@ function DivineUpgrade(type){
         }
         else{
             logs.push("成功凝聚 "+count+"滴神力")
+        }
+    }
+}
+const templeNeed=[
+    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50]
+]
+function CalcTempleNeed(id){
+    for(let i=0;i<templeNeed.length;i++){
+        if(player.templeLv[id]<templeNeed[i][0]){
+            return templeNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function TempleUpgrade(id,type){
+    if(type==0){
+        if(player.bag[6]<CalcTempleNeed(id)){
+            NotEnough(6)
+        }
+        else{
+            player.bag[6]-=CalcTempleNeed(id)
+            player.templeLv[id]+=1
+            logs.push("成功升级 1级 "+["经验","金币","修为"][id]+"神庙")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[6]>=CalcTempleNeed(id)){
+            player.bag[6]-=CalcTempleNeed(id)
+            player.templeLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(6)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 "+["经验","金币","修为"][id]+"神庙")
         }
     }
 }

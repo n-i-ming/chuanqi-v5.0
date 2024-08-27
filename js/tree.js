@@ -66,6 +66,9 @@ addLayer("tree-tab",{
         while(player.weaponType.length<weaponAttribute.length){
             player.weaponType.push(0)
         }
+        while(player.concealType.length<concealAttribute.length){
+            player.concealType.push(0)
+        }
         }
         player.devSpeed=1
         let dif=(Date.now()/1e3-player.tmtmtm)
@@ -112,13 +115,19 @@ addLayer("tree-tab",{
             str+="<table><tr>"
             str+="<td><button onclick='player.mainTabId=-1,player.nowBigTab="+'"main"'+"'>主页</button></td>"
             str+="<td><button style='margin-left:-10px' onclick='"+(player.onMonsterId!=-1?"player.fightTabId="+(10000+player.onMonsterId)+",":"")+"player.nowBigTab="+'"fight"'+"'>挂机</button></td>"
+            str+="<td><button style='margin-left:-10px' onclick='player.nowBigTab="+'"show"'+"'>介绍</button></td>"
             str+="</tr></table><br>"
 
             if(player.nowBigTab=='main'){
                 if(player.mainTabId==-1){
+                    str+="<table><tr>"
                     for(let i=0;i<subTabList[0].length;i++){
-                        str+="<button style='margin-left:2px' onclick='player.mainTabId="+i+"'>"+subTabList[0][i]+"</button>"
+                        str+="<td><button "+(i%10!=0?"style='margin-left:-10px'":"")+" onclick='player.mainTabId="+i+"'>"+subTabList[0][i]+"</button></td>"
+                        if(i%10==9){
+                            str+="</tr><tr>"
+                        }
                     }
+                    str+="</tr></table>"
                 }
                 else{
                     str+=getMainSubTabDisplay()
@@ -140,6 +149,14 @@ addLayer("tree-tab",{
                     str+="<br>"
                     str+="<button onclick='player.fightTabId=-1'>返回</button>"
                 }
+            }
+            else if(player.nowBigTab=='show'){
+                str+="伤害 = 攻击<sup>2</sup>/(攻击+防御)*(伤害穿透-伤害减免)<br><br>"
+                str+="属性转生次数上限 = ⌊log<sub>2</sub>(对应属性)⌋<br>"
+                str+="每滴神力独立增加 1%对应属性<br><br>"
+                str+="每滴神力独立增加 0.5%伤害穿透和伤害减免<br><br>"
+                str+="每级难度增加怪物 5%生命、攻击、防御 2%命中 1%伤害穿透和伤害减免<br>"
+                str+="每级难度增加 1%经验、金币、修为获取"
             }
             return str
         }],
