@@ -162,7 +162,7 @@ function DivineUpgrade(type){
         }
         else{
             player.money=player.money.sub(CalcDivineNeed())
-            player.divineLv[id]+=1
+            player.divineLv+=1
             logs.push("成功凝聚 1滴神力")
         }
     }
