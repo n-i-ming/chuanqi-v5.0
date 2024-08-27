@@ -3,9 +3,13 @@ function TryMakePellet(id,wh){
     player.bag[pelletAttribute[id][6]]-=count
     player.money=player.money.sub(pelletAttribute[id][7].mul(count))
     player.pelletNum[id][wh]+=count
-    console.log(count)
     if(count==0){
-        NotEnough(pelletAttribute[id][6])
+        if(player.bag[pelletAttribute[id][6]]==0){
+            NotEnough(pelletAttribute[id][6])
+        }
+        else{
+            logs.push("金币不够")
+        }
     }
     else{
         logs.push("成功炼制 "+(id+1)+"品"+["生命","攻击","防御"][wh]+"丹药×"+count)
@@ -39,7 +43,12 @@ function TryUpgradeMeridian(id){
         player.meridianLv[id][1]+=1
     }
     else{
-        NotEnough(3)
+        if(player.meridianLv[id][1]==10){
+            logs.push("金币不够")
+        }
+        else{
+            NotEnough(3)
+        }
     }
 }
 function TryUpgradeImmortal(){
