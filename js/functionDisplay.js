@@ -105,7 +105,7 @@ function getMainSubTabDisplay(){
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/1000级</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/2000级</td>"
             str+="<td style='text-align:left;width:100px'>"+attributeToName[list[i]]+"+"+player.spiritLv[i]+"%</td>"
             if(CalcSpiritNeed(i)<1e100){
                 str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+CalcSpiritNeed(i)+"</td>"

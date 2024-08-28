@@ -72,18 +72,19 @@ function CalcAttribute(){
     player.cultivationMul=player.cultivationMul.mul(n(1).add(0.01*player.templeLv[2]))
 }
 const expNeed=[
-    [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)]
+    [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
+    [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){
-        if(player.lv<=expNeed[i][0]){
+        if(player.lv<expNeed[i][0]){
             return expNeed[i][1]
         }
     }
     return n(1e308)
 }
 const spiritNeed=[
-    [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50]
+    [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50],[1500,75],[2000,100]
 ]
 function CalcSpiritNeed(id){
     for(let i=0;i<spiritNeed.length;i++){
