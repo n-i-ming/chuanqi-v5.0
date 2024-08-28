@@ -105,7 +105,7 @@ function getMainSubTabDisplay(){
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/5000级</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/10000级</td>"
             str+="<td style='text-align:left;width:100px'>"+attributeToName[list[i]]+"+"+player.spiritLv[i]+"%</td>"
             if(CalcSpiritNeed(i)<1e100){
                 str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+CalcSpiritNeed(i)+"</td>"
@@ -311,6 +311,35 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
+    else if(player.mainTabId==12){//功法
+        str+="<table>"
+        for(let i=0;i<bookAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='text-align:left;width:200px'>"+bookAttribute[i][0]+(player.bookLv[i]>-1?player.bookLv[i]+"级":"")+"</td>"
+            let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
+            str+="<td style='text-align:left;'>"
+            for(let id in bookAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(bookAttribute[i][1][id]),1)+" "
+            }
+            for(let id in bookAttribute[i][2]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(bookAttribute[i][2][id]),1)+"% "
+            }
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.bookLv[i]==90)str+=" colspan=2"
+            str+=">"
+            if(player.bookLv[i]==-1){
+                str+="消耗 "+bookAttribute[i][0]+"-残页×10</td><td><button onclick='TryUpgradeBook("+i+",0)'>合成</button></td>"
+            }
+            else if(player.bookLv[i]<90){
+                str+="消耗 经验×"+format(bookAttribute[i][3])+"</td><td style='text-align:right'><button onclick='TryUpgradeBook("+i+",0)'>升级</button></td>"
+                str+="<td><button style='margin-left:-10px' onclick='TryUpgradeBook("+i+",1)'>一键升级</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -442,12 +471,12 @@ function QuitFight(){
 function DealFight(){
     player.fightingTime=Math.max(0,player.fightingTime-0.5)
     if(player.which==0){
-        let count=player.atk.mul(player.atk).div(player.atk.add(player.monsterDef)).mul(player.damageAdd.sub(player.monsterDamageMinus).max(0).div(100)).min(player.monsterHp)
+        let count=player.atk.mul(player.atk).div(player.atk.add(player.monsterDef)).mul(player.damageAdd.sub(player.monsterDamageMinus).max(0).div(100))
         let hitRate=player.hit.mul(9).div(player.hit.mul(9).add(player.monsterHit))
         let criticalRate=player.hit.div(player.hit.add(player.monsterHit.mul(9)))
         if(n(random()).lte(hitRate)){
             if(n(random()).lte(criticalRate)){
-                count=count.mul(player.criticalDamage.div(100)).min(player.monsterHp)
+                count=count.mul(player.criticalDamage.div(100))
                 player.monsterHp=player.monsterHp.sub(count)
                 logs.push("你 对 "+monster[player.onMonsterId].name+" 造成了"+format(count,0)+"点伤害 (暴击)")
             }

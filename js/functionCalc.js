@@ -32,6 +32,12 @@ function CalcAttribute(){
     }
     player.damageAdd=player.damageAdd.add(wingAttribute[player.wingLv[0]][4])
     player.damageMinus=player.damageMinus.add(wingAttribute[player.wingLv[0]][4])
+    for(let i=0;i<bookAttribute.length;i++){
+        let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
+        for(let id in bookAttribute[i][1]){
+            player[id]=player[id].add(n(bookAttribute[i][1][id]).mul(mul))
+        }
+    }
 
     for(let i=0;i<pelletAttribute.length;i++){
         player.hpmax=player.hpmax.mul(1+pelletAttribute[i][3]*player.pelletNum[i][0])
@@ -67,6 +73,12 @@ function CalcAttribute(){
     for(let i=0;i<list.length;i++){
         player[list[i]]=player[list[i]].mul(n(1).add(wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1])).div(100)))
     }
+    for(let i=0;i<bookAttribute.length;i++){
+        let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
+        for(let id in bookAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(n(bookAttribute[i][2][id]).mul(mul).div(100)))
+        }
+    }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
     player.expMul=n(1)
@@ -78,7 +90,8 @@ function CalcAttribute(){
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
-    [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)]
+    [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)],
+    [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)]
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){
@@ -89,7 +102,8 @@ function CalcExpNeed(){
     return n(1e308)
 }
 const spiritNeed=[
-    [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50],[1500,75],[2000,100],[3000,125],[4000,150],[5000,200]
+    [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50],[1500,75],[2000,100],[3000,125],[4000,150],[5000,200],[6000,225],[7000,250],[8000,275],[9000,300],
+    [10000,350]
 ]
 function CalcSpiritNeed(id){
     for(let i=0;i<spiritNeed.length;i++){
@@ -126,7 +140,7 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(30000)],[30,n(50000)],[50,n(100000)],[70,n(200000)]
+    [10,n(10000)],[20,n(30000)],[30,n(50000)],[40,n(100000)],[50,n(300000)],[60,n(800000)],[70,n(2e6)],[80,n(5e6)],[100,n(1e7)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -166,7 +180,7 @@ function TransmigrationUpgrade(id,type){
     }
 }
 const divineNeed=[
-    [50,n(30000)],[100,n(100000)],[150,n(150000)],[200,n(300000)],[300,n(500000)]
+    [20,n(30000)],[50,n(100000)],[100,n(200000)],[150,n(500000)],[200,n(1e6)],[300,n(3e6)],[400,n(8e6)],[500,n(2e7)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){

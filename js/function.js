@@ -116,6 +116,35 @@ function TryUpgradeWing(){
     str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
     logs.push(str)
 }
+function TryUpgradeBook(id,wh){
+    if(player.bookLv[id]==90){
+        return
+    }
+    if(player.bookLv[id]==-1){
+        if(player.bag[bookAttribute[id][4]]<10){
+            NotEnough(bookAttribute[id][4])
+        }
+        else{
+            player.bag[bookAttribute[id][4]]-=10
+            player.bookLv[id]+=1
+            logs.push("成功合成 "+bookAttribute[id][0])
+        }
+    }
+    else{
+        let count=0
+        while(player.exp.gte(bookAttribute[id][3]) && player.bookLv[id]<90){
+            player.exp=player.exp.sub(bookAttribute[id][3])
+            player.bookLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("经验不够")
+        }
+        else{
+            logs.push("成功升级 "+bookAttribute[id][0]+" "+count+"级")
+        }
+    }
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){
