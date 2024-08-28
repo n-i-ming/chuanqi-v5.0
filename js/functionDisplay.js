@@ -1,6 +1,6 @@
 function getMainSubTabDisplay(){
     let str=""
-    if(player.mainTabId==0){
+    if(player.mainTabId==0){//属性
         str+="<table>"
         str+="<tr><td style='text-align:left'>生命</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.hpmax,0)+"</td></tr>"
         str+="<tr><td style='text-align:left'>攻击</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.atk,0)+"</td></tr>"
@@ -13,7 +13,7 @@ function getMainSubTabDisplay(){
         str+="<br>"
         str+="<button onclick='AutoUpgrade()'>一键升级</button><br>"
     }
-    else if(player.mainTabId==1){
+    else if(player.mainTabId==1){//背包
         str+="<table>"
         for(let i=0;i<bagDisplayList.length;i++){
             if(player.bag[bagDisplayList[i]]>0){
@@ -22,7 +22,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==2){
+    else if(player.mainTabId==2){//丹药
         str+="<table>"
         let all=0
         for(let i=0;i<player.pelletNum.length;i++){
@@ -76,7 +76,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==3){
+    else if(player.mainTabId==3){//兵器
         str+="<table>"
         for(let i=0;i<weaponAttribute.length;i++){
             str+="<tr>"
@@ -100,12 +100,12 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==4){
+    else if(player.mainTabId==4){//元神
         str+="<table>"
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/2000级</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/5000级</td>"
             str+="<td style='text-align:left;width:100px'>"+attributeToName[list[i]]+"+"+player.spiritLv[i]+"%</td>"
             if(CalcSpiritNeed(i)<1e100){
                 str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+CalcSpiritNeed(i)+"</td>"
@@ -116,7 +116,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==5){
+    else if(player.mainTabId==5){//经脉
         str+="<table>"
         str+="<tr>"
         str+="<td>阳脉"+(player.meridianLv[0][0]+1)+"-"+player.meridianLv[0][1]+"</td>"
@@ -165,7 +165,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==6){
+    else if(player.mainTabId==6){//飞升
         str+="<table>"
         str+="<tr><td colspan=4 style='text-align:left'>当前仙阶 "+immortalAttribute[player.immortalLv][0]+"</td></tr>"
         str+="<tr>"
@@ -203,7 +203,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==7){
+    else if(player.mainTabId==7){//转生
         str+="<table>"
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
@@ -217,7 +217,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==8){
+    else if(player.mainTabId==8){//神力
         str+="<table>"
         let mx=player.transmigrationLv["hpmax"]+player.transmigrationLv["atk"]+player.transmigrationLv["def"]+player.transmigrationLv["hit"]
         str+="<tr>"
@@ -230,7 +230,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="</table>"
     }
-    else if(player.mainTabId==9){
+    else if(player.mainTabId==9){//神庙
         str+="<table>"
         let list=["经验","金币","修为"]
         for(let i=0;i<list.length;i++){
@@ -244,7 +244,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==10){
+    else if(player.mainTabId==10){//暗器
         str+="<table>"
         for(let i=0;i<concealAttribute.length;i++){
             str+="<tr>"
@@ -269,7 +269,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==11){
+    else if(player.mainTabId==11){//翅膀
         str+="<table>"
         str+="<tr><td colspan=4 style='text-align:left'>当前翅膀 "+wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级</td></tr>"
         str+="<tr>"
