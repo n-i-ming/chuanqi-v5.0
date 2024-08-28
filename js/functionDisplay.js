@@ -269,6 +269,48 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
+    else if(player.mainTabId==11){
+        str+="<table>"
+        str+="<tr><td colspan=4 style='text-align:left'>当前翅膀 "+wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级</td></tr>"
+        str+="<tr>"
+        let list=["生命","攻击","防御","命中"]
+        let list1=["伤害穿透","伤害减免"]
+        for(let i=0;i<list.length;i++){
+            str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+(wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1])))+"%</td>"
+        }
+        str+="</tr>"
+        str+="<tr>"
+        for(let i=0;i<list1.length;i++){
+            str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+(wingAttribute[player.wingLv[0]][3])+"</td>"
+        }
+        str+="</tr>"
+        str+="<tr><td>　</td></tr>"
+        if(player.wingLv[0]<wingAttribute.length-1 || player.wingLv[1]<10){
+            str+="<tr><td colspan=4 style='text-align:left'>下一级 "
+            +(player.wingLv[1]==10?wingAttribute[player.wingLv[0]+1][0]+"·0级":wingAttribute[player.wingLv[0]][0]+"·"+(player.wingLv[1]+1)+"级")+"</td></tr>"
+            str+="<tr>"
+            let a1=player.wingLv[0],a2=player.wingLv[1]
+            if(a2<10)a2+=1
+            else a1+=1,a2=0
+            for(let i=0;i<list.length;i++){
+                str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+(wingAttribute[a1][1].add(wingAttribute[a1][2].mul(a2)))+"%</td>"
+            }
+            str+="</tr>"
+            str+="<tr>"
+            for(let i=0;i<list1.length;i++){
+                str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+(wingAttribute[a1][3])+"</td>"
+            }
+            str+="</tr>"
+            if(a2!=0){
+                str+="<tr><td style='text-align:left'>消耗 羽毛×"+format(wingAttribute[player.wingLv[0]][4],0)+"</td></tr>"
+            }
+            else{
+                str+="<tr><td style='text-align:left'>消耗 经验×"+format(n(wingAttribute[player.wingLv[0]][4]).mul(100000),0)+"</td></tr>"
+            }
+            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeWing()'>升级</button></td></tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -351,7 +393,7 @@ function EnterFight(id){
     player.monsterHpmax=n(100).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
     player.monsterAtk=n(10).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
     player.monsterDef=n(10).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
-    player.monsterHit=n(100).add(n(10).mul(n(num).pow(0.8))).mul(n(1.02).pow(player.inFightDifficulty))
+    player.monsterHit=n(100).add(n(10).mul(n(num).pow(0.8))).mul(n(1.03).pow(player.inFightDifficulty))
     player.monsterDamageAdd=n(100).mul(n(num).pow(0.2)).mul(n(1.01).pow(player.inFightDifficulty))
     player.monsterDamageMinus=n(100).mul(n(num).pow(0.2).sub(1).div(2)).mul(n(1.01).pow(player.inFightDifficulty))
     if(player.maxKillDifficulty[id]<player.nowDifficulty){

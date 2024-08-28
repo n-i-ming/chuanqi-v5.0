@@ -16,6 +16,9 @@ function TryMakePellet(id,wh){
     }
 }
 function TryBuildWeapon(id){
+    if(player.weaponType[id]==4){
+        return
+    }
     if(player.bag[weaponAttribute[id][3]]<(player.weaponType[id]+1)*weaponAttribute[id][4]){
         NotEnough(weaponAttribute[id][3])
     }
@@ -69,6 +72,9 @@ function TryUpgradeImmortal(){
     }
 }
 function TryBuildConceal(id){
+    if(player.concealType[id]==3){
+        return
+    }
     if(n(player.bag[8]).lt(n(2).pow(player.concealType[id]).mul(concealAttribute[id][3]))){
         NotEnough(8)
     }
@@ -82,6 +88,33 @@ function TryBuildConceal(id){
         logs.push(concealFrontName[player.concealType[id]-1]+concealAttribute[id][0]
             +" 成功炼制成 "+concealFrontName[player.concealType[id]]+concealAttribute[id][0])
     }
+}
+function TryUpgradeWing(){
+    if(player.wingLv[0]==wingAttribute.length-1 && player.wingLv[1]==10){
+        return
+    }
+    if(player.wingLv[1]==10 && player.exp.lt(n(wingAttribute[player.wingLv[0]][4]).mul(100000))){
+        logs.push("经验不够")
+        return
+    }
+    if(player.wingLv[1]<10 && player.bag[10]<(n(wingAttribute[player.wingLv[0]][4]))){
+        NotEnough(10)
+        return
+    }
+    let str=""
+    str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
+    str+=" 成功升级成 "
+    if(player.wingLv[1]==10){
+        player.exp=player.exp.sub(n(wingAttribute[player.wingLv[0]][4]).mul(100000))
+        player.wingLv[0]+=1
+        player.wingLv[1]=0
+    }
+    else{
+        player.bag[10]-=wingAttribute[player.wingLv[0]][4]
+        player.wingLv[1]+=1
+    }
+    str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
+    logs.push(str)
 }
 function validateNumber(event) {
     var input = event.target;

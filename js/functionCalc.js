@@ -1,4 +1,5 @@
 function CalcAttribute(){
+    let list=["hpmax","atk","def","hit"]
     player.hpmax=n(100).mul(player.lv)
     player.atk=n(10).mul(player.lv)
     player.def=n(10).mul(player.lv)
@@ -29,6 +30,8 @@ function CalcAttribute(){
             player[id]=player[id].add(n(concealAttribute[i][1][id]).mul(n(2).pow(player.concealType[i]-1)))
         }
     }
+    player.damageAdd=player.damageAdd.add(wingAttribute[player.wingLv[0]][4])
+    player.damageMinus=player.damageMinus.add(wingAttribute[player.wingLv[0]][4])
 
     for(let i=0;i<pelletAttribute.length;i++){
         player.hpmax=player.hpmax.mul(1+pelletAttribute[i][3]*player.pelletNum[i][0])
@@ -40,7 +43,6 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(weaponAttribute[i][2][id]*player.weaponType[i]).div(100)))
         }
     }
-    let list=["hpmax","atk","def","hit"]
     for(let i=0;i<list.length;i++){
         player[list[i]]=player[list[i]].mul(n(1).add(n(0.01).mul(player.spiritLv[i])))
     }
@@ -62,6 +64,9 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(concealAttribute[i][2][id]).mul(n(2).pow(player.concealType[i]-1)).div(100)))
         }
     }
+    for(let i=0;i<list.length;i++){
+        player[list[i]]=player[list[i]].mul(n(1).add(wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1])).div(100)))
+    }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
     player.expMul=n(1)
@@ -73,7 +78,7 @@ function CalcAttribute(){
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
-    [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],
+    [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)]
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){

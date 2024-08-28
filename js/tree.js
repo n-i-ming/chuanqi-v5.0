@@ -69,6 +69,12 @@ addLayer("tree-tab",{
         while(player.concealType.length<concealAttribute.length){
             player.concealType.push(0)
         }
+        for(let i=0;i<player.weaponType.length;i++){
+            player.weaponType[i]=Math.min(4,player.weaponType[i])
+        }
+        for(let i=0;i<player.concealType.length;i++){
+            player.concealType[i]=Math.min(3,player.concealType[i])
+        }
         }
         player.devSpeed=1
         let dif=(Date.now()/1e3-player.tmtmtm)
@@ -140,9 +146,14 @@ addLayer("tree-tab",{
                     str+="挂机难度"+player.nowDifficulty+"/"+player.maxDifficulty+"<br><input id='difficulty' style='width:200px' type='number' patter='[0-9]*' oninput='validateNumber(event)'>"
                     str+="<button onclick='player.nowDifficulty=toNumber(document.getElementById("+'"'+"difficulty"+'"'+").value)'>确认</button>"
                     str+="<br><br>"
+                    str+="<table><tr>"
                     for(let i=0;i<subTabList[1].length;i++){
-                        str+="<button style='margin-left:2px' onclick='player.fightTabId="+i+"'>"+subTabList[1][i]+"</button>"
+                        str+="<td><button "+(i%10!=0?"style='margin-left:-10px'":"")+" onclick='player.fightTabId="+i+"'>"+subTabList[1][i]+"</button></td>"
+                        if(i%10==9){
+                            str+="</tr><tr>"
+                        }
                     }
+                    str+="</tr></table>"
                 }
                 else{
                     str+=getFightSubTabDisplay()
@@ -155,7 +166,7 @@ addLayer("tree-tab",{
                 str+="属性转生次数上限 = ⌊log<sub>2</sub>(对应属性)⌋<br>"
                 str+="每滴神力独立增加 1%对应属性<br><br>"
                 str+="每滴神力独立增加 0.5%伤害穿透和伤害减免<br><br>"
-                str+="每级难度增加怪物 5%生命、攻击、防御 2%命中 1%伤害穿透和伤害减免<br>"
+                str+="每级难度增加怪物 5%生命、攻击、防御 3%命中 1%伤害穿透和伤害减免<br>"
                 str+="每级难度增加 1%经验、金币、修为获取"
             }
             return str
