@@ -66,8 +66,8 @@ const weaponAttribute=[
     ["兽皮护腿",{damageMinus:n(20)},{atk:n(10),def:n(15)},9,1],
     ["鱼鳞叉",{damageAdd:n(30)},{atk:n(20)},12,1],
     ["鱼鳞戟",{damageAdd:n(30)},{atk:n(20)},12,1],
-    ["蛊铠",{damageAdd:n(50)},{hpmax:n(20),def:n(20)},18,1],
-    ["蛊盔",{damageAdd:n(50)},{hpmax:n(20),def:n(20)},18,1],
+    ["蛊铠",{damageMinus:n(50)},{hpmax:n(20),def:n(20)},18,1],
+    ["蛊盔",{damageMinus:n(50)},{hpmax:n(20),def:n(20)},18,1],
 ]
 const meridianAttribute=[
     [1,0,1],[2,5,1],[5,10,2],[10,20,3],[20,35,5],[30,60,8],[50,100,10],[70,150,15],[85,225,20],[100,325,25],[120,450,30],[150,600,40],
