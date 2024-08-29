@@ -11,7 +11,7 @@ function addedPlayerData() { return {
 
     pelletNum:[],weaponType:[],spiritLv:[0,0,0,0],meridianLv:[[0,0],[0,0]],
     immortalLv:0,immortalTimes:0,transmigrationLv:{hpmax:0,atk:0,def:0,hit:0},divineLv:0,
-    templeLv:[0,0,0],concealType:[],wingLv:[0,0],bookLv:[],petLv:[],petTimes:[],
+    templeLv:[0,0,0],concealType:[],concealLv:0,wingLv:[0,0],bookLv:[],petLv:[],petTimes:[],
 
     monsterHp:n(0),monsterHpmax:n(0),monsterAtk:n(0),monsterDef:n(0),
     monsterHit:n(0),monsterDamageAdd:n(0),monsterDamageMinus:n(0),
@@ -33,19 +33,19 @@ const subTabList=[
     ],
     [
         "新手村","乱葬岗","山贼寨","土匪窝","强盗帮","昆仑山","奇来峰","大秦山","缥缈林","流沙地",
-        "秋风原","望天峰","碧海谷","金银湖","猛虎穴","万寿山","青鸾山","邱塘关"
+        "秋风原","望天峰","碧海谷","金银湖","猛虎穴","万寿山","青鸾山","邱塘关","山竹林","伏龙寺"
     ],
 ]
 const idToName={
     0:"1品丹药",1:"铁矿",2:"元神修炼符",3:"银针",4:"白骨",5:"2品丹药",6:"琥珀",7:"树枝",8:"陨铁",9:"兽珠",10:"羽毛",11:"3品丹药",12:"鱼鳞",13:"凝元功-残页",14:"象甲功-残页",
-    15:"4品丹药",16:"霹雳兽蛋",17:"肉块",18:"蛊雕核"
+    15:"4品丹药",16:"霹雳兽蛋",17:"肉块",18:"蛊雕核",19:"长春功-残页",20:"肉粽蟹蛋"
 }
 const idFrom={
     0:"新手村-所有怪物",1:"新手村-牛",2:"新手村后的所有怪物",3:"新手村后的所有怪物",4:"乱葬岗-大骷髅",5:"土匪窝的所有怪物",6:"昆仑山后的所有怪物",7:"昆仑山-树妖9",
     8:"奇来峰后的所有怪物",9:"大秦山-云中兽9",10:"流沙地后的所有怪物",11:"秋风原-所有怪物",12:"碧海谷-深海妖9",13:"金银湖-溺尸9",14:"猛虎穴-虎妖9",
-    15:"万寿山-所有怪物",16:"青鸾山-木桩怪9",17:"青鸾山后所有怪物",18:"邱塘关-蛊雕9"
+    15:"万寿山-所有怪物",16:"青鸾山-木桩怪9",17:"青鸾山后所有怪物",18:"邱塘关-蛊雕9",19:"山竹林-竹仙9",20:"伏龙寺-堕僧9"
 }
-const bagDisplayList=[2,3,6,8,10,17,0,5,11,15,1,4,7,9,12,18,13,14,16]
+const bagDisplayList=[2,3,6,8,10,17,0,5,11,15,1,4,7,9,12,18,13,14,19,16]
 const pelletAttribute=[
     [n(1000),n(100),n(100),0.01,0.01,0.01,0,n(1000)],
     [n(5000),n(500),n(500),0.01,0.01,0.01,5,n(10000)],
@@ -166,13 +166,15 @@ const wingAttribute=[
 ]
 const bookAttribute=[
     ["凝元功",{criticalDamage:n(5)},{atk:n(20)},n(1e7),13],
-    ["象甲功",{damageMinus:n(20)},{def:n(20)},n(1.5e7),14],
+    ["象甲功",{damageMinus:n(40)},{def:n(20)},n(1.5e7),14],
+    ["长春功",{damageMinus:n(40)},{hpmax:n(30)},n(3e7),19],
 ]
 const petFrontName=[
     "幼年体·","成熟体·","完全体·"
 ]
 const petAttribute=[
-    ["霹雳兽",{damageAdd:n(200)},{atk:n(20)},5,n(1e8)]
+    ["霹雳兽",{damageAdd:n(200)},{atk:n(20)},5,n(1e8),16],
+    ["肉粽蟹",{damageAdd:n(200)},{def:n(20)},10,n(1e9),19],
 ]
 const attributeToName={
     atk:"攻击",hpmax:"生命",def:"防御",hit:"命中",criticalDamage:"暴击伤害",damageAdd:"伤害穿透",damageMinus:"伤害减免"

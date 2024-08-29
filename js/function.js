@@ -162,11 +162,11 @@ function TryUpgradePet(id,wh){
         return
     }
     if(player.petLv[id]==-1){
-        if(player.bag[petAttribute[id][3]]<1){
-            NotEnough(petAttribute[id][3])
+        if(player.bag[petAttribute[id][5]]<1){
+            NotEnough(petAttribute[id][5])
         }
         else{
-            player.bag[petAttribute[id][3]]-=1
+            player.bag[petAttribute[id][5]]-=1
             player.petLv[id]+=1
             logs.push("成功孵化 "+petFrontName[0]+petAttribute[id][0])
         }

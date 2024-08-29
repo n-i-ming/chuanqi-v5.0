@@ -248,15 +248,26 @@ function getMainSubTabDisplay(){
     }
     else if(player.mainTabId==10){//暗器
         str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"/100级</td>"
+        str+="<td style='text-align:left;'>所有暗器增益+"+format(player.concealLv,0)+"%</td>"
+        if(CalcConcealNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 陨铁×"+format(CalcConcealNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='ConcealUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='ConcealUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
+        let mul=n(1).add(0.01*player.concealLv)
+        str+="<tr><td>　</td></tr>"
         for(let i=0;i<concealAttribute.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:200px'>"+concealFrontName[player.concealType[i]]+concealAttribute[i][0]+"</td>"
             str+="<td style='text-align:left;'>"
             for(let id in concealAttribute[i][1]){
-                str+=attributeToName[id]+"+"+(player.concealType[i]==0?0:format(n(2).pow(player.concealType[i]-1).mul(concealAttribute[i][1][id]),1))+" "
+                str+=attributeToName[id]+"+"+(player.concealType[i]==0?0:format(n(2).pow(player.concealType[i]-1).mul(concealAttribute[i][1][id]).mul(mul),1))+" "
             }
             for(let id in concealAttribute[i][2]){
-                str+=attributeToName[id]+"+"+(player.concealType[i]==0?0:format(n(2).pow(player.concealType[i]-1).mul(concealAttribute[i][2][id]),1))+"% "
+                str+=attributeToName[id]+"+"+(player.concealType[i]==0?0:format(n(2).pow(player.concealType[i]-1).mul(concealAttribute[i][2][id]).mul(mul),1))+"% "
             }
             str+="</td>"
             str+="<td style='width:300px;text-align:right'"

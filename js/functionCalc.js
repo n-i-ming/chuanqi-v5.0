@@ -26,9 +26,10 @@ function CalcAttribute(){
         player[id]=player[id].add(immortalAttribute[player.immortalLv][2][id])
     }
     for(let i=0;i<concealAttribute.length;i++){
+        let mul=n(1).add(0.01*player.concealLv)
         if(player.concealType[i]>0)
         for(let id in concealAttribute[i][1]){
-            player[id]=player[id].add(n(concealAttribute[i][1][id]).mul(n(2).pow(player.concealType[i]-1)))
+            player[id]=player[id].add(n(concealAttribute[i][1][id]).mul(n(2).pow(player.concealType[i]-1)).mul(mul))
         }
     }
     player.damageAdd=player.damageAdd.add(wingAttribute[player.wingLv[0]][4])
@@ -73,9 +74,10 @@ function CalcAttribute(){
     player.damageAdd=player.damageAdd.mul(n(1.005).pow(player.divineLv))
     player.damageMinus=player.damageMinus.mul(n(1.005).pow(player.divineLv))
     for(let i=0;i<concealAttribute.length;i++){
+        let mul=n(1).add(0.01*player.concealLv)
         if(player.concealType[i]>0)
         for(let id in concealAttribute[i][2]){
-            player[id]=player[id].mul(n(1).add(n(concealAttribute[i][2][id]).mul(n(2).pow(player.concealType[i]-1)).div(100)))
+            player[id]=player[id].mul(n(1).add(n(concealAttribute[i][2][id]).mul(n(2).pow(player.concealType[i]-1)).div(100).mul(mul)))
         }
     }
     for(let i=0;i<list.length;i++){
@@ -269,6 +271,43 @@ function TempleUpgrade(id,type){
         }
         else{
             logs.push("成功升级 "+count+"级 "+["经验","金币","修为"][id]+"神庙")
+        }
+    }
+}
+const ConcealNeed=[
+    [100,100]
+]
+function CalcConcealNeed(){
+    for(let i=0;i<ConcealNeed.length;i++){
+        if(player.concealLv<ConcealNeed[i][0]){
+            return ConcealNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function ConcealUpgrade(type){
+    if(type==0){
+        if(player.bag[8]<CalcConcealNeed()){
+            NotEnough(8)
+        }
+        else{
+            player.bag[8]-=CalcConcealNeed()
+            player.concealLv+=1
+            logs.push("成功升级 1级 暗器强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[8]>=CalcConcealNeed()){
+            player.bag[8]-=CalcConcealNeed()
+            player.concealLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(8)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 暗器强化")
         }
     }
 }
