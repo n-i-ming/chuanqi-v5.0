@@ -131,17 +131,87 @@ function TryUpgradeBook(id,wh){
         }
     }
     else{
-        let count=0
-        while(player.exp.gte(bookAttribute[id][3]) && player.bookLv[id]<90){
-            player.exp=player.exp.sub(bookAttribute[id][3])
-            player.bookLv[id]+=1
-            count+=1
-        }
-        if(count==0){
-            logs.push("经验不够")
+        if(wh==0){
+            if(player.exp.gte(bookAttribute[id][3])){
+                player.exp=player.exp.sub(bookAttribute[id][3])
+                player.bookLv[id]+=1
+                logs.push("成功升级 "+bookAttribute[id][0]+" 1级")
+            }
+            else{
+                logs.push("经验不够")
+            }
         }
         else{
-            logs.push("成功升级 "+bookAttribute[id][0]+" "+count+"级")
+            let count=0
+            while(player.exp.gte(bookAttribute[id][3]) && player.bookLv[id]<90){
+                player.exp=player.exp.sub(bookAttribute[id][3])
+                player.bookLv[id]+=1
+                count+=1
+            }
+            if(count==0){
+                logs.push("经验不够")
+            }
+            else{
+                logs.push("成功升级 "+bookAttribute[id][0]+" "+count+"级")
+            }
+        }
+    }
+}
+function TryUpgradePet(id,wh){
+    if(player.petLv[id]==22){
+        return
+    }
+    if(player.petLv[id]==-1){
+        if(player.bag[petAttribute[id][3]]<1){
+            NotEnough(petAttribute[id][3])
+        }
+        else{
+            player.bag[petAttribute[id][3]]-=1
+            player.petLv[id]+=1
+            logs.push("成功孵化 "+petFrontName[0]+petAttribute[id][0])
+        }
+    }
+    else if(player.petLv[id]<2){
+        if(player.bag[17]<petAttribute[id][3]*(player.petLv[id]+1)){
+            NotEnough(17)
+        }
+        else{
+            player.bag[17]-=petAttribute[id][3]*(player.petLv[id]+1)
+            if(random()<=0.01*(1+player.petTimes[id])){
+                player.petLv[id]+=1
+                player.petTimes[id]=0
+                logs.push(petFrontName[player.petLv[id]-1]+petAttribute[id][0]+" 成功进化为 "+petFrontName[player.petLv[id]]+petAttribute[id][0])
+            }
+            else{
+                player.petTimes[id]+=1
+                logs.push(petFrontName[player.petLv[id]]+petAttribute[id][0]+" 进化失败")
+            }
+        }
+    }
+    else{
+        if(wh==0){
+            if(player.money.gte(petAttribute[id][4])){
+                player.money=player.money.sub(petAttribute[id][4])
+                player.petLv[id]+=1
+                logs.push("成功升级 "+petAttribute[id][0]+" 1级")
+            }
+            else{
+                logs.push("金币不够")
+            }
+        }
+        else{
+            let count=0
+            while(player.money.gte(petAttribute[id][4]) && player.petLv[id]<22){
+                player.money=player.money.sub(petAttribute[id][4])
+                player.petLv[id]+=1
+                count+=1
+            }
+            if(count==0){
+                logs.push("金币不够")
+            }
+            else{
+                logs.push("成功升级 "+petAttribute[id][0]+" "+count+"级")
+            }
         }
     }
 }

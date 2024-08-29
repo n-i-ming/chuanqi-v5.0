@@ -237,9 +237,11 @@ function getMainSubTabDisplay(){
             str+="<tr>"
             str+="<td style='text-align:left;width:150px'>"+list[i]+"神庙 "+format(player.templeLv[i],0)+"级</td>"
             str+="<td style='text-align:left;width:150px'>"+list[i]+"+"+format(player.templeLv[i],0)+"%</td>"
-            str+="<td style='text-align:right'>消耗 琥珀×"+format(CalcTempleNeed(i),0)+"</td>"
-            str+="<td style='text-align:right'><button onclick='TempleUpgrade("+i+",0)'>升级</button></td>"
-            str+="<td style='text-align:left'><button onclick='TempleUpgrade("+i+",1)' style='margin-left:-10px'>一键升级</button></td>"
+            if(CalcTempleNeed(i)<=1e100){
+                str+="<td style='text-align:right'>消耗 琥珀×"+format(CalcTempleNeed(i),0)+"</td>"
+                str+="<td style='text-align:right'><button onclick='TempleUpgrade("+i+",0)'>升级</button></td>"
+                str+="<td style='text-align:left'><button onclick='TempleUpgrade("+i+",1)' style='margin-left:-10px'>一键升级</button></td>"
+            }
             str+="</tr>"
         }
         str+="</table>"
@@ -334,6 +336,39 @@ function getMainSubTabDisplay(){
             else if(player.bookLv[i]<90){
                 str+="消耗 经验×"+format(bookAttribute[i][3])+"</td><td style='text-align:right'><button onclick='TryUpgradeBook("+i+",0)'>升级</button></td>"
                 str+="<td><button style='margin-left:-10px' onclick='TryUpgradeBook("+i+",1)'>一键升级</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
+    else if(player.mainTabId==13){//宠物
+        str+="<table>"
+        for(let i=0;i<petAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='text-align:left;width:200px'>"+(player.petLv[i]==-1?"":petFrontName[Math.min(2,player.petLv[i])])+petAttribute[i][0]+(player.petLv[i]>=2?(player.petLv[i]-2)+"级":"")+"</td>"
+            let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
+            str+="<td style='text-align:left;'>"
+            for(let id in petAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(petAttribute[i][1][id]),1)+" "
+            }
+            for(let id in petAttribute[i][2]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(petAttribute[i][2][id]),1)+"% "
+            }
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.petLv[i]==22)str+=" colspan=2"
+            str+=">"
+            if(player.petLv[i]==-1){
+                str+="消耗 "+petAttribute[i][0]+"蛋×1</td><td><button onclick='TryUpgradePet("+i+",0)'>孵化</button></td>"
+            }
+            else if(player.petLv[i]<2){
+                str+="消耗 肉块×"+format(petAttribute[i][3]*(player.petLv[i]+1),0)+
+                " 成功率"+(format(1+player.petTimes[i]))+"%</td><td><button onclick='TryUpgradePet("+i+",0)'>喂食</button></td>"
+            }
+            else if(player.petLv[i]<22){
+                str+="消耗 金币×"+format(petAttribute[i][4],0)+"</td><td style='text-align:right'><button onclick='TryUpgradePet("+i+",0)'>升级</button></td>"
+                str+="<td><button style='margin-left:-10px' onclick='TryUpgradePet("+i+",1)'>一键升级</button></td>"
             }
             str+="</td>"
             str+="</tr>"

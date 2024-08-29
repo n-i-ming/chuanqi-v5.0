@@ -72,6 +72,12 @@ addLayer("tree-tab",{
         while(player.bookLv.length<bookAttribute.length){
             player.bookLv.push(-1)
         }
+        while(player.petLv.length<petAttribute.length){
+            player.petLv.push(-1)
+        }
+        while(player.petTimes.length<petAttribute.length){
+            player.petTimes.push(0)
+        }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])
         }

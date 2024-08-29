@@ -9,6 +9,7 @@ function CalcAttribute(){
     player.damageMinus=n(0)
     player.maxDifficulty=immortalAttribute[player.immortalLv][4]
 
+    {//add
     for(let i=0;i<pelletAttribute.length;i++){
         player.hpmax=player.hpmax.add(pelletAttribute[i][0].mul(player.pelletNum[i][0]))
         player.atk=player.atk.add(pelletAttribute[i][1].mul(player.pelletNum[i][1]))
@@ -38,7 +39,14 @@ function CalcAttribute(){
             player[id]=player[id].add(n(bookAttribute[i][1][id]).mul(mul))
         }
     }
-
+    for(let i=0;i<petAttribute.length;i++){
+        let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
+        for(let id in petAttribute[i][1]){
+            player[id]=player[id].add(n(petAttribute[i][1][id]).mul(mul))
+        }
+    }
+}
+    {//mul
     for(let i=0;i<pelletAttribute.length;i++){
         player.hpmax=player.hpmax.mul(1+pelletAttribute[i][3]*player.pelletNum[i][0])
         player.atk=player.atk.mul(1+pelletAttribute[i][4]*player.pelletNum[i][1])
@@ -62,8 +70,8 @@ function CalcAttribute(){
     for(let id in player.transmigrationLv){
         player[id]=player[id].mul(n(1.01).pow(player.transmigrationLv[id]))
     }
-    player.damageAdd=player.damageAdd.mul(n(1.01).pow(player.divineLv))
-    player.damageMinus=player.damageMinus.mul(n(1.01).pow(player.divineLv))
+    player.damageAdd=player.damageAdd.mul(n(1.005).pow(player.divineLv))
+    player.damageMinus=player.damageMinus.mul(n(1.005).pow(player.divineLv))
     for(let i=0;i<concealAttribute.length;i++){
         if(player.concealType[i]>0)
         for(let id in concealAttribute[i][2]){
@@ -79,6 +87,13 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(bookAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
+    for(let i=0;i<petAttribute.length;i++){
+        let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
+        for(let id in petAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(n(petAttribute[i][2][id]).mul(mul).div(100)))
+        }
+    }
+}
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
     player.expMul=n(1)
@@ -140,7 +155,7 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(30000)],[30,n(50000)],[40,n(100000)],[50,n(300000)],[60,n(800000)],[70,n(2e6)],[80,n(5e6)],[100,n(1e7)]
+    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -180,7 +195,7 @@ function TransmigrationUpgrade(id,type){
     }
 }
 const divineNeed=[
-    [20,n(30000)],[50,n(100000)],[100,n(200000)],[150,n(500000)],[200,n(1e6)],[300,n(3e6)],[400,n(8e6)],[500,n(2e7)]
+    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -221,7 +236,7 @@ function DivineUpgrade(type){
     }
 }
 const templeNeed=[
-    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50]
+    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100]
 ]
 function CalcTempleNeed(id){
     for(let i=0;i<templeNeed.length;i++){
