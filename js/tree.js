@@ -57,6 +57,9 @@ addLayer("tree-tab",{
         while(player.maxKillDifficulty.length<monster.length){
             player.maxKillDifficulty.push(-1)
         }
+        while(player.killZone.length<zoneMonster.length){
+            player.killZone.push(-1)
+        }
         while(player.bag.length<bagDisplayList.length){
             player.bag.push(0)
         }
@@ -78,6 +81,12 @@ addLayer("tree-tab",{
         while(player.petTimes.length<petAttribute.length){
             player.petTimes.push(0)
         }
+        while(player.soulcircleLv.length<soulcircleAttribute.length){
+            player.soulcircleLv.push(0)
+        }
+        while(player.soulboneLv.length<soulboneAttribute.length){
+            player.soulboneLv.push(0)
+        }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])
         }
@@ -86,6 +95,7 @@ addLayer("tree-tab",{
         }
         player.meridianLv[0][0]=Math.min(player.meridianLv[0][0],meridianAttribute.length-1)
         player.meridianLv[1][0]=Math.min(player.meridianLv[1][0],meridianAttribute.length-1)
+        player.wingLv[1]=Math.min(player.wingLv[1],10)
         }
         player.devSpeed=1
         let dif=(Date.now()/1e3-player.tmtmtm)
@@ -101,10 +111,19 @@ addLayer("tree-tab",{
         if(player.inHanging!=-1){
             player.hangingTime+=dif
         }
+        if(player.inHangingZone!=-1){
+            player.hangingTimeZone+=dif
+        }
         if(player.inFight!=-1){
             player.fightingTime+=dif
             while(player.fightingTime>=0.5){
                 DealFight()
+            }
+        }
+        if(player.inFightZone!=-1){
+            player.fightingTimeZone+=dif
+            while(player.fightingTimeZone>=0.5){
+                DealFightZone()
             }
         }
     },
@@ -132,6 +151,7 @@ addLayer("tree-tab",{
             str+="<table><tr>"
             str+="<td><button onclick='player.mainTabId=-1,player.nowBigTab="+'"main"'+"'>主页</button></td>"
             str+="<td><button style='margin-left:-10px' onclick='"+(player.onMonsterId!=-1?"player.fightTabId="+(10000+player.onMonsterId)+",":"")+"player.nowBigTab="+'"fight"'+"'>挂机</button></td>"
+            str+="<td><button style='margin-left:-10px' onclick='"+(player.onZoneMonsterId!=-1?"player.zoneTabId="+(10000+player.onZoneMonsterId)+",":"")+"player.nowBigTab="+'"zone"'+"'>副本</button></td>"
             str+="<td><button style='margin-left:-10px' onclick='player.nowBigTab="+'"show"'+"'>介绍</button></td>"
             str+="</tr></table><br>"
 
@@ -172,6 +192,23 @@ addLayer("tree-tab",{
                     str+="<button onclick='player.fightTabId=-1'>返回</button>"
                 }
             }
+            else if(player.nowBigTab=='zone'){
+                if(player.zoneTabId==-1){
+                    str+="<table><tr>"
+                    for(let i=0;i<subTabList[2].length;i++){
+                        str+="<td><button "+(i%10!=0?"style='margin-left:-10px'":"")+" onclick='player.zoneTabId="+i+"'>"+subTabList[2][i]+"</button></td>"
+                        if(i%10==9){
+                            str+="</tr><tr>"
+                        }
+                    }
+                    str+="</tr></table>"
+                }
+                else{
+                    str+=getZoneSubTabDisplay()
+                    str+="<br>"
+                    str+="<button onclick='player.zoneTabId=-1'>返回</button>"
+                }
+            }
             else if(player.nowBigTab=='show'){
                 str+="伤害 = 攻击<sup>2</sup>/(攻击+防御)*(伤害穿透-伤害减免)<br><br>"
                 str+="属性转生次数上限 = ⌊log<sub>2</sub>(对应属性)⌋<br>"
@@ -185,14 +222,12 @@ addLayer("tree-tab",{
         "blank",
         ["display-text",function(){
             let str=""
-            if((player.nowBigTab=='main' && player.mainTabId==-1) || (player.nowBigTab=='fight' && player.fightTabId<=99999)){
-                str+="<div style='padding-left:10px;padding-top:10px;text-align:left;position:absolute;left:50%;top:50%;transform:translate(-300px,0px);height:400px;width:600px;border:2px solid black;overflow:auto'>"
-                for(let i=logs.length-1;i>=Math.max(0,logs.length-100);i--){
-                    str+=logs[i]
-                    str+="<br>"
-                }
-                str+="</div>"
+            str+="<div style='padding-left:10px;padding-top:10px;text-align:left;height:400px;width:600px;border:2px solid black;overflow:auto'>"
+            for(let i=logs.length-1;i>=Math.max(0,logs.length-100);i--){
+                str+=logs[i]
+                str+="<br>"
             }
+            str+="</div>"
             return str
         }]
     ],

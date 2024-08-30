@@ -249,7 +249,7 @@ function getMainSubTabDisplay(){
     else if(player.mainTabId==10){//暗器
         str+="<table>"
         str+="<tr>"
-        str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"/100级</td>"
+        str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"/200级</td>"
         str+="<td style='text-align:left;'>所有暗器增益+"+format(player.concealLv,0)+"%</td>"
         if(CalcConcealNeed()<1e100){
             str+="<td style='text-align:right;'>消耗 陨铁×"+format(CalcConcealNeed(),0)+"</td>"
@@ -498,6 +498,67 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="</table>"
     }
+    else if(player.mainTabId==15){//魂环
+        str+="拥有魂环碎片 "+format(player.bag[24],0)+"<br>"
+        str+="拥有魂力 "+format(player.soulPower,0)+"<br><br>"
+        str+="<table>"
+        for(let i=0;i<soulcircleAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='text-align:left;width:250px'>"+soulcircleFrontName[Math.min(6,player.soulcircleLv[i])]+soulcircleAttribute[i][0]+(player.soulcircleLv[i]>=6?(player.soulcircleLv[i]-6)+"级":"")+"</td>"
+            let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+            str+="<td style='text-align:left;'>"
+            for(let id in soulcircleAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(soulcircleAttribute[i][1][id]),1)+" "
+            }
+            for(let id in soulcircleAttribute[i][2]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(soulcircleAttribute[i][2][id]),1)+"% "
+            }
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.soulcircleLv[i]==106)str+=" colspan=2"
+            str+=">"
+            if(player.soulcircleLv[i]<6){
+                str+="消耗 魂环碎片×"+format((player.soulcircleLv[i]+1)*soulcircleAttribute[i][3],0)+"</td><td><button onclick='TryUpgradeSoulcircle("+i+",0)'>升级</button></td>"
+            }
+            else if(player.soulcircleLv[i]<106){
+                str+="消耗 魂力×"+format(soulcircleAttribute[i][3]*2*(player.soulcircleLv[i]-5),0)+"</td><td style='text-align:right'><button onclick='TryUpgradeSoulcircle("+i+",0)'>升级</button></td>"
+                str+="<td><button style='margin-left:-10px' onclick='TryUpgradeSoulcircle("+i+",1)'>一键升级</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
+    else if(player.mainTabId==16){//魂骨
+        str+="拥有魂骨碎片 "+format(player.bag[25],0)+"<br><br>"
+        str+="<table>"
+        for(let i=0;i<soulboneAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='text-align:left;width:250px'>"+soulboneAttribute[i][0]+(player.soulboneLv[i]>=1?(player.soulboneLv[i]-1)+"级":"")+"</td>"
+            let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
+            str+="<td style='text-align:left;'>"
+            for(let id in soulboneAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(soulboneAttribute[i][1][id]),1)+"% "
+            }
+            for(let id in soulboneAttribute[i][2]){
+                str+=attributeToName[id]+"+"+format(n(mul).mul(soulboneAttribute[i][2][id]),1)+"% "
+            }
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.soulboneLv[i]==11)str+=" colspan=2"
+            str+=">"
+            if(player.soulboneLv[i]<1){
+                str+="消耗 魂骨碎片×"+format(soulboneAttribute[i][3],0)+"</td><td><button onclick='TryUpgradeSoulbone("+i+",0)'>升级</button></td>"
+            }
+            else if(player.soulboneLv[i]<11){
+                str+="消耗 魂骨碎片×"+format(soulboneAttribute[i][3]/5,0)+"</td><td style='text-align:right'><button onclick='TryUpgradeSoulbone("+i+",0)'>升级</button></td>"
+                str+="<td><button style='margin-left:-10px' onclick='TryUpgradeSoulbone("+i+",1)'>一键升级</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -588,6 +649,7 @@ function EnterFight(id){
     }
     else{
         player.inHanging=1
+        player.hangingTime=0
     }
 }
 function QuitFight(){

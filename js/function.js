@@ -161,7 +161,7 @@ function TryUpgradeWing(wh){
                 player.wingLv[0]+=1
                 player.wingLv[1]=0
             }
-            else if(player.bag[10]>=(n(wingAttribute[player.wingLv[0]][4]))){
+            else if(player.wingLv[1]<10 && player.bag[10]>=(n(wingAttribute[player.wingLv[0]][4]))){
                 player.bag[10]-=wingAttribute[player.wingLv[0]][4]
                 player.wingLv[1]+=1
             }
@@ -268,6 +268,89 @@ function TryUpgradePet(id,wh){
             }
             else{
                 logs.push("成功升级 "+petAttribute[id][0]+" "+count+"级")
+            }
+        }
+    }
+}
+function TryUpgradeSoulcircle(id,wh){
+    if(player.soulcircleLv[id]==106){
+        return
+    }
+    if(player.soulcircleLv[id]<6){
+        if(player.bag[24]<(player.soulcircleLv[id]+1)*soulcircleAttribute[id][3]){
+            NotEnough(24)
+        }
+        else{
+            player.bag[24]-=(player.soulcircleLv[id]+1)*soulcircleAttribute[id][3]
+            player.soulcircleLv[id]+=1
+            logs.push(soulcircleFrontName[player.soulcircleLv[id]-1]+soulcircleAttribute[id][0]
+                +" 成功升级为 "+soulcircleFrontName[player.soulcircleLv[id]]+soulcircleAttribute[id][0])
+        }
+    }
+    else{
+        if(wh==0){
+            if(player.soulPower.gte((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3])){
+                player.soulPower=player.soulPower.sub((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3])
+                player.soulcircleLv[id]+=1
+                logs.push("成功升级 "+soulcircleAttribute[id][0]+" 1级")
+            }
+            else{
+                logs.push("魂力不够")
+            }
+        }
+        else{
+            let count=0
+            while(player.soulPower.gte((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3]) && player.soulcircleLv[id]<106){
+                player.soulPower=player.soulPower.sub((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3])
+                player.soulcircleLv[id]+=1
+                count+=1
+            }
+            if(count==0){
+                logs.push("魂力不够")
+            }
+            else{
+                logs.push("成功升级 "+soulcircleAttribute[id][0]+" "+count+"级")
+            }
+        }
+    }
+}
+function TryUpgradeSoulbone(id,wh){
+    if(player.soulboneLv[id]==11){
+        return
+    }
+    if(player.soulboneLv[id]<1){
+        if(player.bag[25]<soulboneAttribute[id][3]){
+            NotEnough(25)
+        }
+        else{
+            player.bag[25]-=soulboneAttribute[id][3]
+            player.soulboneLv[id]+=1
+            logs.push("成功升级 "+soulboneAttribute[id][0]+" 1级")
+        }
+    }
+    else{
+        if(wh==0){
+            if(player.bag[25]>=soulboneAttribute[id][3]/5){
+                player.bag[25]-=soulboneAttribute[id][3]/5
+                player.soulboneLv[id]+=1
+                logs.push("成功升级 "+soulboneAttribute[id][0]+" 1级")
+            }
+            else{
+                NotEnough(25)
+            }
+        }
+        else{
+            let count=0
+            while(player.bag[25]>=soulboneAttribute[id][3]/5 && player.soulboneLv[id]<11){
+                player.bag[25]-=soulboneAttribute[id][3]/5
+                player.soulboneLv[id]+=1
+                count+=1
+            }
+            if(count==0){
+                NotEnough(25)
+            }
+            else{
+                logs.push("成功升级 "+soulboneAttribute[id][0]+" "+count+"级")
             }
         }
     }

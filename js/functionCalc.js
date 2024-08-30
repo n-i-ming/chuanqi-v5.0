@@ -48,6 +48,12 @@ function CalcAttribute(){
     }
     player.damageAdd=player.damageAdd.add(player.zonghengLv[2])
     player.damageMinus=player.damageMinus.add(player.zonghengLv[3])
+    for(let i=0;i<soulcircleAttribute.length;i++){
+        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+        for(let id in soulcircleAttribute[i][1]){
+            player[id]=player[id].add(n(soulcircleAttribute[i][1][id]).mul(mul))
+        }
+    }
 }
     {//mul
     for(let i=0;i<pelletAttribute.length;i++){
@@ -104,6 +110,18 @@ function CalcAttribute(){
     player.damageAdd=player.damageAdd.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
     player.damageMinus=player.damageMinus.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
     player.hit=player.hit.mul(n(1).add(n(player.zonghengLv[5]).div(100)))
+    for(let i=0;i<soulcircleAttribute.length;i++){
+        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+        for(let id in soulcircleAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(n(soulcircleAttribute[i][2][id]).mul(mul).div(100)))
+        }
+    }
+    for(let i=0;i<soulboneAttribute.length;i++){
+        let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
+        for(let id in soulboneAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(n(soulboneAttribute[i][2][id]).mul(mul).div(100)))
+        }
+    }
 }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
@@ -113,6 +131,17 @@ function CalcAttribute(){
     player.expMul=player.expMul.mul(n(1).add(0.01*player.templeLv[0]))
     player.moneyMul=player.moneyMul.mul(n(1).add(0.01*player.templeLv[1]))
     player.cultivationMul=player.cultivationMul.mul(n(1).add(0.01*player.templeLv[2]))
+    for(let i=0;i<soulboneAttribute.length;i++){
+        let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
+        for(let id in soulboneAttribute[i][1]){
+            player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(soulboneAttribute[i][1][id]).mul(mul).div(100)))
+        }
+    }
+
+    player.zoneHpmax=n(player.transmigrationLv.hpmax)
+    player.zoneAtk=n(player.transmigrationLv.atk)
+    player.zoneDef=n(player.transmigrationLv.def)
+    player.zoneHit=n(player.transmigrationLv.hit)
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
@@ -166,7 +195,7 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)]
+    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -206,7 +235,7 @@ function TransmigrationUpgrade(id,type){
     }
 }
 const divineNeed=[
-    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)]
+    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -247,7 +276,7 @@ function DivineUpgrade(type){
     }
 }
 const templeNeed=[
-    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100]
+    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100],[2000,150]
 ]
 function CalcTempleNeed(id){
     for(let i=0;i<templeNeed.length;i++){
@@ -284,7 +313,7 @@ function TempleUpgrade(id,type){
     }
 }
 const ConcealNeed=[
-    [100,100]
+    [100,200],[200,500]
 ]
 function CalcConcealNeed(){
     for(let i=0;i<ConcealNeed.length;i++){
@@ -321,7 +350,7 @@ function ConcealUpgrade(type){
     }
 }
 const ZonghengNeed=[
-    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)]
+    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)]
 ]
 function CalcZonghengNeed(id){
     for(let i=0;i<ZonghengNeed.length;i++){
