@@ -84,6 +84,8 @@ addLayer("tree-tab",{
         for(let i=0;i<player.concealType.length;i++){
             player.concealType[i]=Math.min(3,player.concealType[i])
         }
+        player.meridianLv[0][0]=Math.min(player.meridianLv[0][0],meridianAttribute.length-1)
+        player.meridianLv[1][0]=Math.min(player.meridianLv[1][0],meridianAttribute.length-1)
         }
         player.devSpeed=1
         let dif=(Date.now()/1e3-player.tmtmtm)

@@ -33,7 +33,7 @@ function NotEnough(id){
     logs.push("材料不够 ("+idToName[id]+" 出自 "+idFrom[id]+")")
 }
 function TryUpgradeMeridian(id,wh){
-    if(player.meridianLv[id][0]==meridianAttribute.length){
+    if(player.meridianLv[id][0]==meridianAttribute.length-1){
         return
     }
     if(wh==0){
@@ -59,7 +59,7 @@ function TryUpgradeMeridian(id,wh){
     }
     else{
         let count=0
-        while(player.meridianLv[id][0]<meridianAttribute.length){
+        while(player.meridianLv[id][0]<meridianAttribute.length-1){
             if(player.meridianLv[id][1]==10 && player.money.gte(n(10000).mul(meridianAttribute[player.meridianLv[id][0]][0]))){
                 player.money=player.money.sub(n(10000).mul(meridianAttribute[player.meridianLv[id][0]][0]))
                 player.meridianLv[id][0]+=1
