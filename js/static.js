@@ -12,6 +12,7 @@ function addedPlayerData() { return {
     pelletNum:[],weaponType:[],spiritLv:[0,0,0,0],meridianLv:[[0,0],[0,0]],
     immortalLv:0,immortalTimes:0,transmigrationLv:{hpmax:0,atk:0,def:0,hit:0},divineLv:0,
     templeLv:[0,0,0],concealType:[],concealLv:0,wingLv:[0,0],bookLv:[],petLv:[],petTimes:[],
+    zonghengLv:[0,0,0,0,0,0],
 
     monsterHp:n(0),monsterHpmax:n(0),monsterAtk:n(0),monsterDef:n(0),
     monsterHit:n(0),monsterDamageAdd:n(0),monsterDamageMinus:n(0),
@@ -29,23 +30,25 @@ function addedPlayerData() { return {
 const subTabList=[
     [
         "属性","背包","丹药","兵器","元神","经脉","飞升","转生","神力","神庙",
-        "暗器","翅膀","功法","宠物"
+        "暗器","翅膀","功法","宠物","纵横"
     ],
     [
         "新手村","乱葬岗","山贼寨","土匪窝","强盗帮","昆仑山","奇来峰","大秦山","缥缈林","流沙地",
-        "秋风原","望天峰","碧海谷","金银湖","猛虎穴","万寿山","青鸾山","邱塘关","山竹林","伏龙寺"
+        "秋风原","望天峰","碧海谷","金银湖","猛虎穴","万寿山","青鸾山","邱塘关","山竹林","伏龙寺",
+        "忘铃山","幽香壑","将军墓"
     ],
 ]
 const idToName={
     0:"1品丹药",1:"铁矿",2:"元神修炼符",3:"银针",4:"白骨",5:"2品丹药",6:"琥珀",7:"树枝",8:"陨铁",9:"兽珠",10:"羽毛",11:"3品丹药",12:"鱼鳞",13:"凝元功-残页",14:"象甲功-残页",
-    15:"4品丹药",16:"霹雳兽蛋",17:"肉块",18:"蛊雕核",19:"长春功-残页",20:"肉粽蟹蛋"
+    15:"4品丹药",16:"霹雳兽蛋",17:"肉块",18:"蛊雕核",19:"长春功-残页",20:"肉粽蟹蛋",21:"狐绒",22:"碧耳兽蛋",23:"炼灵决-残页"
 }
 const idFrom={
     0:"新手村-所有怪物",1:"新手村-牛",2:"新手村后的所有怪物",3:"新手村后的所有怪物",4:"乱葬岗-大骷髅",5:"土匪窝的所有怪物",6:"昆仑山后的所有怪物",7:"昆仑山-树妖9",
     8:"奇来峰后的所有怪物",9:"大秦山-云中兽9",10:"流沙地后的所有怪物",11:"秋风原-所有怪物",12:"碧海谷-深海妖9",13:"金银湖-溺尸9",14:"猛虎穴-虎妖9",
-    15:"万寿山-所有怪物",16:"青鸾山-木桩怪9",17:"青鸾山后所有怪物",18:"邱塘关-蛊雕9",19:"山竹林-竹仙9",20:"伏龙寺-堕僧9"
+    15:"万寿山-所有怪物",16:"青鸾山-木桩怪9",17:"青鸾山后所有怪物",18:"邱塘关-蛊雕9",19:"山竹林-竹仙9",20:"伏龙寺-堕僧9",21:"忘铃山-狐狸精9",22:"幽香壑-火灵9",
+    23:"将军墓-鬼将9"
 }
-const bagDisplayList=[2,3,6,8,10,17,0,5,11,15,1,4,7,9,12,18,13,14,19,16]
+const bagDisplayList=[2,3,6,8,10,17,0,5,11,15,1,4,7,9,12,18,21,13,14,19,16,22]
 const pelletAttribute=[
     [n(1000),n(100),n(100),0.01,0.01,0.01,0,n(1000)],
     [n(5000),n(500),n(500),0.01,0.01,0.01,5,n(10000)],
@@ -68,6 +71,8 @@ const weaponAttribute=[
     ["鱼鳞戟",{damageAdd:n(30)},{atk:n(20)},12,1],
     ["蛊铠",{damageMinus:n(50)},{hpmax:n(20),def:n(20)},18,1],
     ["蛊盔",{damageMinus:n(50)},{hpmax:n(20),def:n(20)},18,1],
+    ["狐毛符",{damageAdd:n(75)},{atk:n(25)},21,1],
+    ["狐尾尘",{damageAdd:n(75)},{atk:n(25)},21,1],
 ]
 const meridianAttribute=[
     [1,0,1],[2,5,1],[5,10,2],[10,20,3],[20,35,5],[30,60,8],[50,100,10],[70,150,15],[85,225,20],[100,325,25],[120,450,30],[150,600,40],
@@ -94,10 +99,17 @@ const immortalAttribute=[
     ["真神",{hpmax:n(2000),atk:n(1500),def:n(1500),hit:n(1000)},{damageAdd:n(1600),damageMinus:n(1300)},n(3e6),275],
     ["天神",{hpmax:n(2500),atk:n(2000),def:n(2000),hit:n(1500)},{damageAdd:n(2000),damageMinus:n(1500)},n(5e6),300],
     ["神将",{hpmax:n(3000),atk:n(2500),def:n(2500),hit:n(2000)},{damageAdd:n(2500),damageMinus:n(2000)},n(1e7),325],
-    ["神君",{hpmax:n(4000),atk:n(3000),def:n(3000),hit:n(2500)},{damageAdd:n(3000),damageMinus:n(2500)},n(1.5e7),325],
-    ["神帝",{hpmax:n(5000),atk:n(4000),def:n(4000),hit:n(3000)},{damageAdd:n(3500),damageMinus:n(3000)},n(2e7),325],
-    ["神皇",{hpmax:n(6500),atk:n(5000),def:n(5000),hit:n(4000)},{damageAdd:n(4000),damageMinus:n(3500)},n(3e7),325],
-    ["神尊",{hpmax:n(8000),atk:n(6000),def:n(6000),hit:n(5000)},{damageAdd:n(5000),damageMinus:n(4000)},n(1e308),325],
+    ["神君",{hpmax:n(4000),atk:n(3000),def:n(3000),hit:n(2500)},{damageAdd:n(3000),damageMinus:n(2500)},n(1.5e7),350],
+    ["神帝",{hpmax:n(5000),atk:n(4000),def:n(4000),hit:n(3000)},{damageAdd:n(3500),damageMinus:n(3000)},n(2e7),375],
+    ["神皇",{hpmax:n(6500),atk:n(5000),def:n(5000),hit:n(4000)},{damageAdd:n(4000),damageMinus:n(3500)},n(3e7),400],
+    ["神尊",{hpmax:n(8000),atk:n(6000),def:n(6000),hit:n(5000)},{damageAdd:n(5000),damageMinus:n(4000)},n(5e7),425],
+    ["行星之主",{hpmax:n(10000),atk:n(8000),def:n(8000),hit:n(6500)},{damageAdd:n(6000),damageMinus:n(5000)},n(7e7),450],
+    ["恒星之主",{hpmax:n(13000),atk:n(10000),def:n(10000),hit:n(8000)},{damageAdd:n(7000),damageMinus:n(6000)},n(1e8),475],
+    ["星系之主",{hpmax:n(16000),atk:n(12000),def:n(12000),hit:n(10000)},{damageAdd:n(8500),damageMinus:n(7000)},n(1.5e8),500],
+    ["星域之主",{hpmax:n(20000),atk:n(15000),def:n(15000),hit:n(12000)},{damageAdd:n(10000),damageMinus:n(8000)},n(2e8),525],
+    ["星团之主",{hpmax:n(25000),atk:n(18000),def:n(18000),hit:n(15000)},{damageAdd:n(12000),damageMinus:n(9000)},n(3e8),550],
+    ["星云之主",{hpmax:n(30000),atk:n(22000),def:n(22000),hit:n(18000)},{damageAdd:n(14000),damageMinus:n(10000)},n(5e8),575],
+    ["星图之主",{hpmax:n(36000),atk:n(27000),def:n(27000),hit:n(22000)},{damageAdd:n(17000),damageMinus:n(12000)},n(1e308),600],
 ]
 const concealFrontName=[
     "","<text style='color:green'>一阶</text>·","<text style='color:blue'>二阶</text>·","<text style='color:red'>三阶</text>·"
@@ -162,19 +174,27 @@ const wingAttribute=[
     ["鎏金羽翼",n(2000),n(50),n(1300),300],
     ["若雅羽翼",n(2500),n(50),n(1500),350],
     ["冻结羽翼",n(3000),n(50),n(1750),400],
-    ["涟漪之翼",n(3000),n(50),n(2000),450],
+    ["涟漪之翼",n(3500),n(50),n(2000),450],
+    ["白金圣翼",n(4000),n(100),n(2500),500],
+    ["暴风羽翼",n(5000),n(100),n(3000),600],
+    ["霜焰羽翅",n(6000),n(125),n(3500),700],
+    ["雷霆天翼",n(7250),n(125),n(4000),800],
+    ["虚空羽翎",n(8500),n(125),n(4500),900],
+    ["碧落天翅",n(9750),n(125),n(5000),1000],
 ]
 const bookAttribute=[
     ["凝元功",{criticalDamage:n(5)},{atk:n(20)},n(1e7),13],
     ["象甲功",{damageMinus:n(40)},{def:n(20)},n(1.5e7),14],
     ["长春功",{damageMinus:n(40)},{hpmax:n(30)},n(3e7),19],
+    ["炼灵诀",{criticalDamage:n(5)},{atk:n(30)},n(1e8),23],
 ]
 const petFrontName=[
     "幼年体·","成熟体·","完全体·"
 ]
 const petAttribute=[
     ["霹雳兽",{damageAdd:n(200)},{atk:n(20)},5,n(1e8),16],
-    ["肉粽蟹",{damageAdd:n(200)},{def:n(20)},10,n(1e9),19],
+    ["肉粽蟹",{damageAdd:n(200)},{def:n(20)},10,n(1e9),20],
+    ["碧耳兽",{damageAdd:n(200)},{hpmax:n(20)},15,n(1e10),22],
 ]
 const attributeToName={
     atk:"攻击",hpmax:"生命",def:"防御",hit:"命中",criticalDamage:"暴击伤害",damageAdd:"伤害穿透",damageMinus:"伤害减免"

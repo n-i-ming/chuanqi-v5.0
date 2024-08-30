@@ -46,6 +46,8 @@ function CalcAttribute(){
             player[id]=player[id].add(n(petAttribute[i][1][id]).mul(mul))
         }
     }
+    player.damageAdd=player.damageAdd.add(player.zonghengLv[2])
+    player.damageMinus=player.damageMinus.add(player.zonghengLv[3])
 }
     {//mul
     for(let i=0;i<pelletAttribute.length;i++){
@@ -95,6 +97,13 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(petAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
+    player.hpmax=player.hpmax.mul(n(1).add(n(player.zonghengLv[0]).div(100)))
+    player.def=player.def.mul(n(1).add(n(player.zonghengLv[1]).div(100)))
+    player.atk=player.atk.mul(n(1).add(n(player.zonghengLv[2]).div(200)))
+    player.atk=player.atk.mul(n(1).add(n(player.zonghengLv[3]).div(200)))
+    player.damageAdd=player.damageAdd.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
+    player.damageMinus=player.damageMinus.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
+    player.hit=player.hit.mul(n(1).add(n(player.zonghengLv[5]).div(100)))
 }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
@@ -108,7 +117,7 @@ function CalcAttribute(){
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
     [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)],
-    [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)]
+    [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)],[80000,n(2e7)],[90000,n(3e7)],[100000,n(5e7)],[110000,n(7e7)],[120000,n(1e8)]
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){
@@ -157,7 +166,7 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)]
+    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -308,6 +317,52 @@ function ConcealUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 暗器强化")
+        }
+    }
+}
+const ZonghengNeed=[
+    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)]
+]
+function CalcZonghengNeed(id){
+    for(let i=0;i<ZonghengNeed.length;i++){
+        if(player.zonghengLv[id]<ZonghengNeed[i][0]){
+            return ZonghengNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function ZonghengUpgrade(id,type){
+    let mx=1e100
+    if(id==2)mx=player.zonghengLv[0]
+    if(id==3)mx=player.zonghengLv[1]
+    if(id==4)mx=Math.min(player.zonghengLv[2],player.zonghengLv[3])
+    if(id==5)mx=player.zonghengLv[4]
+    if(player.zonghengLv[id]==mx){
+        logs.push(["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id]+"等级已达上限")
+        return
+    }
+    if(type==0){
+        if(player.money.lt(CalcZonghengNeed(id))){
+            logs.push("金币不够")
+        }
+        else{
+            player.money=player.money.sub(CalcZonghengNeed(id))
+            player.zonghengLv[id]+=1
+            logs.push("成功升级 1级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
+        }
+    }
+    else{
+        let count=0
+        while(player.money.gte(CalcZonghengNeed(id)) && count<100 && player.zonghengLv[id]<mx){
+            player.money=player.money.sub(CalcZonghengNeed(id))
+            player.zonghengLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
         }
     }
 }

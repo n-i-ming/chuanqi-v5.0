@@ -153,12 +153,12 @@ function getMainSubTabDisplay(){
             str+="</tr>"
             str+="<tr>"
             if(player.meridianLv[0][0]!=meridianAttribute.length-1)
-            str+="<td><button onclick='TryUpgradeMeridian(0)'>升级</button></td>"
+            str+="<td><button onclick='TryUpgradeMeridian(0,0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeMeridian(0,1)'>一键升级</button></td>"
             else
             str+="<td>　</td>"
             str+="<td style='width:200px'></td>"
             if(player.meridianLv[1][0]!=meridianAttribute.length-1)
-            str+="<td><button onclick='TryUpgradeMeridian(1)'>升级</button></td>"
+            str+="<td><button onclick='TryUpgradeMeridian(1,0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeMeridian(1,1)'>一键升级</button></td>"
             else
             str+="<td>　</td>"
             str+="</tr>"
@@ -320,7 +320,7 @@ function getMainSubTabDisplay(){
             else{
                 str+="<tr><td style='text-align:left'>消耗 经验×"+format(n(wingAttribute[player.wingLv[0]][4]).mul(100000),0)+"</td></tr>"
             }
-            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeWing()'>升级</button></td></tr>"
+            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeWing(0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeWing(1)'>一键升级</button></td></tr>"
         }
         str+="</table>"
     }
@@ -384,6 +384,118 @@ function getMainSubTabDisplay(){
             str+="</td>"
             str+="</tr>"
         }
+        str+="</table>"
+    }
+    else if(player.mainTabId==14){//纵横
+        str+="<table>"
+        str+="<tr>"
+        str+="<td style='width:300px;text-align:left'>纵剑术 "+player.zonghengLv[0]+"级</td>"
+        str+="<td style='width:20px'></td>"
+        str+="<td style='width:300px;text-align:left'>横剑术 "+player.zonghengLv[1]+"级</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td style='width:300px;text-align:left'>生命+"+player.zonghengLv[0]+"%</td>"
+        str+="<td style='width:20px'></td>"
+        str+="<td style='width:300px;text-align:left'>防御+"+player.zonghengLv[1]+"%</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(0).lt(1e100))
+        str+="<td style='width:300px;text-align:left'>消耗 金币×"+format(CalcZonghengNeed(0),0)+"</td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="<td style='width:20px'></td>"
+        if(CalcZonghengNeed(1).lt(1e100))
+        str+="<td style='width:300px;text-align:left'>消耗 金币×"+format(CalcZonghengNeed(1),0)+"</td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(0).lt(1e100))
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(0,0)'>升级</button><button onclick='ZonghengUpgrade(0,1)' style='margin-left:-8px'>升100级</button></td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="<td style='width:20px'></td>"
+        if(CalcZonghengNeed(1).lt(1e100))
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(1,0)'>升级</button><button onclick='ZonghengUpgrade(1,1)' style='margin-left:-8px'>升100级</button></td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td style='width:300px;text-align:left'>长虹贯日 "+player.zonghengLv[2]+"/"+player.zonghengLv[0]+"级</td>"
+        str+="<td style='width:20px'></td>"
+        str+="<td style='width:300px;text-align:left'>横贯四方 "+player.zonghengLv[3]+"/"+player.zonghengLv[1]+"级</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td style='width:300px;text-align:left'>攻击+"+format(player.zonghengLv[2]*0.5,1)+"%</td>"
+        str+="<td style='width:20px'></td>"
+        str+="<td style='width:300px;text-align:left'>攻击+"+format(player.zonghengLv[3]*0.5,1)+"%</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td style='width:300px;text-align:left'>伤害穿透+"+player.zonghengLv[2]+"</td>"
+        str+="<td style='width:20px'></td>"
+        str+="<td style='width:300px;text-align:left'>伤害减免+"+player.zonghengLv[3]+"</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(2).lt(1e100))
+        str+="<td style='width:300px;text-align:left'>消耗 金币×"+format(CalcZonghengNeed(2),0)+"</td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="<td style='width:20px'></td>"
+        if(CalcZonghengNeed(3).lt(1e100))
+        str+="<td style='width:300px;text-align:left'>消耗 金币×"+format(CalcZonghengNeed(3),0)+"</td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(2).lt(1e100))
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(2,0)'>升级</button><button onclick='ZonghengUpgrade(2,1)' style='margin-left:-8px'>升100级</button></td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="<td style='width:20px'></td>"
+        if(CalcZonghengNeed(3).lt(1e100))
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(3,0)'>升级</button><button onclick='ZonghengUpgrade(3,1)' style='margin-left:-8px'>升100级</button></td>"
+        else
+        str+="<td style='width:300px;text-align:left'>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td colspan=3 style='text-align:left'>合纵连横·合击 "+player.zonghengLv[4]+"/"+Math.min(player.zonghengLv[2],player.zonghengLv[3])+"级</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td colspan=3 style='text-align:left'>伤害穿透+"+format(player.zonghengLv[4]*0.1,1)+"%</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td colspan=3 style='text-align:left'>伤害减免+"+format(player.zonghengLv[4]*0.1,1)+"%</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(4).lt(1e100))
+        str+="<td colspan=3 style='text-align:left'>消耗 金币×"+format(CalcZonghengNeed(4),0)+"</td>"
+        else
+        str+="<td colspan=3>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(4).lt(1e100))
+        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(4,0)'>升级</button><button onclick='ZonghengUpgrade(4,1)' style='margin-left:-8px'>升100级</button></td>"
+        else
+        str+="<td colspan=3>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td colspan=3 style='text-align:left'>九龙真诀·合击 "+player.zonghengLv[5]+"/"+player.zonghengLv[4]+"级</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td colspan=3 style='text-align:left'>命中+"+player.zonghengLv[5]+"%</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(5).lt(1e100))
+        str+="<td colspan=3 style='text-align:left'>消耗 金币×"+format(CalcZonghengNeed(5),0)+"</td>"
+        else
+        str+="<td colspan=3>　</td>"
+        str+="</tr>"
+        str+="<tr>"
+        if(CalcZonghengNeed(5).lt(1e100))
+        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(5,0)'>升级</button><button onclick='ZonghengUpgrade(5,1)' style='margin-left:-8px'>升100级</button></td>"
+        else
+        str+="<td colspan=3>　</td>"
+        str+="</tr>"
         str+="</table>"
     }
     return str
@@ -511,6 +623,7 @@ function QuitFight(){
     player.fightTabId=-1
     player.inFight=-1
     player.inHanging=-1
+    player.fightingTime=0
     player.hangingTime=0
     player.which=0
 }
