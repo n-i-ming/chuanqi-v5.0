@@ -82,8 +82,8 @@ function TryUpgradeMeridian(id,wh){
                 }
                 else{
                     logs.push("成功升级 "+count+"级经脉")
-                    break
                 }
+                break
             }
         }
     }
