@@ -222,7 +222,7 @@ const bookAttribute=[
     ["象甲功",{damageMinus:n(40)},{def:n(20)},n(1.5e7),14],
     ["长春功",{damageMinus:n(40)},{hpmax:n(30)},n(3e7),19],
     ["炼灵诀",{criticalDamage:n(5)},{atk:n(30)},n(1e8),23],
-    ["封魂咒",{damageAdd:n(80)},{hit:n(30)},n(5e8),23],
+    ["封魂咒",{damageAdd:n(80)},{hit:n(30)},n(5e8),28],
 ]
 const petFrontName=[
     "幼年体·","成熟体·","完全体·"
