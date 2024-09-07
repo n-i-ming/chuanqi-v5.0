@@ -12,11 +12,16 @@
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
+	num: "赞助列表",
 	name: "",
 }
 
-let changelog = `<h1>更新记录:</h1><br>
+let changelog = `<h1>赞助鸣谢:</h1><br>
+	(想改名可以联系作者)<br><br>
+	<h3>Fye</h3><br>
+	<h3>嘤嘤嘤（默默无闻）</h3><br>
+	<h3>吾心吾行澄如明镜</h3><br>
+	<h3>爱发电用户_kvg9</h3><br><br>
 		`
 
 let winText = `恭喜通关!您已经完成了这个游戏.`

@@ -42,6 +42,7 @@ function CalcAttribute(){
     }
     for(let i=0;i<petAttribute.length;i++){
         let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
+        mul*=(1+0.01*player.petUpgradeLv)
         for(let id in petAttribute[i][1]){
             player[id]=player[id].add(n(petAttribute[i][1][id]).mul(mul))
         }
@@ -49,9 +50,15 @@ function CalcAttribute(){
     player.damageAdd=player.damageAdd.add(player.zonghengLv[2])
     player.damageMinus=player.damageMinus.add(player.zonghengLv[3])
     for(let i=0;i<soulcircleAttribute.length;i++){
-        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
         for(let id in soulcircleAttribute[i][1]){
             player[id]=player[id].add(n(soulcircleAttribute[i][1][id]).mul(mul))
+        }
+    }
+    for(let i=0;i<skillAttribute.length;i++){
+        let mul=player.skillLv[i]*(1+0.01*player.skillUpgradeLv)
+        for(let id in skillAttribute[i][1]){
+            player[id]=player[id].add(n(skillAttribute[i][1][id]).mul(mul))
         }
     }
 }
@@ -99,6 +106,7 @@ function CalcAttribute(){
     }
     for(let i=0;i<petAttribute.length;i++){
         let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
+        mul*=(1+0.01*player.petUpgradeLv)
         for(let id in petAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(petAttribute[i][2][id]).mul(mul).div(100)))
         }
@@ -111,7 +119,7 @@ function CalcAttribute(){
     player.damageMinus=player.damageMinus.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
     player.hit=player.hit.mul(n(1).add(n(player.zonghengLv[5]).div(100)))
     for(let i=0;i<soulcircleAttribute.length;i++){
-        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
         for(let id in soulcircleAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(soulcircleAttribute[i][2][id]).mul(mul).div(100)))
         }
@@ -120,6 +128,12 @@ function CalcAttribute(){
         let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
         for(let id in soulboneAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(soulboneAttribute[i][2][id]).mul(mul).div(100)))
+        }
+    }
+    for(let i=0;i<skillAttribute.length;i++){
+        let mul=player.skillLv[i]*(1+0.01*player.skillUpgradeLv)
+        for(let id in skillAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(n(skillAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
 }
@@ -196,7 +210,7 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[175,n(1e13)],[200,n(1e14)]
+    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[200,n(1e13)],[300,n(1e14)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -236,7 +250,7 @@ function TransmigrationUpgrade(id,type){
     }
 }
 const divineNeed=[
-    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[700,n(1e13)],[800,n(1e14)]
+    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[800,n(1e13)],[1200,n(1e14)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -314,7 +328,7 @@ function TempleUpgrade(id,type){
     }
 }
 const ConcealNeed=[
-    [100,200],[200,500],[300,1000],[400,2000],[500,3000],[600,5000],[700,7500],[800,10000]
+    [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000]
 ]
 function CalcConcealNeed(){
     for(let i=0;i<ConcealNeed.length;i++){
@@ -393,6 +407,117 @@ function ZonghengUpgrade(id,type){
         }
         else{
             logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
+        }
+    }
+}
+const SoulcircleNeed=[
+    [100,100],[200,200],[300,300],[400,400],[500,500]
+]
+function CalcSoulcircleNeed(){
+    for(let i=0;i<SoulcircleNeed.length;i++){
+        if(player.soulcircleUpgradeLv<SoulcircleNeed[i][0]){
+            return SoulcircleNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function SoulcircleUpgrade(type){
+    if(type==0){
+        if(player.bag[24]<CalcSoulcircleNeed()){
+            NotEnough(24)
+        }
+        else{
+            player.bag[24]-=CalcSoulcircleNeed()
+            player.soulcircleUpgradeLv+=1
+            logs.push("成功升级 1级 魂环强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[24]>=CalcSoulcircleNeed()){
+            player.bag[24]-=CalcSoulcircleNeed()
+            player.soulcircleUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(24)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 魂环强化")
+        }
+    }
+}
+const PetNeed=[
+    [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000]
+]
+function CalcPetNeed(){
+    for(let i=0;i<PetNeed.length;i++){
+        if(player.petUpgradeLv<PetNeed[i][0]){
+            return PetNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function PetUpgrade(type){
+    if(type==0){
+        if(player.bag[17]<CalcPetNeed()){
+            NotEnough(17)
+        }
+        else{
+            player.bag[17]-=CalcPetNeed()
+            player.petUpgradeLv+=1
+            logs.push("成功升级 1级 宠物强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[17]>=CalcPetNeed()){
+            player.bag[17]-=CalcPetNeed()
+            player.petUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(17)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 宠物强化")
+        }
+    }
+}
+const SkillNeed=[
+    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800]
+]
+function CalcSkillNeed(){
+    for(let i=0;i<SkillNeed.length;i++){
+        if(player.skillUpgradeLv<SkillNeed[i][0]){
+            return SkillNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function SkillUpgrade(type){
+    if(type==0){
+        if(player.bag[36]<CalcSkillNeed()){
+            NotEnough(36)
+        }
+        else{
+            player.bag[36]-=CalcSkillNeed()
+            player.skillUpgradeLv+=1
+            logs.push("成功升级 1级 绝技强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[36]>=CalcSkillNeed()){
+            player.bag[36]-=CalcSkillNeed()
+            player.skillUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(36)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 绝技强化")
         }
     }
 }

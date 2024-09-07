@@ -51,7 +51,7 @@
 		<div class="vl" v-if="player.navTab !== 'none' && tmp.other.splitScreen && player.tab!='none' && !(gameEnded && !player.keepGoing)"></div>
 		<div v-if="(gameEnded && !player.keepGoing)" class="fullWidth">
 			<br>
-			<h2>{{modInfo.name}} {{VERSION.withoutName}}</h2><br><br>
+			<h2>{{modInfo.name}} v0.0</h2><br><br>
 			<h3 v-html="modInfo.winText"></h3><br>
 			<h3>看QQ来催更!</h3><br><br>
 			<div v-if="!player.timePlayedReset">通关花了您 {{formatTime(player.timePlayed)}} .</div>
@@ -76,7 +76,7 @@
 			left: (player.tab !== 'none' && player.navTab !== 'none')}"
 			 :style="{'margin-top': !readData(layoutInfo.showTree) && player.tab == 'info-tab' ? '50px' : ''}">
 			<div id="version" onclick="showTab('changelog-tab')" class="overlayThing" style="margin-right: 13px;color:black" >
-				{{VERSION.withoutName}}</div>
+				{{VERSION.num}}</div>
 			<button
 			v-if="((player.navTab == 'none' && (tmp[player.tab].row == 'side' || tmp[player.tab].row == 'otherside' || player[player.tab].prevTab)) || player[player.navTab]?.prevTab)"				class="other-back overlayThing" onclick="goBack(player.navTab == 'none' ? player.tab : player.navTab)">←</button>
 			<img id="optionWheel" class="overlayThing" v-if="player.tab!='options-tab'" src="options_wheel.png"

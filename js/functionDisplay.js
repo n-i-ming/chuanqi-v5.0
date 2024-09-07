@@ -355,10 +355,20 @@ function getMainSubTabDisplay(){
     }
     else if(player.mainTabId==13){//宠物
         str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>宠物强化 "+format(player.petUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有宠物增益+"+format(player.petUpgradeLv,0)+"%</td>"
+        if(CalcPetNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 肉块×"+format(CalcPetNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='PetUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='PetUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
         for(let i=0;i<petAttribute.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:200px'>"+(player.petLv[i]==-1?"":petFrontName[Math.min(2,player.petLv[i])])+petAttribute[i][0]+(player.petLv[i]>=2?(player.petLv[i]-2)+"级":"")+"</td>"
             let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
+            mul*=(1+0.01*player.petUpgradeLv)
             str+="<td style='text-align:left;'>"
             for(let id in petAttribute[i][1]){
                 str+=attributeToName[id]+"+"+format(n(mul).mul(petAttribute[i][1][id]),1)+" "
@@ -502,10 +512,19 @@ function getMainSubTabDisplay(){
         str+="拥有魂环碎片 "+format(player.bag[24],0)+"<br>"
         str+="拥有魂力 "+format(player.soulPower,0)+"<br><br>"
         str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>魂环强化 "+format(player.soulcircleUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有魂环增益+"+format(player.soulcircleUpgradeLv,0)+"%</td>"
+        if(CalcSoulcircleNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 魂环碎片×"+format(CalcSoulcircleNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='SoulcircleUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='SoulcircleUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
         for(let i=0;i<soulcircleAttribute.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:300px'>"+soulcircleFrontName[Math.min(6,player.soulcircleLv[i])]+soulcircleAttribute[i][0]+(player.soulcircleLv[i]>=6?(player.soulcircleLv[i]-6)+"级":"")+"</td>"
-            let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+            let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
             str+="<td style='text-align:left;'>"
             for(let id in soulcircleAttribute[i][1]){
                 str+=attributeToName[id]+"+"+format(n(mul).mul(soulcircleAttribute[i][1][id]),1)+" "
@@ -572,6 +591,44 @@ function getMainSubTabDisplay(){
                 str+="<td><button onclick='TryEat("+i+")'>吞噬</button></td>"
                 str+="</tr>"
             }
+        }
+        str+="</table>"
+    }
+    else if(player.mainTabId==18){//绝技
+        str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>绝技强化 "+format(player.skillUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有绝技增益+"+format(player.skillUpgradeLv,0)+"%</td>"
+        if(CalcSkillNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 绝技图册×"+format(CalcSkillNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='SkillUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='SkillUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
+        for(let i=0;i<skillAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='width:200px;text-align:left'>"+skillAttribute[i][0]+" "+format(player.skillLv[i],0)+"级</td>"
+            let mul=player.skillLv[i]*(1+0.01*player.skillUpgradeLv)
+            str+="<td style='text-align:left;'>"
+            for(let id in skillAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(skillAttribute[i][1][id]).mul(mul),1)+" "
+            }
+            for(let id in skillAttribute[i][2]){
+                str+=attributeToName[id]+"+"+format(n(skillAttribute[i][2][id]).mul(mul),1)+"% "
+            }
+            str+="</td>"
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.skillLv[i]==10)str+=" colspan=2"
+            str+=">"
+            if(player.skillLv[i]<10){
+                str+="消耗 绝技图册×"+format(skillAttribute[i][3],0)
+                +"</td>"
+                str+="<td style='text-align:right'><button onclick='TryUpgradeSkill("+i+",0)'>升级</button></td>"
+                str+="<td style='text-align:left'><button onclick='TryUpgradeSkill("+i+",1)' style='margin-left:-10px'>一键升级</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
         }
         str+="</table>"
     }

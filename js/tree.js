@@ -87,6 +87,9 @@ addLayer("tree-tab",{
         while(player.soulboneLv.length<soulboneAttribute.length){
             player.soulboneLv.push(0)
         }
+        while(player.skillLv.length<skillAttribute.length){
+            player.skillLv.push(0)
+        }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])
         }

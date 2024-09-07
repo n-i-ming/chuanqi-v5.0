@@ -361,6 +361,35 @@ function TryEat(id){
     " 获得 "+format(player.bag[bagDisplayList[id]]*eatPointList[id],0)+"吞噬点")
     player.bag[bagDisplayList[id]]=0
 }
+function TryUpgradeSkill(id,wh){
+    if(player.skillLv[id]==10){
+        return
+    }
+    if(wh==0){
+        if(player.bag[36]>=skillAttribute[id][3]){
+            player.bag[36]-=skillAttribute[id][3]
+            player.skillLv[id]+=1
+            logs.push("成功升级 "+skillAttribute[id][0]+" 1级")
+        }
+        else{
+            NotEnough(36)
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[36]>=skillAttribute[id][3] && player.skillLv[id]<10){
+            player.bag[36]-=skillAttribute[id][3]
+            player.skillLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(36)
+        }
+        else{
+            logs.push("成功升级 "+skillAttribute[id][0]+" "+count+"级")
+        }
+    }
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){
