@@ -81,7 +81,7 @@ function QuitFightZone(){
         let dropList=[]
         for(let i=0;i<zoneMonster[player.onZoneMonsterId].dropList.length;i++){
             let ii=zoneMonster[player.onZoneMonsterId].dropList[i],count=0
-            let sqrtNum=Math.min(player.hangingTimeZone,10000),sqrtTimes=Math.floor(player.hangingTimeZone/sqrtNum)
+            let sqrtTimes=Math.min(player.hangingTimeZone,10000),sqrtNum=Math.floor(player.hangingTimeZone/sqrtTimes)
             let re=player.hangingTimeZone-sqrtNum*sqrtTimes
             for(let j=0;j<sqrtTimes;j++){
                 if(random()<=1/ii[0]){
