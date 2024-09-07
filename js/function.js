@@ -355,6 +355,12 @@ function TryUpgradeSoulbone(id,wh){
         }
     }
 }
+function TryEat(id){
+    player.eatPoint+=player.bag[bagDisplayList[id]]*eatPointList[id]
+    logs.push("成功吞噬 "+idToName[bagDisplayList[id]]+"×"+format(player.bag[bagDisplayList[id]],0)+
+    " 获得 "+format(player.bag[bagDisplayList[id]]*eatPointList[id],0)+"吞噬点")
+    player.bag[bagDisplayList[id]]=0
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){

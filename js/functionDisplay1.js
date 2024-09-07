@@ -81,7 +81,14 @@ function QuitFightZone(){
         let dropList=[]
         for(let i=0;i<zoneMonster[player.onZoneMonsterId].dropList.length;i++){
             let ii=zoneMonster[player.onZoneMonsterId].dropList[i],count=0
-            for(let j=0;j<player.hangingTimeZone;j++){
+            let sqrtNum=Math.min(player.hangingTimeZone,10000),sqrtTimes=Math.floor(player.hangingTimeZone/sqrtNum)
+            let re=player.hangingTimeZone-sqrtNum*sqrtTimes
+            for(let j=0;j<sqrtTimes;j++){
+                if(random()<=1/ii[0]){
+                    count+=ii[2]*sqrtNum
+                }
+            }
+            for(let j=0;j<re;j++){
                 if(random()<=1/ii[0]){
                     count+=ii[2]
                 }
@@ -125,7 +132,7 @@ function DealFightZone(){
         }
     }
     else{
-        let count=player.zoneMonsterAtk.sub(player.def).max(0)
+        let count=player.zoneMonsterAtk.sub(player.zoneDef).max(0)
         let hitRate=player.zoneMonsterHit.div(player.zoneHit.add(player.zoneMonsterHit))
         if(n(random()).lte(hitRate)){
             player.zoneHp=player.zoneHp.sub(count)

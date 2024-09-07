@@ -105,7 +105,7 @@ function getMainSubTabDisplay(){
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/10000级</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/40000级</td>"
             str+="<td style='text-align:left;width:100px'>"+attributeToName[list[i]]+"+"+player.spiritLv[i]+"%</td>"
             if(CalcSpiritNeed(i)<1e100){
                 str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+CalcSpiritNeed(i)+"</td>"
@@ -249,7 +249,7 @@ function getMainSubTabDisplay(){
     else if(player.mainTabId==10){//暗器
         str+="<table>"
         str+="<tr>"
-        str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"/200级</td>"
+        str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有暗器增益+"+format(player.concealLv,0)+"%</td>"
         if(CalcConcealNeed()<1e100){
             str+="<td style='text-align:right;'>消耗 陨铁×"+format(CalcConcealNeed(),0)+"</td>"
@@ -504,7 +504,7 @@ function getMainSubTabDisplay(){
         str+="<table>"
         for(let i=0;i<soulcircleAttribute.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:250px'>"+soulcircleFrontName[Math.min(6,player.soulcircleLv[i])]+soulcircleAttribute[i][0]+(player.soulcircleLv[i]>=6?(player.soulcircleLv[i]-6)+"级":"")+"</td>"
+            str+="<td style='text-align:left;width:300px'>"+soulcircleFrontName[Math.min(6,player.soulcircleLv[i])]+soulcircleAttribute[i][0]+(player.soulcircleLv[i]>=6?(player.soulcircleLv[i]-6)+"级":"")+"</td>"
             let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
             str+="<td style='text-align:left;'>"
             for(let id in soulcircleAttribute[i][1]){
@@ -556,6 +556,22 @@ function getMainSubTabDisplay(){
             }
             str+="</td>"
             str+="</tr>"
+        }
+        str+="</table>"
+    }
+    else if(player.mainTabId==17){//吞噬
+        str+="吞噬点 "+format(player.eatPoint,0)+"<br>"
+        str+="等级属性×"+format(n(player.eatPoint).add(1).pow(0.25))+"<br><br>"
+        str+="<table>"
+        for(let i=0;i<bagDisplayList.length;i++){
+            let id=bagDisplayList[i]
+            if(player.bag[id]>0 && eatPointList[i]>0){
+                str+="<tr>"
+                str+="<td style='width:200px;text-align:left'>"+idToName[id]+"</td>"
+                str+="<td style='width:200px;text-align:left'>可获得 "+format(eatPointList[i]*player.bag[id],0)+"吞噬点</td>"
+                str+="<td><button onclick='TryEat("+i+")'>吞噬</button></td>"
+                str+="</tr>"
+            }
         }
         str+="</table>"
     }
@@ -666,7 +682,14 @@ function QuitFight(){
         let dropList=[]
         for(let i=0;i<monster[player.onMonsterId].dropList.length;i++){
             let ii=monster[player.onMonsterId].dropList[i],count=0
-            for(let j=0;j<player.hangingTime;j++){
+            let sqrtTimes=Math.min(player.hangingTime,10000),sqrtNum=Math.floor(player.hangingTime/sqrtTimes)
+            let re=player.hangingTime-sqrtNum*sqrtTimes
+            for(let j=0;j<sqrtTimes;j++){
+                if(random()<=1/ii[0]){
+                    count+=ii[2]*sqrtNum
+                }
+            }
+            for(let j=0;j<re;j++){
                 if(random()<=1/ii[0]){
                     count+=ii[2]
                 }

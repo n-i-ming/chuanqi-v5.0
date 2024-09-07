@@ -1,9 +1,9 @@
 function CalcAttribute(){
     let list=["hpmax","atk","def","hit"]
-    player.hpmax=n(100).mul(player.lv)
-    player.atk=n(10).mul(player.lv)
-    player.def=n(10).mul(player.lv)
-    player.hit=n(100).add(n(5).mul(player.lv))
+    player.hpmax=n(100).mul(player.lv).mul(n(player.eatPoint).add(1).pow(0.25))
+    player.atk=n(10).mul(player.lv).mul(n(player.eatPoint).add(1).pow(0.25))
+    player.def=n(10).mul(player.lv).mul(n(player.eatPoint).add(1).pow(0.25))
+    player.hit=n(100).add(n(5).mul(player.lv).mul(n(player.eatPoint).add(1).pow(0.25)))
     player.criticalDamage=n(200)
     player.damageAdd=n(100)
     player.damageMinus=n(0)
@@ -138,7 +138,7 @@ function CalcAttribute(){
         }
     }
 
-    player.zoneHpmax=n(player.transmigrationLv.hpmax)
+    player.zoneHpmax=n(player.transmigrationLv.hpmax).mul(5)
     player.zoneAtk=n(player.transmigrationLv.atk)
     player.zoneDef=n(player.transmigrationLv.def)
     player.zoneHit=n(player.transmigrationLv.hit)
@@ -146,7 +146,8 @@ function CalcAttribute(){
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
     [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)],
-    [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)],[80000,n(2e7)],[90000,n(3e7)],[100000,n(5e7)],[110000,n(7e7)],[120000,n(1e8)]
+    [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)],[80000,n(2e7)],[90000,n(3e7)],[100000,n(5e7)],[110000,n(7e7)],[120000,n(1e8)],
+    [130000,n(1.5e8)],[140000,n(2e8)],[150000,n(3e8)],[160000,n(5e8)],[170000,n(1e9)],[180000,n(2e9)],[190000,n(3e9)],[200000,n(5e9)]
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){
@@ -158,7 +159,7 @@ function CalcExpNeed(){
 }
 const spiritNeed=[
     [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50],[1500,75],[2000,100],[3000,125],[4000,150],[5000,200],[6000,225],[7000,250],[8000,275],[9000,300],
-    [10000,350]
+    [10000,350],[12000,400],[14000,450],[16000,500],[20000,600],[25000,700],[30000,800],[35000,900],[40000,1000]
 ]
 function CalcSpiritNeed(id){
     for(let i=0;i<spiritNeed.length;i++){
@@ -195,7 +196,7 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)]
+    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[175,n(1e13)],[200,n(1e14)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -235,7 +236,7 @@ function TransmigrationUpgrade(id,type){
     }
 }
 const divineNeed=[
-    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)]
+    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[700,n(1e13)],[800,n(1e14)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -276,7 +277,7 @@ function DivineUpgrade(type){
     }
 }
 const templeNeed=[
-    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100],[2000,150]
+    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100],[2000,150],[2500,200],[3000,250]
 ]
 function CalcTempleNeed(id){
     for(let i=0;i<templeNeed.length;i++){
@@ -313,7 +314,7 @@ function TempleUpgrade(id,type){
     }
 }
 const ConcealNeed=[
-    [100,200],[200,500]
+    [100,200],[200,500],[300,1000],[400,2000],[500,3000],[600,5000],[700,7500],[800,10000]
 ]
 function CalcConcealNeed(){
     for(let i=0;i<ConcealNeed.length;i++){
@@ -350,7 +351,7 @@ function ConcealUpgrade(type){
     }
 }
 const ZonghengNeed=[
-    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)]
+    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)],[3000,n(1e10)],[4000,n(1e11)],[5000,n(1e12)]
 ]
 function CalcZonghengNeed(id){
     for(let i=0;i<ZonghengNeed.length;i++){
