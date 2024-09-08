@@ -9,6 +9,8 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'>暴击伤害</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.criticalDamage,0)+"%</td></tr>"
         str+="<tr><td style='text-align:left'>伤害穿透</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.damageAdd,0)+"%</td></tr>"
         str+="<tr><td style='text-align:left'>伤害减免</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.damageMinus,0)+"%</td></tr>"
+        str+="<tr><td style='text-align:left'>　</td></tr>"
+        str+="<tr><td style='text-align:left'>挂机速度</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.hangingSpeed,3)+"</td></tr>"
         str+="</table>"
         str+="<br>"
         str+="<button onclick='AutoUpgrade()'>一键升级</button><br>"
@@ -236,7 +238,8 @@ function getMainSubTabDisplay(){
         for(let i=0;i<list.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:150px'>"+list[i]+"神庙 "+format(player.templeLv[i],0)+"级</td>"
-            str+="<td style='text-align:left;width:150px'>"+list[i]+"+"+format(player.templeLv[i],0)+"%</td>"
+            str+="<td style='text-align:left;width:150px'>"+list[i]+"+"
+            +format(n(player.templeLv[i]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[i]/100))).sub(100),0)+"%</td>"
             if(CalcTempleNeed(i)<=1e100){
                 str+="<td style='text-align:right'>消耗 琥珀×"+format(CalcTempleNeed(i),0)+"</td>"
                 str+="<td style='text-align:right'><button onclick='TempleUpgrade("+i+",0)'>升级</button></td>"
@@ -245,6 +248,7 @@ function getMainSubTabDisplay(){
             str+="</tr>"
         }
         str+="</table>"
+        str+="<br>每100级神庙 , 独立提升对应收益5%<br>"
     }
     else if(player.mainTabId==10){//暗器
         str+="<table>"
@@ -632,6 +636,41 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
+    else if(player.mainTabId==19){//无限
+        str+="拥有无限宝石碎片 "+format(player.bag[40],0)+"<br><br>"
+        str+="<table>"
+        for(let i=0;i<infinityAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='width:200px;text-align:left'>"+infinityAttribute[i][0]+"·"+format(player.infinityLv[i],0)+"阶</td>"
+            str+="<td style='text-align:left;'>"
+            for(let id in infinityAttribute[i][1]){
+                str+=attributeToName[id]+"+"+(player.infinityLv[i]==0?0:format(n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).mul(100).sub(100),0))+" "
+            }
+            for(let id in infinityAttribute[i][2]){
+                str+=attributeToName[id]+"+"+(player.infinityLv[i]==0?0:format(n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).mul(100).sub(100),0))+"% "
+            }
+            str+="</td>"
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.infinityLv[i]==100)str+=" colspan=2"
+            str+=">"
+            if(player.infinityLv[i]<100){
+                str+="消耗 无限宝石碎片×"+format(infinityAttribute[i][3],0)+" 金币×"+format(infinityAttribute[i][4].mul(n(1.1).pow(player.infinityLv[i])),0)
+                +"</td>"
+                str+="<td style='text-align:right'><button onclick='TryUpgradeInfinity("+i+",0)'>升阶</button></td>"
+                str+="<td style='text-align:left'><button onclick='TryUpgradeInfinity("+i+",1)' style='margin-left:-10px'>一键升阶</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
+    else if(player.mainTabId==20){//分身
+        str+="你拥有 "+format(player.separationLv,0)+" 尊分身<br>"
+        str+="使你的挂机速度×"+format(player.separationLv*0.5+1,1)+"<br><br>"
+        str+="下一尊分身需要 达到"+format((player.separationLv+1)*1e5,0)+"级 , 并消耗 金币×"+format(n(1e10).mul(n(1e5).pow(player.separationLv)),0)+"<br>"
+        str+="<br><button onclick='TryBuildSeparation()'>凝聚</button><br>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -660,7 +699,7 @@ function getFightSubTabDisplay(){
         str+="</tr></table>"
         str+="<br>"
         if(player.inHanging==1){
-            str+="已挂机 "+format(Math.floor(player.hangingTime),0)+" 次<br><br>"
+            str+="已挂机 "+format(Math.floor(Math.floor(player.hangingTime)*player.hangingSpeed),0)+" 次<br><br>"
         }
         str+="<button onclick='QuitFight()'>结束战斗</button>"
     }
@@ -727,7 +766,7 @@ function EnterFight(id){
 }
 function QuitFight(){
     if(player.inHanging==1){
-        player.hangingTime=Math.floor(player.hangingTime)
+        player.hangingTime=Math.floor(Math.floor(player.hangingTime)*player.hangingSpeed)
         let expgain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.expMul)
         let moneygain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.moneyMul)
         let cultivationgain=n(monster[player.onMonsterId].drop).pow(0.5).mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul)

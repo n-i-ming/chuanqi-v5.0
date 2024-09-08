@@ -390,6 +390,60 @@ function TryUpgradeSkill(id,wh){
         }
     }
 }
+function TryUpgradeInfinity(id,wh){
+    if(player.infinityLv[id]==100){
+        return
+    }
+    if(wh==0){
+        if(player.bag[40]>=infinityAttribute[id][3] && player.money.gte(infinityAttribute[id][4].mul(n(1.1).pow(player.infinityLv[id])))){
+            player.bag[40]-=infinityAttribute[id][3]
+            player.money=player.money.sub(infinityAttribute[id][4].mul(n(1.1).pow(player.infinityLv[id])))
+            player.infinityLv[id]+=1
+            logs.push("成功升阶 "+infinityAttribute[id][0]+" 1阶")
+        }
+        else{
+            if(player.bag[40]<infinityAttribute[id][3]){
+                NotEnough(40)
+            }
+            else{
+                logs.push("金币不够")
+            }
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[40]>=infinityAttribute[id][3] && player.money.gte(infinityAttribute[id][4].mul(n(1.1).pow(player.infinityLv[id]))) && player.infinityLv[id]<100){
+            player.bag[40]-=infinityAttribute[id][3]
+            player.money=player.money.sub(infinityAttribute[id][4].mul(n(1.1).pow(player.infinityLv[id])))
+            player.infinityLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            if(player.bag[40]<infinityAttribute[id][3]){
+                NotEnough(40)
+            }
+            else{
+                logs.push("金币不够")
+            }
+        }
+        else{
+            logs.push("成功升阶 "+infinityAttribute[id][0]+" "+count+"阶")
+        }
+    }
+}
+function TryBuildSeparation(){
+    if(player.lv<(player.separationLv+1)*1e5){
+        logs.push("等级不够")
+    }
+    else if(player.money.lt(n(1e10).mul(n(1e5).pow(player.separationLv)))){
+        logs.push("金币不够")
+    }
+    else{
+        player.money=player.money.sub(n(1e10).mul(n(1e5).pow(player.separationLv)))
+        player.separationLv+=1
+        logs.push("成功凝聚 1尊分身")
+    }
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){

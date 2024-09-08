@@ -61,6 +61,11 @@ function CalcAttribute(){
             player[id]=player[id].add(n(skillAttribute[i][1][id]).mul(mul))
         }
     }
+    for(let i=0;i<infinityAttribute.length;i++){
+        for(let id in infinityAttribute[i][1]){
+            player[id]=player[id].add(player.infinityLv[i]==0?0:n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).sub(1).mul(100))
+        }
+    }
 }
     {//mul
     for(let i=0;i<pelletAttribute.length;i++){
@@ -136,15 +141,20 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(skillAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
+    for(let i=0;i<infinityAttribute.length;i++){
+        for(let id in infinityAttribute[i][2]){
+            player[id]=player[id].mul(n(1).add(player.infinityLv[i]==0?0:n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).sub(1)))
+        }
+    }
 }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
     player.expMul=n(1)
     player.moneyMul=n(1)
     player.cultivationMul=n(1)
-    player.expMul=player.expMul.mul(n(1).add(0.01*player.templeLv[0]))
-    player.moneyMul=player.moneyMul.mul(n(1).add(0.01*player.templeLv[1]))
-    player.cultivationMul=player.cultivationMul.mul(n(1).add(0.01*player.templeLv[2]))
+    player.expMul=player.expMul.mul(n(1).add(n(player.templeLv[0]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[0]/100))).sub(100).div(100)))
+    player.moneyMul=player.moneyMul.mul(n(1).add(n(player.templeLv[1]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[1]/100))).sub(100).div(100)))
+    player.cultivationMul=player.cultivationMul.mul(n(player.templeLv[2]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[2]/100))).sub(100).div(100))
     for(let i=0;i<soulboneAttribute.length;i++){
         let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
         for(let id in soulboneAttribute[i][1]){
@@ -156,12 +166,18 @@ function CalcAttribute(){
     player.zoneAtk=n(player.transmigrationLv.atk)
     player.zoneDef=n(player.transmigrationLv.def)
     player.zoneHit=n(player.transmigrationLv.hit)
+
+    player.hangingSpeed=1
+    player.hangingSpeed+=0.23488
+    player.hangingSpeed*=player.separationLv*0.5+1
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
     [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)],
     [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)],[80000,n(2e7)],[90000,n(3e7)],[100000,n(5e7)],[110000,n(7e7)],[120000,n(1e8)],
-    [130000,n(1.5e8)],[140000,n(2e8)],[150000,n(3e8)],[160000,n(5e8)],[170000,n(1e9)],[180000,n(2e9)],[190000,n(3e9)],[200000,n(5e9)]
+    [130000,n(1.5e8)],[140000,n(2e8)],[150000,n(3e8)],[160000,n(5e8)],[170000,n(1e9)],[180000,n(2e9)],[190000,n(3e9)],[200000,n(5e9)],
+    [2.1e5,n(7e9)],[2.2e5,n(1e10)],[2.3e5,n(1.2e10)],[2.4e5,n(1.5e10)],[2.5e5,n(2e10)],[2.6e5,n(2.5e10)],[2.7e5,n(3e10)],
+    [2.8e5,n(4e10)],[2.9e5,n(5e10)],[3e5,n(6.5e10)]
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){

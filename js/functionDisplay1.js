@@ -24,7 +24,7 @@ function getZoneSubTabDisplay(){
         str+="</tr></table>"
         str+="<br>"
         if(player.inHangingZone==1){
-            str+="已挂机 "+format(Math.floor(player.hangingTimeZone),0)+" 次<br><br>"
+            str+="已挂机 "+format(Math.floor(Math.floor(player.hangingTimeZone)*player.hangingSpeed),0)+" 次<br><br>"
         }
         str+="<button onclick='QuitFightZone()'>结束战斗</button>"
     }
@@ -45,6 +45,7 @@ function getZoneSubTabDisplay(){
         str+="</tr><tr>"
         str+="<td style='text-align:left'>掉落</td>"
         str+="</tr><tr>"
+        if(zoneMonster[id].drop.gt(0.001))
         str+="<td colspan=3 style='text-align:left'>魂力×"+format(zoneMonster[id].drop,0)+"</td>"
         str+="</tr><tr>"
         for(let i=0;i<zoneMonster[id].dropList.length;i++){
@@ -74,10 +75,13 @@ function EnterFightZone(id){
 }
 function QuitFightZone(){
     if(player.inHangingZone==1){
-        player.hangingTimeZone=Math.floor(player.hangingTimeZone)
+        player.hangingTimeZone=Math.floor(Math.floor(player.hangingTimeZone)*player.hangingSpeed)
         let soulPowergain=zoneMonster[player.onZoneMonsterId].drop.mul(player.hangingTimeZone)
         player.soulPower=player.soulPower.add(soulPowergain)
-        let str="挂机 "+format(player.hangingTimeZone,0)+" 次 , 获得 魂力×"+format(soulPowergain,0)
+        let str="挂机 "+format(player.hangingTimeZone,0)+" 次 , 获得 "
+        if(soulPowergain.gt(0.001)){
+            str+="魂力×"+format(soulPowergain,0)
+        }
         let dropList=[]
         for(let i=0;i<zoneMonster[player.onZoneMonsterId].dropList.length;i++){
             let ii=zoneMonster[player.onZoneMonsterId].dropList[i],count=0

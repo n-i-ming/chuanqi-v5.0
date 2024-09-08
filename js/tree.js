@@ -90,6 +90,9 @@ addLayer("tree-tab",{
         while(player.skillLv.length<skillAttribute.length){
             player.skillLv.push(0)
         }
+        while(player.infinityLv.length<infinityAttribute.length){
+            player.infinityLv.push(0)
+        }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])
         }
@@ -218,7 +221,9 @@ addLayer("tree-tab",{
                 str+="每次转生独立增加 1%对应属性<br><br>"
                 str+="每滴神力独立增加 0.5%伤害穿透和伤害减免<br><br>"
                 str+="每级难度增加怪物 5%生命、攻击、防御 3%命中 1%伤害穿透和伤害减免<br>"
-                str+="每级难度增加 1%经验、金币、修为获取"
+                str+="每级难度增加 1%经验、金币、修为获取<br><br>"
+                str+="副本与挂机的战斗是独立的<br>"
+                str+="副本中属性等于对应属性转生次数<br>其中生命是5倍<br>"
             }
             return str
         }],
