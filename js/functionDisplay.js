@@ -19,7 +19,7 @@ function getMainSubTabDisplay(){
         str+="<table>"
         for(let i=0;i<bagDisplayList.length;i++){
             if(player.bag[bagDisplayList[i]]>0){
-                str+="<tr><td>"+idToName[bagDisplayList[i]]+"×"+player.bag[bagDisplayList[i]]+"</td></tr>"
+                str+="<tr><td>"+idToName[bagDisplayList[i]]+"×"+format(player.bag[bagDisplayList[i]],0)+"</td></tr>"
             }
         }
         str+="</table>"
@@ -107,8 +107,8 @@ function getMainSubTabDisplay(){
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+player.spiritLv[i]+"/40000级</td>"
-            str+="<td style='text-align:left;width:100px'>"+attributeToName[list[i]]+"+"+player.spiritLv[i]+"%</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+format(player.spiritLv[i],0)+"级</td>"
+            str+="<td style='text-align:left;width:150px'>"+attributeToName[list[i]]+"+"+format(n(player.spiritLv[i]).mul(n(1.1).pow(CalcSpiritStage(i))),0)+"%</td>"
             if(CalcSpiritNeed(i)<1e100){
                 str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+CalcSpiritNeed(i)+"</td>"
                 str+="<td style='text-align:left;'><button onclick='SpiritUpgrade("+i+",0)'>修炼</button></td>"
@@ -117,6 +117,7 @@ function getMainSubTabDisplay(){
             str+="</tr>"
         }
         str+="</table>"
+        str+="<br>每一个阶段的元神独立提升属性加成10%<br>"
     }
     else if(player.mainTabId==5){//经脉
         str+="<table>"
@@ -126,19 +127,19 @@ function getMainSubTabDisplay(){
         str+="<td>阴脉"+(player.meridianLv[1][0]+1)+"-"+player.meridianLv[1][1]+"</td>"
         str+="</tr>"
         str+="<tr>"
-        str+="<td>攻击+"+(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.ceil(player.meridianLv[0][1]/2))+"%</td>"
+        str+="<td>攻击+"+format((meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.ceil(player.meridianLv[0][1]/2)),0)+"%</td>"
         str+="<td style='width:200px'></td>"
-        str+="<td>生命+"+(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.ceil(player.meridianLv[1][1]/2))+"%</td>"
+        str+="<td>生命+"+format((meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.ceil(player.meridianLv[1][1]/2)),0)+"%</td>"
         str+="</tr>"
         str+="<tr>"
-        str+="<td>命中+"+(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2))+"%</td>"
+        str+="<td>命中+"+format((meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2)),0)+"%</td>"
         str+="<td style='width:200px'></td>"
-        str+="<td>防御+"+(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.floor(player.meridianLv[1][1]/2))+"%</td>"
+        str+="<td>防御+"+format((meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.floor(player.meridianLv[1][1]/2)),0)+"%</td>"
         str+="</tr>"
         str+="<tr>"
-        str+="<td>伤害穿透+"+(player.meridianLv[0][0]*10)+"</td>"
+        str+="<td>伤害穿透+"+format((player.meridianLv[0][0]*10),0)+"</td>"
         str+="<td style='width:200px'></td>"
-        str+="<td>伤害减免+"+(player.meridianLv[1][0]*10)+"</td>"
+        str+="<td>伤害减免+"+format((player.meridianLv[1][0]*10),0)+"</td>"
         str+="</tr>"
         str+="<tr><td>　</td></tr>"
         if(player.meridianLv[0][0]!=meridianAttribute.length-1 || player.meridianLv[1][0]!=meridianAttribute.length-1){
@@ -172,12 +173,12 @@ function getMainSubTabDisplay(){
         str+="<tr><td colspan=4 style='text-align:left'>当前仙阶 "+immortalAttribute[player.immortalLv][0]+"</td></tr>"
         str+="<tr>"
         for(let id in immortalAttribute[player.immortalLv][1]){
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+immortalAttribute[player.immortalLv][1][id]+"%</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv][1][id],0)+"%</td>"
         }
         str+="</tr>"
         str+="<tr>"
         for(let id in immortalAttribute[player.immortalLv][2]){
-            str+="<td style='text-align:left'>"+attributeToName[id]+"+"+immortalAttribute[player.immortalLv][2][id]+"</td>"
+            str+="<td style='text-align:left'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv][2][id],0)+"</td>"
         }
         str+="</tr>"
         str+="<tr>"
@@ -188,12 +189,12 @@ function getMainSubTabDisplay(){
             str+="<tr><td colspan=4 style='text-align:left'>下一仙阶 "+immortalAttribute[player.immortalLv+1][0]+"</td></tr>"
             str+="<tr>"
             for(let id in immortalAttribute[player.immortalLv+1][1]){
-                str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+immortalAttribute[player.immortalLv+1][1][id]+"%</td>"
+                str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv+1][1][id],0)+"%</td>"
             }
             str+="</tr>"
             str+="<tr>"
             for(let id in immortalAttribute[player.immortalLv+1][2]){
-                str+="<td style='text-align:left'>"+attributeToName[id]+"+"+immortalAttribute[player.immortalLv+1][2][id]+"</td>"
+                str+="<td style='text-align:left'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv+1][2][id],0)+"</td>"
             }
             str+="</tr>"
             str+="<tr>"
@@ -210,7 +211,7 @@ function getMainSubTabDisplay(){
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
             str+="<tr>"
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"转生 "+player.transmigrationLv[list[i]]+"/"+format(player[list[i]].logBase(2).floor(),0)+"</td>"
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"转生 "+format(player.transmigrationLv[list[i]],0)+"/"+format(player[list[i]].logBase(2).floor(),0)+"</td>"
             str+="<td style='text-align:left;width:150px'>"+attributeToName[list[i]]+"+"+format(n(1.01).pow(player.transmigrationLv[list[i]]).sub(1).mul(100),1)+"%</td>"
             str+="<td style='text-align:right'>消耗 金币×"+format(CalcTransmigrationNeed(list[i]),0)+"</td>"
             str+="<td style='text-align:right'><button onclick='TransmigrationUpgrade("+'"'+list[i]+'"'+",0)'>转生</button></td>"
@@ -223,7 +224,7 @@ function getMainSubTabDisplay(){
         str+="<table>"
         let mx=player.transmigrationLv["hpmax"]+player.transmigrationLv["atk"]+player.transmigrationLv["def"]+player.transmigrationLv["hit"]
         str+="<tr>"
-        str+="<td style='text-align:left;width:200px'>神力 "+player.divineLv+"/"+format(mx,0)+"</td>"
+        str+="<td style='text-align:left;width:200px'>神力 "+format(player.divineLv,0)+"/"+format(mx,0)+"</td>"
         str+="<td style='text-align:left;width:150px'>伤害穿透+"+format(n(1.005).pow(player.divineLv).sub(1).mul(100),1)+"%</td>"
         str+="<td style='text-align:left;width:150px'>伤害减免+"+format(n(1.005).pow(player.divineLv).sub(1).mul(100),1)+"%</td>"
         str+="<td style='text-align:right'>消耗 金币×"+format(CalcDivineNeed(),0)+"</td>"
@@ -293,12 +294,12 @@ function getMainSubTabDisplay(){
         let list=["生命","攻击","防御","命中"]
         let list1=["伤害穿透","伤害减免"]
         for(let i=0;i<list.length;i++){
-            str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+(wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1])))+"%</td>"
+            str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+format((wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1]))),0)+"%</td>"
         }
         str+="</tr>"
         str+="<tr>"
         for(let i=0;i<list1.length;i++){
-            str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+(wingAttribute[player.wingLv[0]][3])+"</td>"
+            str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+format((wingAttribute[player.wingLv[0]][3]),0)+"</td>"
         }
         str+="</tr>"
         str+="<tr><td>　</td></tr>"
@@ -310,12 +311,12 @@ function getMainSubTabDisplay(){
             if(a2<10)a2+=1
             else a1+=1,a2=0
             for(let i=0;i<list.length;i++){
-                str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+(wingAttribute[a1][1].add(wingAttribute[a1][2].mul(a2)))+"%</td>"
+                str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+format((wingAttribute[a1][1].add(wingAttribute[a1][2].mul(a2))),0)+"%</td>"
             }
             str+="</tr>"
             str+="<tr>"
             for(let i=0;i<list1.length;i++){
-                str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+(wingAttribute[a1][3])+"</td>"
+                str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+format((wingAttribute[a1][3]),0)+"</td>"
             }
             str+="</tr>"
             if(a2!=0){
@@ -728,7 +729,7 @@ function getFightSubTabDisplay(){
         str+="</tr><tr>"
         str+="<td colspan=3 style='text-align:left'>金币×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)).mul(player.moneyMul),0)+"</td>"
         str+="</tr><tr>"
-        str+="<td colspan=3 style='text-align:left'>修为×"+format(n(monster[id].drop.pow(0.5).mul(n(1.01).pow(player.inFightDifficulty))).mul(player.cultivationMul),0)+"</td>"
+        str+="<td colspan=3 style='text-align:left'>修为×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul),0)+"</td>"
         for(let i=0;i<monster[id].dropList.length;i++){
             str+="</tr><tr>"
             str+="<td colspan=3 style='text-align:left'>"+idToName[monster[id].dropList[i][1]]+"×"+format(monster[id].dropList[i][2],0)+" 1/"+format(monster[id].dropList[i][0],0)+"</td>"
@@ -749,13 +750,13 @@ function EnterFight(id){
     player.hp=player.hpmax
     let num=monster[id].num
     player.inFightDifficulty=player.nowDifficulty
-    player.monsterHp=n(100).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
-    player.monsterHpmax=n(100).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
-    player.monsterAtk=n(10).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
-    player.monsterDef=n(10).mul(num).mul(n(1.05).pow(player.inFightDifficulty))
-    player.monsterHit=n(100).add(n(10).mul(n(num).pow(0.8))).mul(n(1.03).pow(player.inFightDifficulty))
-    player.monsterDamageAdd=n(100).mul(n(num).pow(0.2)).mul(n(1.01).pow(player.inFightDifficulty))
-    player.monsterDamageMinus=n(100).mul(n(num).pow(0.2).sub(1).div(2)).mul(n(1.01).pow(player.inFightDifficulty))
+    player.monsterHp=n(100).mul(num).mul(n(1.1).pow(player.inFightDifficulty))
+    player.monsterHpmax=n(100).mul(num).mul(n(1.1).pow(player.inFightDifficulty))
+    player.monsterAtk=n(10).mul(num).mul(n(1.1).pow(player.inFightDifficulty))
+    player.monsterDef=n(10).mul(num).mul(n(1.1).pow(player.inFightDifficulty))
+    player.monsterHit=n(100).add(n(10).mul(n(num).pow(0.8))).mul(n(1.05).pow(player.inFightDifficulty))
+    player.monsterDamageAdd=n(100).mul(n(num).pow(0.2)).mul(n(1.02).pow(player.inFightDifficulty))
+    player.monsterDamageMinus=n(100).mul(n(num).pow(0.2).sub(1).div(2)).mul(n(1.02).pow(player.inFightDifficulty))
     if(player.maxKillDifficulty[id]<player.nowDifficulty){
         player.inFight=1
     }
@@ -769,7 +770,7 @@ function QuitFight(){
         player.hangingTime=Math.floor(Math.floor(player.hangingTime)*player.hangingSpeed)
         let expgain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.expMul)
         let moneygain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.moneyMul)
-        let cultivationgain=n(monster[player.onMonsterId].drop).pow(0.5).mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul)
+        let cultivationgain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul)
         player.exp=player.exp.add(expgain)
         player.money=player.money.add(moneygain)
         player.cultivation=player.cultivation.add(cultivationgain)

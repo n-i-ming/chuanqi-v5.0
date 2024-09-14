@@ -458,3 +458,32 @@ function validateNumber(event) {
       input.oldValue = input.value;
     }
 }
+function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    return crypto.subtle.digest("SHA-256", msgBuffer)
+      .then(hashBuffer => {
+        return Array.prototype.map.call(
+          new Uint8Array(hashBuffer),
+          x => (`00${x.toString(16)}`).slice(-2)
+        ).join('');
+      });
+}
+function DealExchangeCode(){
+    sha256(document.getElementById("exchangeCode").value).then(hash=>{
+        if(hash=="b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70"){//x2
+            player.exchangeCodeList.push("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70");
+            logs.push("兑换码 - 小小支持一下 已成功激活")
+        }
+        else if(hash=="e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875"){//x2.5
+            player.exchangeCodeList.push("e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875");
+            logs.push("兑换码 - 大力支持 已成功激活")
+        }
+        else if(hash=="69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b"){//x3
+            player.exchangeCodeList.push("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b");
+            logs.push("兑换码 - 超级大力支持 已成功激活")
+        }
+        else{
+            logs.push("兑换码 无效")
+        }
+    })
+}

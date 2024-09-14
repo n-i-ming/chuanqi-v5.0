@@ -159,6 +159,7 @@ addLayer("tree-tab",{
             str+="<td><button style='margin-left:-10px' onclick='"+(player.onMonsterId!=-1?"player.fightTabId="+(10000+player.onMonsterId)+",":"")+"player.nowBigTab="+'"fight"'+"'>挂机</button></td>"
             str+="<td><button style='margin-left:-10px' onclick='"+(player.onZoneMonsterId!=-1?"player.zoneTabId="+(10000+player.onZoneMonsterId)+",":"")+"player.nowBigTab="+'"zone"'+"'>副本</button></td>"
             str+="<td><button style='margin-left:-10px' onclick='player.nowBigTab="+'"show"'+"'>介绍</button></td>"
+            str+="<td><button style='margin-left:-10px' onclick='player.nowBigTab="+'"exchange"'+"'>兑换</button></td>"
             str+="</tr></table><br>"
 
             if(player.nowBigTab=='main'){
@@ -220,10 +221,25 @@ addLayer("tree-tab",{
                 str+="属性转生次数上限 = ⌊log<sub>2</sub>(对应属性)⌋<br>"
                 str+="每次转生独立增加 1%对应属性<br><br>"
                 str+="每滴神力独立增加 0.5%伤害穿透和伤害减免<br><br>"
-                str+="每级难度增加怪物 5%生命、攻击、防御 3%命中 1%伤害穿透和伤害减免<br>"
+                str+="每级难度增加怪物 10%生命、攻击、防御 5%命中 2%伤害穿透和伤害减免<br>"
                 str+="每级难度增加 1%经验、金币、修为获取<br><br>"
                 str+="副本与挂机的战斗是独立的<br>"
                 str+="副本中属性等于对应属性转生次数<br>其中生命是5倍<br>"
+            }
+            else if(player.nowBigTab=='exchange'){
+                str+="兑换码<br>"
+                str+="<input id='exchangeCode' style='width:400px'>"
+                str+="<button onclick='DealExchangeCode()'>确认</button>"
+                str+="<br><br>已激活的兑换码<br>"
+                if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
+                    str+="小小支持一下 : 挂机速度×2<br>"
+                }
+                if(player.exchangeCodeList.includes("e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875")){
+                    str+="大力支持 : 挂机速度×2.5<br>"
+                }
+                if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
+                    str+="超级大力支持 : 挂机速度×3<br>"
+                }
             }
             return str
         }],

@@ -79,7 +79,7 @@ function CalcAttribute(){
         }
     }
     for(let i=0;i<list.length;i++){
-        player[list[i]]=player[list[i]].mul(n(1).add(n(0.01).mul(player.spiritLv[i])))
+        player[list[i]]=player[list[i]].mul(n(1).add(n(0.01).mul(n(player.spiritLv[i]).mul(n(1.1).pow(CalcSpiritStage(i))))))
     }
     player.atk=player.atk.mul(n(1).add(n(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.ceil(player.meridianLv[0][1]/2)).div(100)))
     player.hit=player.hit.mul(n(1).add(n(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2)).div(100)))
@@ -168,8 +168,17 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=0.23488
+    player.hangingSpeed+=0.65488
     player.hangingSpeed*=player.separationLv*0.5+1
+    if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
+        player.hangingSpeed*=2
+    }
+    if(player.exchangeCodeList.includes("e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875")){
+        player.hangingSpeed*=2.5
+    }
+    if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
+        player.hangingSpeed*=3
+    }
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
@@ -177,7 +186,10 @@ const expNeed=[
     [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)],[80000,n(2e7)],[90000,n(3e7)],[100000,n(5e7)],[110000,n(7e7)],[120000,n(1e8)],
     [130000,n(1.5e8)],[140000,n(2e8)],[150000,n(3e8)],[160000,n(5e8)],[170000,n(1e9)],[180000,n(2e9)],[190000,n(3e9)],[200000,n(5e9)],
     [2.1e5,n(7e9)],[2.2e5,n(1e10)],[2.3e5,n(1.2e10)],[2.4e5,n(1.5e10)],[2.5e5,n(2e10)],[2.6e5,n(2.5e10)],[2.7e5,n(3e10)],
-    [2.8e5,n(4e10)],[2.9e5,n(5e10)],[3e5,n(6.5e10)]
+    [2.8e5,n(4e10)],[2.9e5,n(5e10)],[3e5,n(6.5e10)],[3.1e5,n(8e10)],
+    [3.2e5,n(1e11)],[3.3e5,n(1.2e11)],[3.4e5,n(1.5e11)],[3.5e5,n(2e11)],[3.6e5,n(2.5e11)],[3.7e5,n(3e11)],[3.8e5,n(4e11)],[3.9e5,n(5e11)],[4e5,n(6.5e11)],[4.1e5,n(8e11)],
+    [4.2e5,n(1e12)],[4.3e5,n(1.2e12)],[4.4e5,n(1.5e12)],[4.5e5,n(2e12)],[4.6e5,n(2.5e12)],[4.7e5,n(3e12)],[4.8e5,n(4e12)],[4.9e5,n(5e12)],[5e5,n(6.5e12)],[5.1e5,n(8e12)],
+    [5.2e5,n(1e13)],[5.3e5,n(1.2e13)],[5.4e5,n(1.5e13)],[5.5e5,n(2e13)],[5.6e5,n(2.5e13)],[5.7e5,n(3e13)],[5.8e5,n(4e13)],[5.9e5,n(5e13)],[6e5,n(6.5e13)],[6.1e5,n(8e13)],
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){
@@ -189,7 +201,9 @@ function CalcExpNeed(){
 }
 const spiritNeed=[
     [100,10],[200,15],[300,20],[400,25],[500,30],[600,35],[700,40],[1000,50],[1500,75],[2000,100],[3000,125],[4000,150],[5000,200],[6000,225],[7000,250],[8000,275],[9000,300],
-    [10000,350],[12000,400],[14000,450],[16000,500],[20000,600],[25000,700],[30000,800],[35000,900],[40000,1000]
+    [10000,350],[12000,400],[14000,450],[16000,500],[20000,600],[25000,700],[30000,800],[35000,900],[40000,1000],[45000,1200],[50000,1400],
+    [55000,1600],[60000,1800],[65000,2000],[70000,2500],[75000,3000],[80000,3500],[90000,4000],[1e5,4500],[1.1e5,5000],
+    [1.2e5,6000],[1.3e5,7000],[1.4e5,8500],[1.5e5,10000],[1.6e5,15000],[1.7e5,20000],[1.8e5,25000],[1.9e5,30000],[2e5,35000]
 ]
 function CalcSpiritNeed(id){
     for(let i=0;i<spiritNeed.length;i++){
@@ -198,6 +212,14 @@ function CalcSpiritNeed(id){
         }
     }
     return n(1e308)
+}
+function CalcSpiritStage(id){
+    for(let i=0;i<spiritNeed.length;i++){
+        if(player.spiritLv[id]<spiritNeed[i][0]){
+            return i
+        }
+    }
+    return spiritNeed.length
 }
 function SpiritUpgrade(id,type){
     if(type==0){
@@ -226,7 +248,8 @@ function SpiritUpgrade(id,type){
     }
 }
 const transmigrationNeed=[
-    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[200,n(1e13)],[300,n(1e14)]
+    [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[200,n(1e13)],
+    [300,n(1e14)],[400,n(1e15)],[500,n(1e16)],[600,n(1e17)],[700,n(1e18)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -266,7 +289,8 @@ function TransmigrationUpgrade(id,type){
     }
 }
 const divineNeed=[
-    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[800,n(1e13)],[1200,n(1e14)]
+    [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[800,n(1e13)],
+    [1200,n(1e14)],[1600,n(1e15)],[2000,n(1e16)],[2400,n(1e17)],[2800,n(1e18)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -307,7 +331,10 @@ function DivineUpgrade(type){
     }
 }
 const templeNeed=[
-    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100],[2000,150],[2500,200],[3000,250]
+    [50,10],[100,20],[200,25],[300,30],[400,40],[500,50],[1000,75],[1500,100],[2000,150],[2500,200],[3000,250],[3500,300],[4000,350],
+    [4500,400],[5000,500],[5500,750],[6000,1000],[6500,1500],[7000,2000],[7500,2500],[8000,3000],[8500,4000],[9500,5000],[10000,6000],
+    [10500,8000],[11000,10000],[11500,15000],[12000,20000],[12500,25000],[13000,30000],[13500,40000],[14000,50000],[14500,75000],[15000,1e5],
+    [15500,1.5e5],[16000,2e5],[16500,2.5e5],[17000,3e5],[17500,4e5],[18000,5e5],
 ]
 function CalcTempleNeed(id){
     for(let i=0;i<templeNeed.length;i++){
@@ -344,7 +371,8 @@ function TempleUpgrade(id,type){
     }
 }
 const ConcealNeed=[
-    [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000]
+    [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000],[900,2500],[1000,3000],
+    [1200,3500],[1400,4000],[1600,4500],[1800,5000],[2000,6000],[2500,7000],[3000,8000],[3500,9000],[4000,10000],[4500,12000],[5000,14000],
 ]
 function CalcConcealNeed(){
     for(let i=0;i<ConcealNeed.length;i++){
@@ -381,7 +409,8 @@ function ConcealUpgrade(type){
     }
 }
 const ZonghengNeed=[
-    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)],[3000,n(1e10)],[4000,n(1e11)],[5000,n(1e12)]
+    [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)],[3000,n(1e10)],[4000,n(1e11)],[5000,n(1e12)],[6000,n(1e13)],
+    [7000,n(1e14)],[8000,n(1e15)],[9000,n(1e16)],[10000,n(1e17)],
 ]
 function CalcZonghengNeed(id){
     for(let i=0;i<ZonghengNeed.length;i++){
@@ -427,7 +456,7 @@ function ZonghengUpgrade(id,type){
     }
 }
 const SoulcircleNeed=[
-    [100,100],[200,200],[300,300],[400,400],[500,500]
+    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000]
 ]
 function CalcSoulcircleNeed(){
     for(let i=0;i<SoulcircleNeed.length;i++){
@@ -464,7 +493,8 @@ function SoulcircleUpgrade(type){
     }
 }
 const PetNeed=[
-    [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000]
+    [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000],[900,2500],[1000,3000],
+    [1200,3500],[1400,4000],[1600,4500],[1800,5000],[2000,6000],[2500,7000],[3000,8000],[3500,9000],[4000,10000],[4500,12000],[5000,14000],
 ]
 function CalcPetNeed(){
     for(let i=0;i<PetNeed.length;i++){
@@ -501,7 +531,8 @@ function PetUpgrade(type){
     }
 }
 const SkillNeed=[
-    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800]
+    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
+    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000]
 ]
 function CalcSkillNeed(){
     for(let i=0;i<SkillNeed.length;i++){
