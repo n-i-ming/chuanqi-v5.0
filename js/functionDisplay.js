@@ -755,8 +755,8 @@ function EnterFight(id){
     player.monsterAtk=n(10).mul(num).mul(n(1.1).pow(player.inFightDifficulty))
     player.monsterDef=n(10).mul(num).mul(n(1.1).pow(player.inFightDifficulty))
     player.monsterHit=n(100).add(n(10).mul(n(num).pow(0.8))).mul(n(1.05).pow(player.inFightDifficulty))
-    player.monsterDamageAdd=n(100).mul(n(num).pow(0.2)).mul(n(1.02).pow(player.inFightDifficulty))
-    player.monsterDamageMinus=n(100).mul(n(num).pow(0.2).sub(1).div(2)).mul(n(1.02).pow(player.inFightDifficulty))
+    player.monsterDamageAdd=n(100).mul(n(num).pow(0.15)).mul(n(1.02).pow(player.inFightDifficulty))
+    player.monsterDamageMinus=n(100).mul(n(num).pow(0.15).sub(1).div(2)).mul(n(1.02).pow(player.inFightDifficulty))
     if(player.maxKillDifficulty[id]<player.nowDifficulty){
         player.inFight=1
     }
