@@ -170,7 +170,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=1.284488
+    player.hangingSpeed+=1.43488
     player.hangingSpeed*=player.separationLv*0.5+1
     if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
         player.hangingSpeed*=2
