@@ -161,7 +161,6 @@ addLayer("tree-tab",{
             str+="<td><button style='margin-left:-10px' onclick='player.nowBigTab="+'"show"'+"'>介绍</button></td>"
             str+="<td><button style='margin-left:-10px' onclick='player.nowBigTab="+'"exchange"'+"'>兑换</button></td>"
             str+="</tr></table><br>"
-
             if(player.nowBigTab=='main'){
                 if(player.mainTabId==-1){
                     str+="<table><tr>"
@@ -239,6 +238,9 @@ addLayer("tree-tab",{
                 }
                 if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
                     str+="超级大力支持 : 挂机速度×3<br>"
+                }
+                if(player.exchangeCodeList.includes("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c")){
+                    str+="冠名支持 : 挂机速度×5<br>"
                 }
             }
             return str

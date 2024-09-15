@@ -172,7 +172,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=1.49488
+    player.hangingSpeed+=1.62488
     player.hangingSpeed*=player.separationLv*0.5+1
     if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
         player.hangingSpeed*=2
@@ -182,6 +182,9 @@ function CalcAttribute(){
     }
     if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
         player.hangingSpeed*=3
+    }
+    if(player.exchangeCodeList.includes("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c")){
+        player.hangingSpeed*=5
     }
 }
 const expNeed=[
@@ -484,7 +487,7 @@ function ZonghengUpgrade(id,type){
     }
 }
 const SoulcircleNeed=[
-    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000],[1200,1500],[1500,2000],[2000,3000]
+    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000],[1200,1500],[1500,2000],[2000,3000],[2500,4000],[3000,5000],[3500,6500],[4000,8000]
 ]
 function CalcSoulcircleNeed(){
     for(let i=0;i<SoulcircleNeed.length;i++){
@@ -521,7 +524,7 @@ function SoulcircleUpgrade(type){
     }
 }
 const SoulboneNeed=[
-    [100,100],[200,200],[300,500],[400,1000],[500,1500],[700,2000],[1000,3000],[1200,4000],[1500,5000],[2000,7000]
+    [100,100],[200,200],[300,500],[400,1000],[500,1500],[700,2000],[1000,3000],[1200,4000],[1500,5000],[2000,7000],[2500,9000],[3000,12000],[3500,15000]
 ]
 function CalcSoulboneNeed(){
     for(let i=0;i<SoulboneNeed.length;i++){

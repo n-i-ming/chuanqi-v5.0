@@ -528,6 +528,10 @@ function DealExchangeCode(){
             player.exchangeCodeList.push("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b");
             logs.push("兑换码 - 超级大力支持 已成功激活")
         }
+        else if(hash=="98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c"){//x3
+            player.exchangeCodeList.push("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c");
+            logs.push("兑换码 - 冠名支持 已成功激活")
+        }
         else{
             logs.push("兑换码 无效")
         }
