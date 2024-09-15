@@ -426,12 +426,12 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(0).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(0,0)'>升级</button><button onclick='ZonghengUpgrade(0,1)' style='margin-left:-8px'>升100级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(0,0)'>升级</button><button onclick='ZonghengUpgrade(0,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(0,2)' style='margin-left:-8px'>升1000级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="<td style='width:20px'></td>"
         if(CalcZonghengNeed(1).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(1,0)'>升级</button><button onclick='ZonghengUpgrade(1,1)' style='margin-left:-8px'>升100级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(1,0)'>升级</button><button onclick='ZonghengUpgrade(1,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(1,2)' style='margin-left:-8px'>升1000级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="</tr>"
@@ -463,12 +463,12 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(2).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(2,0)'>升级</button><button onclick='ZonghengUpgrade(2,1)' style='margin-left:-8px'>升100级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(2,0)'>升级</button><button onclick='ZonghengUpgrade(2,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(2,2)' style='margin-left:-8px'>升1000级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="<td style='width:20px'></td>"
         if(CalcZonghengNeed(3).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(3,0)'>升级</button><button onclick='ZonghengUpgrade(3,1)' style='margin-left:-8px'>升100级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(3,0)'>升级</button><button onclick='ZonghengUpgrade(3,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(3,2)' style='margin-left:-8px'>升1000级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="</tr>"
@@ -489,7 +489,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(4).lt(1e100))
-        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(4,0)'>升级</button><button onclick='ZonghengUpgrade(4,1)' style='margin-left:-8px'>升100级</button></td>"
+        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(4,0)'>升级</button><button onclick='ZonghengUpgrade(4,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(4,2)' style='margin-left:-8px'>升1000级</button></td>"
         else
         str+="<td colspan=3>　</td>"
         str+="</tr>"
@@ -507,7 +507,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(5).lt(1e100))
-        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(5,0)'>升级</button><button onclick='ZonghengUpgrade(5,1)' style='margin-left:-8px'>升100级</button></td>"
+        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(5,0)'>升级</button><button onclick='ZonghengUpgrade(5,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(5,2)' style='margin-left:-8px'>升1000级</button></td>"
         else
         str+="<td colspan=3>　</td>"
         str+="</tr>"
@@ -556,16 +556,25 @@ function getMainSubTabDisplay(){
     else if(player.mainTabId==16){//魂骨
         str+="拥有魂骨碎片 "+format(player.bag[25],0)+"<br><br>"
         str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>魂骨强化 "+format(player.soulboneUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有魂骨获取类增益+"+format(player.soulboneUpgradeLv/10,1)+"% 所有魂骨属性类增益+"+format(player.soulboneUpgradeLv,0)+"%</td>"
+        if(CalcSoulboneNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 魂骨碎片×"+format(CalcSoulboneNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='SoulboneUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='SoulboneUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
         for(let i=0;i<soulboneAttribute.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:250px'>"+soulboneAttribute[i][0]+(player.soulboneLv[i]>=1?(player.soulboneLv[i]-1)+"级":"")+"</td>"
             let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
             str+="<td style='text-align:left;'>"
             for(let id in soulboneAttribute[i][1]){
-                str+=attributeToName[id]+"+"+format(n(mul).mul(soulboneAttribute[i][1][id]),1)+"% "
+                str+=attributeToName[id]+"+"+format(n(mul).mul(soulboneAttribute[i][1][id]).mul(player.soulboneUpgradeLv/1000+1),1)+"% "
             }
             for(let id in soulboneAttribute[i][2]){
-                str+=attributeToName[id]+"+"+format(n(mul).mul(soulboneAttribute[i][2][id]),1)+"% "
+                str+=attributeToName[id]+"+"+format(n(mul).mul(soulboneAttribute[i][2][id]).mul(player.soulboneUpgradeLv/100+1),1)+"% "
             }
             str+="</td>"
             str+="<td style='width:300px;text-align:right'"
@@ -640,15 +649,25 @@ function getMainSubTabDisplay(){
     else if(player.mainTabId==19){//无限
         str+="拥有无限宝石碎片 "+format(player.bag[40],0)+"<br><br>"
         str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>无限宝石强化 "+format(player.infinityUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有无限宝石增益+"+format(player.infinityUpgradeLv,0)+"%</td>"
+        if(CalcInfinityNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 无限宝石碎片×"+format(CalcInfinityNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='InfinityUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='InfinityUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
         for(let i=0;i<infinityAttribute.length;i++){
             str+="<tr>"
             str+="<td style='width:200px;text-align:left'>"+infinityAttribute[i][0]+"·"+format(player.infinityLv[i],0)+"阶</td>"
             str+="<td style='text-align:left;'>"
+            let mul=1+0.01*player.infinityUpgradeLv
             for(let id in infinityAttribute[i][1]){
-                str+=attributeToName[id]+"+"+(player.infinityLv[i]==0?0:format(n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).mul(100).sub(100),0))+" "
+                str+=attributeToName[id]+"+"+(player.infinityLv[i]==0?0:format(n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).mul(100).mul(mul).sub(100),0))+" "
             }
             for(let id in infinityAttribute[i][2]){
-                str+=attributeToName[id]+"+"+(player.infinityLv[i]==0?0:format(n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).mul(100).sub(100),0))+"% "
+                str+=attributeToName[id]+"+"+(player.infinityLv[i]==0?0:format(n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).mul(100).mul(mul).sub(100),0))+"% "
             }
             str+="</td>"
             str+="</td>"

@@ -62,8 +62,9 @@ function CalcAttribute(){
         }
     }
     for(let i=0;i<infinityAttribute.length;i++){
+        let mul=1+0.01*player.infinityUpgradeLv
         for(let id in infinityAttribute[i][1]){
-            player[id]=player[id].add(player.infinityLv[i]==0?0:n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).sub(1).mul(100))
+            player[id]=player[id].add(player.infinityLv[i]==0?0:n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).mul(mul).sub(1).mul(100))
         }
     }
 }
@@ -132,7 +133,7 @@ function CalcAttribute(){
     for(let i=0;i<soulboneAttribute.length;i++){
         let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
         for(let id in soulboneAttribute[i][2]){
-            player[id]=player[id].mul(n(1).add(n(soulboneAttribute[i][2][id]).mul(mul).div(100)))
+            player[id]=player[id].mul(n(1).add(n(soulboneAttribute[i][2][id]).mul(mul).mul(player.soulboneUpgradeLv/100+1).div(100)))
         }
     }
     for(let i=0;i<skillAttribute.length;i++){
@@ -142,8 +143,9 @@ function CalcAttribute(){
         }
     }
     for(let i=0;i<infinityAttribute.length;i++){
+        let mul=1+0.01*player.infinityUpgradeLv
         for(let id in infinityAttribute[i][2]){
-            player[id]=player[id].mul(n(1).add(player.infinityLv[i]==0?0:n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).sub(1)))
+            player[id]=player[id].mul(n(1).add(player.infinityLv[i]==0?0:n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).mul(mul).sub(1)))
         }
     }
 }
@@ -154,11 +156,11 @@ function CalcAttribute(){
     player.cultivationMul=n(1)
     player.expMul=player.expMul.mul(n(1).add(n(player.templeLv[0]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[0]/100))).sub(100).div(100)))
     player.moneyMul=player.moneyMul.mul(n(1).add(n(player.templeLv[1]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[1]/100))).sub(100).div(100)))
-    player.cultivationMul=player.cultivationMul.mul(n(player.templeLv[2]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[2]/100))).sub(100).div(100))
+    player.cultivationMul=player.cultivationMul.mul(n(1).add(n(player.templeLv[2]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[2]/100))).sub(100).div(100)))
     for(let i=0;i<soulboneAttribute.length;i++){
         let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
         for(let id in soulboneAttribute[i][1]){
-            player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(soulboneAttribute[i][1][id]).mul(mul).div(100)))
+            player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(soulboneAttribute[i][1][id]).mul(mul).mul(player.soulboneUpgradeLv/1000+1).div(100)))
         }
     }
 
@@ -168,7 +170,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=1.21488
+    player.hangingSpeed+=1.284488
     player.hangingSpeed*=player.separationLv*0.5+1
     if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
         player.hangingSpeed*=2
@@ -249,7 +251,7 @@ function SpiritUpgrade(id,type){
 }
 const transmigrationNeed=[
     [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[200,n(1e13)],
-    [300,n(1e14)],[400,n(1e15)],[500,n(1e16)],[600,n(1e17)],[700,n(1e18)]
+    [300,n(1e14)],[400,n(1e15)],[500,n(1e16)],[600,n(1e17)],[700,n(1e18)],[800,n(1e19)],[1000,n(1e20)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -290,7 +292,7 @@ function TransmigrationUpgrade(id,type){
 }
 const divineNeed=[
     [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[800,n(1e13)],
-    [1200,n(1e14)],[1600,n(1e15)],[2000,n(1e16)],[2400,n(1e17)],[2800,n(1e18)]
+    [1200,n(1e14)],[1600,n(1e15)],[2000,n(1e16)],[2400,n(1e17)],[2800,n(1e18)],[3200,n(1e19)],[4000,n(1e20)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -373,6 +375,7 @@ function TempleUpgrade(id,type){
 const ConcealNeed=[
     [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000],[900,2500],[1000,3000],
     [1200,3500],[1400,4000],[1600,4500],[1800,5000],[2000,6000],[2500,7000],[3000,8000],[3500,9000],[4000,10000],[4500,12000],[5000,14000],
+    [5500,16000],[6000,18000],[6500,20000],[7000,25000],[8000,30000],[9000,35000],[10000,40000]
 ]
 function CalcConcealNeed(){
     for(let i=0;i<ConcealNeed.length;i++){
@@ -410,7 +413,7 @@ function ConcealUpgrade(type){
 }
 const ZonghengNeed=[
     [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)],[3000,n(1e10)],[4000,n(1e11)],[5000,n(1e12)],[6000,n(1e13)],
-    [7000,n(1e14)],[8000,n(1e15)],[9000,n(1e16)],[10000,n(1e17)],
+    [7000,n(1e14)],[8000,n(1e15)],[9000,n(1e16)],[10000,n(1e17)],[12000,n(1e18)],[14000,n(1e19)],[16000,n(1e20)],[18000,n(1e21)],[20000,n(1e22)],
 ]
 function CalcZonghengNeed(id){
     for(let i=0;i<ZonghengNeed.length;i++){
@@ -440,7 +443,7 @@ function ZonghengUpgrade(id,type){
             logs.push("成功升级 1级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
         }
     }
-    else{
+    else if(type==1){
         let count=0
         while(player.money.gte(CalcZonghengNeed(id)) && count<100 && player.zonghengLv[id]<mx){
             player.money=player.money.sub(CalcZonghengNeed(id))
@@ -454,9 +457,23 @@ function ZonghengUpgrade(id,type){
             logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
         }
     }
+    else if(type==2){
+        let count=0
+        while(player.money.gte(CalcZonghengNeed(id)) && count<1000 && player.zonghengLv[id]<mx){
+            player.money=player.money.sub(CalcZonghengNeed(id))
+            player.zonghengLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
+        }
+    }
 }
 const SoulcircleNeed=[
-    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000]
+    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000],[1200,1500],[1500,2000],[2000,3000]
 ]
 function CalcSoulcircleNeed(){
     for(let i=0;i<SoulcircleNeed.length;i++){
@@ -492,9 +509,47 @@ function SoulcircleUpgrade(type){
         }
     }
 }
+const SoulboneNeed=[
+    [100,100],[200,200],[300,500],[400,1000],[500,1500],[700,2000],[1000,3000],[1200,4000],[1500,5000],[2000,7000]
+]
+function CalcSoulboneNeed(){
+    for(let i=0;i<SoulboneNeed.length;i++){
+        if(player.soulboneUpgradeLv<SoulboneNeed[i][0]){
+            return SoulboneNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function SoulboneUpgrade(type){
+    if(type==0){
+        if(player.bag[25]<CalcSoulboneNeed()){
+            NotEnough(25)
+        }
+        else{
+            player.bag[25]-=CalcSoulboneNeed()
+            player.soulboneUpgradeLv+=1
+            logs.push("成功升级 1级 魂骨强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[25]>=CalcSoulboneNeed()){
+            player.bag[25]-=CalcSoulboneNeed()
+            player.soulboneUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(25)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 魂骨强化")
+        }
+    }
+}
 const PetNeed=[
     [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000],[900,2500],[1000,3000],
     [1200,3500],[1400,4000],[1600,4500],[1800,5000],[2000,6000],[2500,7000],[3000,8000],[3500,9000],[4000,10000],[4500,12000],[5000,14000],
+    [5500,16000],[6000,18000],[6500,20000],[7000,25000],[8000,30000],[9000,35000],[10000,40000]
 ]
 function CalcPetNeed(){
     for(let i=0;i<PetNeed.length;i++){
@@ -532,7 +587,8 @@ function PetUpgrade(type){
 }
 const SkillNeed=[
     [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
-    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000]
+    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
+    [4500,25000],[5000,30000]
 ]
 function CalcSkillNeed(){
     for(let i=0;i<SkillNeed.length;i++){
@@ -565,6 +621,43 @@ function SkillUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 绝技强化")
+        }
+    }
+}
+const InfinityNeed=[
+    [100,200],[200,300],[300,500],[400,750],[500,1000],[700,1500],[1000,2000],[1200,2500],[1500,3000],[2000,3500],[2500,4000],[3000,5000]
+]
+function CalcInfinityNeed(){
+    for(let i=0;i<InfinityNeed.length;i++){
+        if(player.infinityUpgradeLv<InfinityNeed[i][0]){
+            return InfinityNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function InfinityUpgrade(type){
+    if(type==0){
+        if(player.bag[40]<CalcInfinityNeed()){
+            NotEnough(40)
+        }
+        else{
+            player.bag[40]-=CalcInfinityNeed()
+            player.infinityUpgradeLv+=1
+            logs.push("成功升级 1级 无限宝石强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[40]>=CalcInfinityNeed()){
+            player.bag[40]-=CalcInfinityNeed()
+            player.infinityUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(40)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 无限宝石强化")
         }
     }
 }

@@ -395,13 +395,13 @@ const monster=[
     {name:"凶豹刺客9",num:n(6e25),drop:n(1.87e7),dropList:[[10,2,550],[10,3,550],[10,6,13],[10,8,13],[10,10,13],[10,17,8],[10,36,3],[1000,45,1]]},
 ]
 const zoneSubTabList=[
-    [[0,1,2,3,4],[5,6,7,8,9]],[[10,11,12,13,14]]
+    [[0,1,2,3,4],[5,6,7,8,9],[15,16,17,18,19],[20,21,22,23,24]],[[10,11,12,13,14],[25,26,27,28,29]]
 ]
 const zoneMonster=[
     {name:"人面魔蛛",hpmax:n(100),atk:n(20),def:n(15),hit:n(10),drop:n(1),dropList:[[100,24,1],[100,25,1]]},
     {name:"嗜血狼盗",hpmax:n(150),atk:n(30),def:n(25),hit:n(20),drop:n(2),dropList:[[100,24,2],[100,25,2]]},
-    {name:"凤尾鸡冠蛇",hpmax:n(200),atk:n(45),def:n(35),hit:n(30),drop:n(4),dropList:[[100,24,3],[100,25,3]]},
-    {name:"麟甲兽",hpmax:n(250),atk:n(60),def:n(45),hit:n(40),drop:n(6),dropList:[[100,24,4],[100,25,4]]},
+    {name:"凤尾鸡蛇",hpmax:n(200),atk:n(45),def:n(35),hit:n(30),drop:n(4),dropList:[[100,24,3],[100,25,3]]},
+    {name:"麟甲巨兽",hpmax:n(250),atk:n(60),def:n(45),hit:n(40),drop:n(6),dropList:[[100,24,4],[100,25,4]]},
     {name:"曼陀罗蛇",hpmax:n(300),atk:n(75),def:n(55),hit:n(50),drop:n(10),dropList:[[100,24,5],[100,25,5]]},
     {name:"泰坦巨猿",hpmax:n(350),atk:n(90),def:n(70),hit:n(60),drop:n(15),dropList:[[100,24,6],[100,25,6]]},
     {name:"披甲玄龟",hpmax:n(400),atk:n(100),def:n(80),hit:n(70),drop:n(20),dropList:[[100,24,8],[100,25,8]]},
@@ -413,4 +413,19 @@ const zoneMonster=[
     {name:"蜘蛛侠",hpmax:n(350),atk:n(100),def:n(100),hit:n(70),drop:n(0),dropList:[[25,40,3]]},
     {name:"雷神",hpmax:n(450),atk:n(125),def:n(125),hit:n(90),drop:n(0),dropList:[[25,40,4]]},
     {name:"绿巨人",hpmax:n(550),atk:n(150),def:n(150),hit:n(110),drop:n(0),dropList:[[25,40,5]]},
+    {name:"牛角仙王",hpmax:n(650),atk:n(160),def:n(130),hit:n(120),drop:n(50),dropList:[[100,24,18],[100,25,18]]},
+    {name:"幽冥狂狼",hpmax:n(750),atk:n(180),def:n(150),hit:n(140),drop:n(60),dropList:[[100,24,21],[100,25,21]]},
+    {name:"炼狱炎魔",hpmax:n(850),atk:n(200),def:n(170),hit:n(160),drop:n(70),dropList:[[100,24,24],[100,25,24]]},
+    {name:"赤月妖狐",hpmax:n(1000),atk:n(230),def:n(200),hit:n(180),drop:n(80),dropList:[[100,24,27],[100,25,27]]},
+    {name:"铁甲犀牛",hpmax:n(1200),atk:n(260),def:n(230),hit:n(200),drop:n(100),dropList:[[100,24,30],[100,25,30]]},
+    {name:"嗜血魔熊",hpmax:n(1400),atk:n(290),def:n(260),hit:n(220),drop:n(120),dropList:[[100,24,35],[100,25,35]]},
+    {name:"天泉灵狐",hpmax:n(1600),atk:n(320),def:n(290),hit:n(240),drop:n(140),dropList:[[100,24,40],[100,25,40]]},
+    {name:"腐化魔蛛",hpmax:n(1800),atk:n(360),def:n(320),hit:n(260),drop:n(160),dropList:[[100,24,45],[100,25,45]]},
+    {name:"狂暴魔蛛",hpmax:n(2000),atk:n(400),def:n(360),hit:n(280),drop:n(180),dropList:[[100,24,50],[100,25,50]]},
+    {name:"狂暴狼盗",hpmax:n(2200),atk:n(440),def:n(400),hit:n(300),drop:n(200),dropList:[[100,24,55],[100,25,55]]},
+    {name:"黑寡妇",hpmax:n(800),atk:n(200),def:n(200),hit:n(150),drop:n(0),dropList:[[25,40,6]]},
+    {name:"鹰眼",hpmax:n(1050),atk:n(250),def:n(250),hit:n(200),drop:n(0),dropList:[[25,40,7]]},
+    {name:"闪电侠",hpmax:n(1400),atk:n(300),def:n(300),hit:n(250),drop:n(0),dropList:[[25,40,8]]},
+    {name:"蚁人",hpmax:n(1700),atk:n(350),def:n(350),hit:n(300),drop:n(0),dropList:[[25,40,9]]},
+    {name:"奇异博士",hpmax:n(2000),atk:n(400),def:n(400),hit:n(350),drop:n(0),dropList:[[25,40,10]]},
 ]
