@@ -14,7 +14,7 @@ function addedPlayerData() { return {
 
     pelletNum:[],weaponType:[],spiritLv:[0,0,0,0],meridianLv:[[0,0],[0,0]],
     immortalLv:0,immortalTimes:0,transmigrationLv:{hpmax:0,atk:0,def:0,hit:0},divineLv:0,
-    templeLv:[0,0,0],concealType:[],concealLv:0,wingLv:[0,0],bookLv:[],petLv:[],petUpgradeLv:0,petTimes:[],
+    templeLv:[0,0,0],concealType:[],concealLv:0,wingLv:[0,0],bookLv:[],bookUpgradeLv:0,petLv:[],petUpgradeLv:0,petTimes:[],
     zonghengLv:[0,0,0,0,0,0],soulcircleLv:[],soulcircleUpgradeLv:0,soulboneLv:[],soulboneUpgradeLv:0,
     eatPoint:0,skillLv:[],skillUpgradeLv:0,
     infinityLv:[],infinityUpgradeLv:0,separationLv:0,
@@ -49,7 +49,7 @@ const subTabList=[
         "秋风原","望天峰","碧海谷","金银湖","猛虎穴","万寿山","青鸾山","邱塘关","山竹林","伏龙寺",
         "忘铃山","幽香壑","将军墓","无量山","雁门关","藏剑阁","宝藏洞","南诏国","龙门泉","红枫林",
         "坠星谷","迷荒道","巨木窟","深魔崖","水晶宫","上天郊","下天郊","望月宫","东海滨","瑶池台",
-        "南天门","飞鹤楼"
+        "南天门","飞鹤楼","飞仙台","幻海境","死荒漠","妖兽洞"
     ],
     [
         "星斗森林","复仇者联盟"
@@ -59,7 +59,8 @@ const idToName={
     0:"1品丹药",1:"铁矿",2:"元神修炼符",3:"银针",4:"白骨",5:"2品丹药",6:"琥珀",7:"树枝",8:"陨铁",9:"兽珠",10:"羽毛",11:"3品丹药",12:"鱼鳞",13:"凝元功-残页",14:"象甲功-残页",
     15:"4品丹药",16:"霹雳兽蛋",17:"肉块",18:"蛊雕核",19:"长春功-残页",20:"肉粽蟹蛋",21:"狐绒",22:"碧耳兽蛋",23:"炼灵决-残页",24:"魂环碎片",25:"魂骨碎片",26:"5品丹药",
     27:"赤影兽蛋",28:"封魂咒-残页",29:"宝石",30:"6品丹药",31:"铁甲兽蛋",32:"青元剑诀-残页",33:"锐角犀蛋",34:"真阳决-残页",35:"7品丹药",36:"绝技图册",
-    37:"玄冰",38:"紫罗玄功-残页",39:"牛剑士蛋",40:"无限宝石碎片",41:"8品丹药",42:"灯笼",43:"蓝灵兽蛋",44:"黄枫剑诀-残页",45:"荒木兽蛋"
+    37:"玄冰",38:"紫罗玄功-残页",39:"牛剑士蛋",40:"无限宝石碎片",41:"8品丹药",42:"灯笼",43:"蓝灵兽蛋",44:"黄枫剑诀-残页",45:"荒木兽蛋",46:"噬魂大法-残页",
+    47:"9品丹药",48:"青仔蛋",49:"明王决-残页",50:"功法精粹"
 }
 const idFrom={
     0:"新手村-所有怪物",1:"新手村-牛",2:"新手村后的所有怪物",3:"新手村后的所有怪物",4:"乱葬岗-大骷髅",5:"土匪窝的所有怪物",6:"昆仑山后的所有怪物",7:"昆仑山-树妖9",
@@ -67,26 +68,27 @@ const idFrom={
     15:"万寿山-所有怪物",16:"青鸾山-木桩怪9",17:"青鸾山后所有怪物",18:"邱塘关-蛊雕9",19:"山竹林-竹仙9",20:"伏龙寺-堕僧9",21:"忘铃山-狐狸精9",22:"幽香壑-火灵9",
     23:"将军墓-鬼将9",24:"星斗森林",25:"星斗森林",26:"无量山-所有怪物",27:"雁门关-西北狼9",28:"藏剑阁-榆木傀儡9",29:"宝藏洞-护宝神兽9",30:"南诏国-剧毒狼蛛9",
     31:"龙门泉-水鬼9",32:"红枫林-红枫熊9",33:"坠星谷-青牛精9",34:"迷荒道-凝冰兽9",35:"巨木窟-巨石魔卫9",36:"深魔崖后的所有怪物",37:"水晶宫-幻海玄冰9",
-    38:"上天郊-天郊力士9",39:"下天郊-天鸟9",40:"复仇者联盟",41:"望月宫-天狗9",42:"东海滨-灯笼鱼9",43:"瑶池台-魔化道士9",44:"南天门-天魔蝎9",45:"飞鹤楼-凶豹刺客9"
+    38:"上天郊-天郊力士9",39:"下天郊-天鸟9",40:"复仇者联盟",41:"望月宫-天狗9",42:"东海滨-灯笼鱼9",43:"瑶池台-魔化道士9",44:"南天门-天魔蝎9",45:"飞鹤楼-凶豹刺客9",
+    46:"飞仙台-白骨妖9",47:"幻海境-乌鸦刺客9",48:"死荒漠-铜锤妖9",49:"妖兽洞-蜘蛛怪9",50:"妖兽洞后的所有怪物"
 }
 const bagDisplayList=[
-    2 ,3 ,6 ,8 ,10,17,24,25,36,40,
+    2 ,3 ,6 ,8 ,10,17,24,25,36,40,50,
     //主要
-    0 ,5 ,11,15,26,30,35,41,
+    0 ,5 ,11,15,26,30,35,41,47,
     //丹药
     1 ,4 ,7 ,9 ,12,18,21,29,37,42,
     //兵器
-    13,14,19,23,28,32,34,38,44,
+    13,14,19,23,28,32,34,38,44,46,49,
     //功法
-    16,20,22,27,31,33,39,43,45
+    16,20,22,27,31,33,39,43,45,48
     //宠物
 ]
 const eatPointList=[
-    0,0,0,0,0,0,0,0,0,0,
-    1,2,3,4,5,6,7,8,
+    0,0,0,0,0,0,0,0,0,0,0,
+    1,2,3,4,5,6,7,8,9,
     10,20,30,40,50,60,70,80,90,100,
-    10,20,30,40,50,60,70,80,90,
-    100,200,300,400,500,600,700,800,900
+    10,20,30,40,50,60,70,80,90,100,110,
+    100,200,300,400,500,600,700,800,900,1000
 ]
 const pelletAttribute=[
     [n(1000),n(100),n(100),0.01,0.01,0.01,0,n(1000)],
@@ -97,6 +99,7 @@ const pelletAttribute=[
     [n(200000),n(20000),n(20000),0.02,0.02,0.02,30,n(1e10)],
     [n(500000),n(50000),n(50000),0.02,0.02,0.02,35,n(3e10)],
     [n(700000),n(70000),n(70000),0.02,0.02,0.02,41,n(5e10)],
+    [n(2000000),n(200000),n(200000),0.03,0.03,0.03,47,n(1e12)],
 ]
 const weaponFrontName=[
     "","凡品·","<text style='color:blue'>精品</text>·","<text style='color:purple'>完美</text>·","<text style='color:orange'>仙品</text>·"
@@ -252,7 +255,41 @@ const immortalAttribute=[
     ["630条大道之主",{hpmax:n(2.5e9),atk:n(1.2e9),def:n(1.2e9),hit:n(5e8)},{damageAdd:n(2.9e6),damageMinus:n(2.9e6)},n(2e21),2000],
     ["640条大道之主",{hpmax:n(3e9),atk:n(1.4e9),def:n(1.4e9),hit:n(6e8)},{damageAdd:n(3e6),damageMinus:n(3e6)},n(3e21),2000],
     ["650条大道之主",{hpmax:n(3.5e9),atk:n(1.6e9),def:n(1.6e9),hit:n(7e8)},{damageAdd:n(3.1e6),damageMinus:n(3.1e6)},n(5e21),2000],
-    ["650条大道之主",{hpmax:n(3.5e9),atk:n(1.6e9),def:n(1.6e9),hit:n(7e8)},{damageAdd:n(3.2e6),damageMinus:n(3.2e6)},n(5e21),2000],
+    ["660条大道之主",{hpmax:n(4e9),atk:n(1.8e9),def:n(1.8e9),hit:n(8e8)},{damageAdd:n(3.2e6),damageMinus:n(3.2e6)},n(7e21),2000],
+    ["670条大道之主",{hpmax:n(5e9),atk:n(2e9),def:n(2e9),hit:n(9e8)},{damageAdd:n(3.3e6),damageMinus:n(3.3e6)},n(1e22),2000],
+    ["680条大道之主",{hpmax:n(6e9),atk:n(2.5e9),def:n(2.5e9),hit:n(1e9)},{damageAdd:n(3.4e6),damageMinus:n(3.4e6)},n(1.2e22),2000],
+    ["690条大道之主",{hpmax:n(7e9),atk:n(3e9),def:n(3e9),hit:n(1.2e9)},{damageAdd:n(3.5e6),damageMinus:n(3.5e6)},n(1.5e22),2000],
+    ["700条大道之主",{hpmax:n(8e9),atk:n(3.5e9),def:n(3.5e9),hit:n(1.4e9)},{damageAdd:n(3.6e6),damageMinus:n(3.6e6)},n(2e22),2000],
+    ["710条大道之主",{hpmax:n(9e9),atk:n(4e9),def:n(4e9),hit:n(1.6e9)},{damageAdd:n(3.7e6),damageMinus:n(3.7e6)},n(3e22),2000],
+    ["720条大道之主",{hpmax:n(1e10),atk:n(4.5e9),def:n(4.5e9),hit:n(1.8e9)},{damageAdd:n(3.8e6),damageMinus:n(3.8e6)},n(5e22),2000],
+    ["730条大道之主",{hpmax:n(1.2e10),atk:n(5e9),def:n(5e9),hit:n(2e9)},{damageAdd:n(3.9e6),damageMinus:n(3.9e6)},n(7e22),2000],
+    ["740条大道之主",{hpmax:n(1.4e10),atk:n(6e9),def:n(6e9),hit:n(2.5e9)},{damageAdd:n(4e6),damageMinus:n(4e6)},n(1e23),2000],
+    ["750条大道之主",{hpmax:n(1.6e10),atk:n(7e9),def:n(7e9),hit:n(3e9)},{damageAdd:n(4.1e6),damageMinus:n(4.1e6)},n(1.2e23),2000],
+    ["760条大道之主",{hpmax:n(1.8e10),atk:n(8e9),def:n(8e9),hit:n(3.5e9)},{damageAdd:n(4.2e6),damageMinus:n(4.2e6)},n(1.5e23),2000],
+    ["770条大道之主",{hpmax:n(2e10),atk:n(9e9),def:n(9e9),hit:n(4e9)},{damageAdd:n(4.3e6),damageMinus:n(4.3e6)},n(2e23),2000],
+    ["780条大道之主",{hpmax:n(2.5e10),atk:n(1e10),def:n(1e10),hit:n(4.5e9)},{damageAdd:n(4.4e6),damageMinus:n(4.4e6)},n(3e23),2000],
+    ["790条大道之主",{hpmax:n(3e10),atk:n(1.2e10),def:n(1.2e10),hit:n(5e9)},{damageAdd:n(4.5e6),damageMinus:n(4.5e6)},n(5e23),2000],
+    ["800条大道之主",{hpmax:n(3.5e10),atk:n(1.4e10),def:n(1.4e10),hit:n(6e9)},{damageAdd:n(4.6e6),damageMinus:n(4.6e6)},n(7e23),2000],
+    ["810条大道之主",{hpmax:n(4e10),atk:n(1.6e10),def:n(1.6e10),hit:n(7e9)},{damageAdd:n(4.7e6),damageMinus:n(4.7e6)},n(1e24),2000],
+    ["820条大道之主",{hpmax:n(4.5e10),atk:n(1.8e10),def:n(1.8e10),hit:n(8e9)},{damageAdd:n(4.8e6),damageMinus:n(4.8e6)},n(1.2e24),2000],
+    ["830条大道之主",{hpmax:n(5e10),atk:n(2e10),def:n(2e10),hit:n(9e9)},{damageAdd:n(4.9e6),damageMinus:n(4.9e6)},n(1.5e24),2000],
+    ["840条大道之主",{hpmax:n(6e10),atk:n(2.5e10),def:n(2.5e10),hit:n(1e10)},{damageAdd:n(5e6),damageMinus:n(5e6)},n(2e24),2000],
+    ["850条大道之主",{hpmax:n(7e10),atk:n(3e10),def:n(3e10),hit:n(1.2e10)},{damageAdd:n(5.1e6),damageMinus:n(5.1e6)},n(3e24),2000],
+    ["860条大道之主",{hpmax:n(8e10),atk:n(3.5e10),def:n(3.5e10),hit:n(1.4e10)},{damageAdd:n(5.2e6),damageMinus:n(5.2e6)},n(5e24),2000],
+    ["870条大道之主",{hpmax:n(9e10),atk:n(4e10),def:n(4e10),hit:n(1.6e10)},{damageAdd:n(5.3e6),damageMinus:n(5.3e6)},n(7e24),2000],
+    ["880条大道之主",{hpmax:n(1e11),atk:n(4.5e10),def:n(4.5e10),hit:n(1.8e10)},{damageAdd:n(5.4e6),damageMinus:n(5.4e6)},n(1e25),2000],
+    ["890条大道之主",{hpmax:n(1.2e11),atk:n(5e10),def:n(5e10),hit:n(2e10)},{damageAdd:n(5.5e6),damageMinus:n(5.5e6)},n(1.2e25),2000],
+    ["900条大道之主",{hpmax:n(1.4e11),atk:n(6e10),def:n(6e10),hit:n(2.5e10)},{damageAdd:n(5.6e6),damageMinus:n(5.6e6)},n(1.5e25),2000],
+    ["910条大道之主",{hpmax:n(1.6e11),atk:n(7e10),def:n(7e10),hit:n(3e10)},{damageAdd:n(5.7e6),damageMinus:n(5.7e6)},n(2e25),2000],
+    ["920条大道之主",{hpmax:n(1.8e11),atk:n(8e10),def:n(8e10),hit:n(3.5e10)},{damageAdd:n(5.8e6),damageMinus:n(5.8e6)},n(3e25),2000],
+    ["930条大道之主",{hpmax:n(2e11),atk:n(9e10),def:n(9e10),hit:n(4e10)},{damageAdd:n(5.9e6),damageMinus:n(5.9e6)},n(5e25),2000],
+    ["940条大道之主",{hpmax:n(2.5e11),atk:n(1e11),def:n(1e11),hit:n(4.5e10)},{damageAdd:n(6e6),damageMinus:n(6e6)},n(7e25),2000],
+    ["950条大道之主",{hpmax:n(3e11),atk:n(1.2e11),def:n(1.2e11),hit:n(5e10)},{damageAdd:n(6.1e6),damageMinus:n(6.1e6)},n(1e26),2000],
+    ["960条大道之主",{hpmax:n(3.5e11),atk:n(1.4e11),def:n(1.4e11),hit:n(6e10)},{damageAdd:n(6.2e6),damageMinus:n(6.2e6)},n(1.2e26),2000],
+    ["970条大道之主",{hpmax:n(4e11),atk:n(1.6e11),def:n(1.6e11),hit:n(7e10)},{damageAdd:n(6.3e6),damageMinus:n(6.3e6)},n(1.5e26),2000],
+    ["980条大道之主",{hpmax:n(4.5e11),atk:n(1.8e11),def:n(1.8e11),hit:n(8e10)},{damageAdd:n(6.4e6),damageMinus:n(6.4e6)},n(2e26),2000],
+    ["990条大道之主",{hpmax:n(5e11),atk:n(2e11),def:n(2e11),hit:n(9e10)},{damageAdd:n(6.5e6),damageMinus:n(6.5e6)},n(3e26),2000],
+    ["1000条大道之主",{hpmax:n(6e11),atk:n(2.5e11),def:n(2.5e11),hit:n(1e11)},{damageAdd:n(6.6e6),damageMinus:n(6.6e6)},n(5e26),2000],
 ]
 const concealFrontName=[
     "","<text style='color:green'>一阶</text>·","<text style='color:blue'>二阶</text>·","<text style='color:red'>三阶</text>·"
@@ -389,6 +426,8 @@ const bookAttribute=[
     ["真阳决",{damageMinus:n(150)},{hpmax:n(40)},n(2e9),34],
     ["紫罗玄功",{damageMinus:n(200)},{def:n(50)},n(5e9),38],
     ["黄枫剑诀",{criticalDamage:n(10)},{hit:n(50)},n(1e10),44],
+    ["噬魂大法",{criticalDamage:n(20)},{atk:n(80)},n(1e11),46],
+    ["明王决",{damageMinus:n(300)},{def:n(100)},n(1e12),49],
 ]
 const petFrontName=[
     "幼年体·","成熟体·","完全体·"
@@ -403,6 +442,7 @@ const petAttribute=[
     ["牛剑士",{damageAdd:n(300)},{hpmax:n(40)},50,n(1.5e11),39],
     ["蓝灵兽",{damageAdd:n(300)},{hit:n(40)},50,n(2e11),43],
     ["荒木兽",{damageAdd:n(500)},{atk:n(60)},75,n(5e11),45],
+    ["青仔",{damageAdd:n(750)},{def:n(80)},100,n(1e13),48],
 ]
 const soulcircleFrontName=[
     "","<text style='color:grey'>十年</text>·","<text style='color:yellow'>百年</text>·","<text style='color:purple'>千年</text>·",

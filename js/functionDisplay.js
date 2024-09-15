@@ -32,7 +32,7 @@ function getMainSubTabDisplay(){
                 all++
             }
         }
-        for(let i=0;i<=Math.min(all,pelletAttribute.length-1);i++){
+        for(let i=Math.min(all,pelletAttribute.length-1);i>=0;i--){
             if(i==Math.min(all,pelletAttribute.length-1) && player.pelletNum[i][0]+player.pelletNum[i][1]+player.pelletNum[i][2]<300){
                 str+="<tr>"
                 str+="<td colspan=3>炼制"+(i+1)+"品丹药需要 "+(i+1)+"品丹药×1 金币×"+format(pelletAttribute[i][7],0)+"</td>"
@@ -331,10 +331,20 @@ function getMainSubTabDisplay(){
     }
     else if(player.mainTabId==12){//功法
         str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>功法强化 "+format(player.bookUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有功法增益+"+format(player.bookUpgradeLv,0)+"%</td>"
+        if(CalcBookNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 功法精粹×"+format(CalcBookNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='BookUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='BookUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
         for(let i=0;i<bookAttribute.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:200px'>"+bookAttribute[i][0]+(player.bookLv[i]>-1?player.bookLv[i]+"级":"")+"</td>"
             let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
+            mul*=(1+0.01*player.bookUpgradeLv)
             str+="<td style='text-align:left;'>"
             for(let id in bookAttribute[i][1]){
                 str+=attributeToName[id]+"+"+format(n(mul).mul(bookAttribute[i][1][id]),1)+" "
@@ -758,12 +768,6 @@ function getFightSubTabDisplay(){
     }
     str+="<br>"
     return str
-}
-function AutoUpgrade(){
-    while(player.exp.gte(CalcExpNeed())){
-        player.exp=player.exp.sub(CalcExpNeed())
-        player.lv+=1
-    }
 }
 function EnterFight(id){
     player.hp=player.hpmax

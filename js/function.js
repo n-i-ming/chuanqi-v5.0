@@ -1,3 +1,49 @@
+function AutoUpgrade(){
+    let nd=[]
+    let count=0
+    while(1){
+        let i=0
+        nd=[]
+        for(i=0;i<expNeed.length;i++){
+            if(player.lv<expNeed[i][0]){
+                nd=expNeed[i]
+                break
+            }
+        }
+        if(i==expNeed.length){
+            break
+        }
+        let cost=nd[1].mul(nd[0]-player.lv)
+        if(player.exp.gte(cost)){
+            player.exp=player.exp.sub(cost)
+            count+=nd[0]-player.lv
+            player.lv=nd[0]
+        }
+        else{
+            break
+        }
+    }
+    if(nd.length==0){
+        if(count==0){
+            logs.push("已达等级上限")
+        }
+        else{
+            logs.push("成功升 "+count+" 级")
+        }
+    }
+    else{
+        let up=player.exp.div(nd[1]).floor().toNumber()
+        player.lv+=up
+        count+=up
+        player.exp=player.exp.sub(nd[1].mul(up))
+        if(count==0){
+            logs.push("经验不够")
+        }
+        else{
+            logs.push("成功升 "+count+" 级")
+        }
+    }
+}
 function TryMakePellet(id,wh){
     let count=Math.min(100-player.pelletNum[id][wh],Math.min(player.money.div(pelletAttribute[id][7]).floor(),player.bag[pelletAttribute[id][6]]))
     player.bag[pelletAttribute[id][6]]-=count

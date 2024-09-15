@@ -36,6 +36,7 @@ function CalcAttribute(){
     player.damageMinus=player.damageMinus.add(wingAttribute[player.wingLv[0]][4])
     for(let i=0;i<bookAttribute.length;i++){
         let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
+        mul*=(1+0.01*player.bookUpgradeLv)
         for(let id in bookAttribute[i][1]){
             player[id]=player[id].add(n(bookAttribute[i][1][id]).mul(mul))
         }
@@ -106,6 +107,7 @@ function CalcAttribute(){
     }
     for(let i=0;i<bookAttribute.length;i++){
         let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
+        mul*=(1+0.01*player.bookUpgradeLv)
         for(let id in bookAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(bookAttribute[i][2][id]).mul(mul).div(100)))
         }
@@ -170,7 +172,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=1.46488
+    player.hangingSpeed+=1.49488
     player.hangingSpeed*=player.separationLv*0.5+1
     if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
         player.hangingSpeed*=2
@@ -187,11 +189,19 @@ const expNeed=[
     [6000,n(15000)],[7000,n(20000)],[10000,n(50000)],[15000,n(100000)],[20000,n(200000)],[25000,n(350000)],[30000,n(500000)],[35000,n(750000)],[40000,n(1e6)],
     [45000,n(1.5e6)],[50000,n(2e6)],[55000,n(3e6)],[60000,n(5e6)],[70000,n(1e7)],[80000,n(2e7)],[90000,n(3e7)],[100000,n(5e7)],[110000,n(7e7)],[120000,n(1e8)],
     [130000,n(1.5e8)],[140000,n(2e8)],[150000,n(3e8)],[160000,n(5e8)],[170000,n(1e9)],[180000,n(2e9)],[190000,n(3e9)],[200000,n(5e9)],
-    [2.1e5,n(7e9)],[2.2e5,n(1e10)],[2.3e5,n(1.2e10)],[2.4e5,n(1.5e10)],[2.5e5,n(2e10)],[2.6e5,n(2.5e10)],[2.7e5,n(3e10)],
-    [2.8e5,n(4e10)],[2.9e5,n(5e10)],[3e5,n(6.5e10)],[3.1e5,n(8e10)],
-    [3.2e5,n(1e11)],[3.3e5,n(1.2e11)],[3.4e5,n(1.5e11)],[3.5e5,n(2e11)],[3.6e5,n(2.5e11)],[3.7e5,n(3e11)],[3.8e5,n(4e11)],[3.9e5,n(5e11)],[4e5,n(6.5e11)],[4.1e5,n(8e11)],
-    [4.2e5,n(1e12)],[4.3e5,n(1.2e12)],[4.4e5,n(1.5e12)],[4.5e5,n(2e12)],[4.6e5,n(2.5e12)],[4.7e5,n(3e12)],[4.8e5,n(4e12)],[4.9e5,n(5e12)],[5e5,n(6.5e12)],[5.1e5,n(8e12)],
-    [5.2e5,n(1e13)],[5.3e5,n(1.2e13)],[5.4e5,n(1.5e13)],[5.5e5,n(2e13)],[5.6e5,n(2.5e13)],[5.7e5,n(3e13)],[5.8e5,n(4e13)],[5.9e5,n(5e13)],[6e5,n(6.5e13)],[6.1e5,n(8e13)],
+    [2.1e5,n(7e9)],[2.2e5,n(1e10)],[2.3e5,n(1.2e10)],[2.4e5,n(1.5e10)],[2.5e5,n(2e10)],[2.6e5,n(2.5e10)],[2.7e5,n(3e10)],[2.8e5,n(4e10)],[2.9e5,n(5e10)],
+    [3e5,n(6.5e10)],[3.1e5,n(8e10)],[3.2e5,n(1e11)],[3.3e5,n(1.2e11)],[3.4e5,n(1.5e11)],[3.5e5,n(2e11)],[3.6e5,n(2.5e11)],[3.7e5,n(3e11)],[3.8e5,n(4e11)],[3.9e5,n(5e11)],
+    [4e5,n(6.5e11)],[4.1e5,n(8e11)],[4.2e5,n(1e12)],[4.3e5,n(1.2e12)],[4.4e5,n(1.5e12)],[4.5e5,n(2e12)],[4.6e5,n(2.5e12)],[4.7e5,n(3e12)],[4.8e5,n(4e12)],[4.9e5,n(5e12)],
+    [5e5,n(6.5e12)],[5.1e5,n(8e12)],[5.2e5,n(1e13)],[5.3e5,n(1.2e13)],[5.4e5,n(1.5e13)],[5.5e5,n(2e13)],[5.6e5,n(2.5e13)],[5.7e5,n(3e13)],[5.8e5,n(4e13)],[5.9e5,n(5e13)],
+    [6e5,n(6.5e13)],[6.1e5,n(8e13)],[6.2e5,n(1e14)],[6.3e5,n(1.2e14)],[6.4e5,n(1.5e14)],[6.5e5,n(2e14)],[6.6e5,n(2.5e14)],[6.7e5,n(3e14)],[6.8e5,n(4e14)],[6.9e5,n(5e14)],
+    [7e5,n(6.5e14)],[7.1e5,n(8e14)],[7.2e5,n(1e15)],[7.3e5,n(1.2e15)],[7.4e5,n(1.5e15)],[7.5e5,n(2e15)],[7.6e5,n(2.5e15)],[7.7e5,n(3e15)],[7.8e5,n(4e15)],[7.9e5,n(5e15)],
+    [8e5,n(6.5e15)],[8.1e5,n(8e15)],[8.2e5,n(1e16)],[8.3e5,n(1.2e16)],[8.4e5,n(1.5e16)],[8.5e5,n(2e16)],[8.6e5,n(2.5e16)],[8.7e5,n(3e16)],[8.8e5,n(4e16)],[8.9e5,n(5e16)],
+    [9e5,n(6.5e16)],[9.1e5,n(8e16)],[9.2e5,n(1e17)],[9.3e5,n(1.2e17)],[9.4e5,n(1.5e17)],[9.5e5,n(2e17)],[9.6e5,n(2.5e17)],[9.7e5,n(3e17)],[9.8e5,n(4e17)],[9.9e5,n(5e17)],
+    [1.00e6,n(6.5e17)],[1.01e6,n(8e17)],[1.02e6,n(1e18)],[1.03e6,n(1.2e18)],[1.04e6,n(1.5e18)],[1.05e6,n(2e18)],[1.06e6,n(2.5e18)],[1.07e6,n(3e18)],[1.08e6,n(4e18)],[1.09e6,n(5e18)],
+    [1.10e6,n(6.5e18)],[1.11e6,n(8e18)],[1.12e6,n(1e19)],[1.13e6,n(1.2e19)],[1.14e6,n(1.5e19)],[1.15e6,n(2e19)],[1.16e6,n(2.5e19)],[1.17e6,n(3e19)],[1.18e6,n(4e19)],[1.19e6,n(5e19)],
+    [1.20e6,n(6.5e19)],[1.21e6,n(8e19)],[1.22e6,n(1e20)],[1.23e6,n(1.2e20)],[1.24e6,n(1.5e20)],[1.25e6,n(2e20)],[1.26e6,n(2.5e20)],[1.27e6,n(3e20)],[1.28e6,n(4e20)],[1.29e6,n(5e20)],
+    [1.30e6,n(6.5e20)],[1.31e6,n(8e20)],[1.32e6,n(1e21)],[1.33e6,n(1.2e21)],[1.34e6,n(1.5e21)],[1.35e6,n(2e21)],[1.36e6,n(2.5e21)],[1.37e6,n(3e21)],[1.38e6,n(4e21)],[1.39e6,n(5e21)],
+    [1.40e6,n(6.5e21)],[1.41e6,n(8e21)],[1.42e6,n(1e22)],[1.43e6,n(1.2e22)],[1.44e6,n(1.5e22)],[1.45e6,n(2e22)],[1.46e6,n(2.5e22)],[1.47e6,n(3e22)],[1.48e6,n(4e22)],[1.49e6,n(5e22)],
 ]
 function CalcExpNeed(){
     for(let i=0;i<expNeed.length;i++){
@@ -544,6 +554,45 @@ function SoulboneUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 魂骨强化")
+        }
+    }
+}
+const BookNeed=[
+    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
+    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
+    [4500,25000],[5000,30000]
+]
+function CalcBookNeed(){
+    for(let i=0;i<BookNeed.length;i++){
+        if(player.bookUpgradeLv<BookNeed[i][0]){
+            return BookNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function BookUpgrade(type){
+    if(type==0){
+        if(player.bag[50]<CalcBookNeed()){
+            NotEnough(50)
+        }
+        else{
+            player.bag[50]-=CalcBookNeed()
+            player.bookUpgradeLv+=1
+            logs.push("成功升级 1级 功法强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[50]>=CalcBookNeed()){
+            player.bag[50]-=CalcBookNeed()
+            player.bookUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(50)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 功法强化")
         }
     }
 }
