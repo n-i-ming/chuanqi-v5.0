@@ -237,6 +237,22 @@ const immortalAttribute=[
     ["480条大道之主",{hpmax:n(3.2e8),atk:n(1e8),def:n(1e8),hit:n(5.5e7)},{damageAdd:n(1.70e6),damageMinus:n(1.70e6)},n(1.5e19),2000],
     ["490条大道之主",{hpmax:n(3.6e8),atk:n(1.2e8),def:n(1.2e8),hit:n(6e7)},{damageAdd:n(1.75e6),damageMinus:n(1.75e6)},n(2e19),2000],
     ["500条大道之主",{hpmax:n(4e8),atk:n(1.4e8),def:n(1.4e8),hit:n(7e7)},{damageAdd:n(1.80e6),damageMinus:n(1.80e6)},n(3e19),2000],
+    ["510条大道之主",{hpmax:n(4.5e8),atk:n(1.6e8),def:n(1.6e8),hit:n(8e7)},{damageAdd:n(1.85e6),damageMinus:n(1.85e6)},n(5e19),2000],
+    ["520条大道之主",{hpmax:n(5e8),atk:n(1.8e8),def:n(1.8e8),hit:n(9e7)},{damageAdd:n(1.90e6),damageMinus:n(1.90e6)},n(7e19),2000],
+    ["530条大道之主",{hpmax:n(5.5e8),atk:n(2e8),def:n(2e8),hit:n(1e8)},{damageAdd:n(1.95e6),damageMinus:n(1.95e6)},n(1e20),2000],
+    ["540条大道之主",{hpmax:n(6e8),atk:n(2.5e8),def:n(2.5e8),hit:n(1.2e8)},{damageAdd:n(2e6),damageMinus:n(2e6)},n(1.2e20),2000],
+    ["550条大道之主",{hpmax:n(7e8),atk:n(3e8),def:n(3e8),hit:n(1.4e8)},{damageAdd:n(2.1e6),damageMinus:n(2.1e6)},n(1.5e20),2000],
+    ["560条大道之主",{hpmax:n(8e8),atk:n(3.5e8),def:n(3.5e8),hit:n(1.6e8)},{damageAdd:n(2.2e6),damageMinus:n(2.2e6)},n(2e20),2000],
+    ["570条大道之主",{hpmax:n(9e8),atk:n(4e8),def:n(4e8),hit:n(1.8e8)},{damageAdd:n(2.3e6),damageMinus:n(2.3e6)},n(3e20),2000],
+    ["580条大道之主",{hpmax:n(1e9),atk:n(5e8),def:n(5e8),hit:n(2e8)},{damageAdd:n(2.4e6),damageMinus:n(2.4e6)},n(5e20),2000],
+    ["590条大道之主",{hpmax:n(1.2e9),atk:n(6e8),def:n(6e8),hit:n(2.5e8)},{damageAdd:n(2.5e6),damageMinus:n(2.5e6)},n(7e20),2000],
+    ["600条大道之主",{hpmax:n(1.5e9),atk:n(7e8),def:n(7e8),hit:n(3e8)},{damageAdd:n(2.6e6),damageMinus:n(2.6e6)},n(1e21),2000],
+    ["610条大道之主",{hpmax:n(1.8e9),atk:n(8.5e8),def:n(8.5e8),hit:n(3.5e8)},{damageAdd:n(2.7e6),damageMinus:n(2.7e6)},n(1.2e21),2000],
+    ["620条大道之主",{hpmax:n(2.1e9),atk:n(1e9),def:n(1e9),hit:n(4e8)},{damageAdd:n(2.8e6),damageMinus:n(2.8e6)},n(1.5e21),2000],
+    ["630条大道之主",{hpmax:n(2.5e9),atk:n(1.2e9),def:n(1.2e9),hit:n(5e8)},{damageAdd:n(2.9e6),damageMinus:n(2.9e6)},n(2e21),2000],
+    ["640条大道之主",{hpmax:n(3e9),atk:n(1.4e9),def:n(1.4e9),hit:n(6e8)},{damageAdd:n(3e6),damageMinus:n(3e6)},n(3e21),2000],
+    ["650条大道之主",{hpmax:n(3.5e9),atk:n(1.6e9),def:n(1.6e9),hit:n(7e8)},{damageAdd:n(3.1e6),damageMinus:n(3.1e6)},n(5e21),2000],
+    ["650条大道之主",{hpmax:n(3.5e9),atk:n(1.6e9),def:n(1.6e9),hit:n(7e8)},{damageAdd:n(3.2e6),damageMinus:n(3.2e6)},n(5e21),2000],
 ]
 const concealFrontName=[
     "","<text style='color:green'>一阶</text>·","<text style='color:blue'>二阶</text>·","<text style='color:red'>三阶</text>·"
@@ -416,7 +432,7 @@ const soulcircleAttribute=[
     ["七宝琉璃塔·七宝神光",{damageAdd:n(800)},{def:n(80),hpmax:n(40)},450],
     ["七宝琉璃塔·琉璃护盾",{damageAdd:n(900)},{def:n(80),atk:n(40)},500],
     ["七宝琉璃塔·圣光琉璃碎",{damageAdd:n(1000)},{def:n(80),hit:n(40)},550],
-    ["七宝琉璃塔·幻之空间",{damageAdd:n(110)},{def:n(120)},600],
+    ["七宝琉璃塔·幻之空间",{damageAdd:n(1100)},{def:n(120)},600],
 ]
 const soulboneAttribute=[
     ["蓝银皇·头骨",{exp:n(3),money:n(3)},{hpmax:n(20),atk:n(20)},20],
