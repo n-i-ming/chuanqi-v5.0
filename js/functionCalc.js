@@ -178,7 +178,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=2.76488
+    player.hangingSpeed+=2.79488
     player.hangingSpeed*=player.separationLv*0.5+1
 
     player.dropLuck=1
@@ -283,7 +283,7 @@ function SpiritUpgrade(id,type){
 const transmigrationNeed=[
     [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[200,n(1e13)],
     [300,n(1e14)],[400,n(1e15)],[500,n(1e16)],[600,n(1e17)],[700,n(1e18)],[800,n(1e19)],[900,n(1e20)],[1000,n(1e21)],[1100,n(1e22)],[1200,n(1e23)],
-    [1300,n(1e24)],[1400,n(1e25)],n[1500,n(1e26)],n[1600,n(1e27)]
+    [1300,n(1e24)],[1400,n(1e25)],[1500,n(1e26)],[1600,n(1e27)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -294,7 +294,7 @@ function CalcTransmigrationNeed(id){
     return n(1e308)
 }
 function TransmigrationUpgrade(id,type){
-    if(player.transmigrationLv[id]>=player[id].logBase(2).floor()){
+    if(n(player.transmigrationLv[id]).gte(player[id].logBase(2).floor())){
         return
     }
     if(type==0){
@@ -309,7 +309,7 @@ function TransmigrationUpgrade(id,type){
     }
     else{
         let count=0
-        while(player.money.gte(CalcTransmigrationNeed(id)) && player.transmigrationLv[id]<player[id].logBase(2).floor()){
+        while(player.money.gte(CalcTransmigrationNeed(id)) && n(player.transmigrationLv[id]).lt(player[id].logBase(2).floor())){
             player.money=player.money.sub(CalcTransmigrationNeed(id))
             player.transmigrationLv[id]+=1
             count+=1
