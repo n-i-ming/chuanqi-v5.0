@@ -14,7 +14,7 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'>材料掉落幸运</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.dropLuck,2)+"</td></tr>"
         str+="<tr><td style='text-align:left'>材料掉落倍率</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.dropMul,2)+"</td></tr>"
         str+="<tr><td style='text-align:left'>　</td></tr>"
-        str+="<tr><td style='text-align:left'>小月卡剩余时长</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+formatTime(player.monthCardTime,2)+"</td></tr>"
+        str+="<tr><td style='text-align:left'>小月卡剩余时长</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+formatTime(Math.floor(player.monthCardTime),2)+"</td></tr>"
         str+="<tr><td style='text-align:left'>小月卡效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2 材料掉落倍率x2</td></tr>"
         str+="</table>"
         str+="<br>"
