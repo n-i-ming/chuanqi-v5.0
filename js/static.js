@@ -508,6 +508,10 @@ const soulcircleAttribute=[
     ["七宝琉璃塔·琉璃护盾",{damageAdd:n(900)},{def:n(80),atk:n(40)},500],
     ["七宝琉璃塔·圣光琉璃碎",{damageAdd:n(1000)},{def:n(80),hit:n(40)},550],
     ["七宝琉璃塔·幻之空间",{damageAdd:n(1100)},{def:n(120)},600],
+    ["昊天锤·泰坦之锤",{damageAdd:n(1200)},{atk:n(100),hpmax:n(50)},700],
+    ["昊天锤·角斗士",{damageAdd:n(1400)},{atk:n(100),def:n(50)},800],
+    ["昊天锤·乱披风之舞",{damageAdd:n(1600)},{atk:n(100),hit:n(50)},900],
+    ["昊天锤·锤撼天地",{damageAdd:n(1800)},{atk:n(150)},1000],
 ]
 const soulboneAttribute=[
     ["蓝银皇·头骨",{exp:n(3),money:n(3)},{hpmax:n(20),atk:n(20)},20],

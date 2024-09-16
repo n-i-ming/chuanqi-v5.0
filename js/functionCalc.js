@@ -178,7 +178,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=2.29488
+    player.hangingSpeed+=2.35488
     player.hangingSpeed*=player.separationLv*0.5+1
 
     player.dropLuck=1
@@ -702,7 +702,8 @@ function SkillUpgrade(type){
     }
 }
 const InfinityNeed=[
-    [100,200],[200,300],[300,500],[400,750],[500,1000],[700,1500],[1000,2000],[1200,2500],[1500,3000],[2000,3500],[2500,4000],[3000,5000]
+    [100,200],[200,300],[300,500],[400,750],[500,1000],[700,1500],[1000,2000],[1200,2500],[1500,3000],[2000,3500],[2500,4000],[3000,5000],
+    [3500,6500],[4000,8000],[5000,10000],[6000,15000],[7000,20000],[8000,25000],[9000,30000],[10000,40000]
 ]
 function CalcInfinityNeed(){
     for(let i=0;i<InfinityNeed.length;i++){

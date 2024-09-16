@@ -319,7 +319,7 @@ function TryUpgradePet(id,wh){
     }
 }
 function TryUpgradeSoulcircle(id,wh){
-    if(player.soulcircleLv[id]==506){
+    if(player.soulcircleLv[id]==2006){
         return
     }
     if(player.soulcircleLv[id]<6){
@@ -346,7 +346,7 @@ function TryUpgradeSoulcircle(id,wh){
         }
         else{
             let count=0
-            while(player.soulPower.gte((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3]) && player.soulcircleLv[id]<506){
+            while(player.soulPower.gte((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3]) && player.soulcircleLv[id]<2006){
                 player.soulPower=player.soulPower.sub((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3])
                 player.soulcircleLv[id]+=1
                 count+=1
