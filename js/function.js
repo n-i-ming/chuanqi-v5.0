@@ -490,6 +490,64 @@ function TryBuildSeparation(){
         logs.push("成功凝聚 1尊分身")
     }
 }
+function TryUpgradePartner(id,wh){
+    if(player.partnerLv[id]>=100){
+        return
+    }
+    if(wh==0){
+        if(player.bag[56]>=partnerAttribute[id][2]){
+            player.bag[56]-=partnerAttribute[id][2]
+            player.partnerLv[id]+=1
+            logs.push("成功宠幸 "+partnerAttribute[id][0]+" 1次")
+        }
+        else{
+            NotEnough(56)
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[56]>=partnerAttribute[id][2] && player.partnerLv[id]<100){
+            player.bag[56]-=partnerAttribute[id][2]
+            player.partnerLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(56)
+        }
+        else{
+            logs.push("成功宠幸 "+partnerAttribute[id][0]+" "+count+"次")
+        }
+    }
+}
+function TryGivePartner(id,wh){
+    if(player.partnerLv[id]==199){
+        return
+    }
+    if(wh==0){
+        if(player.money.gte(partnerAttribute[id][3])){
+            player.money=player.money.sub(partnerAttribute[id][3])
+            player.partnerLv[id]+=1
+            logs.push("成功赏赐 "+partnerAttribute[id][0]+" 1次")
+        }
+        else{
+            logs.push("金币不够")
+        }
+    }
+    else{
+        let count=0
+        while(player.money.gte(partnerAttribute[id][3]) && player.partnerLv[id]<199){
+            player.money=player.money.sub(partnerAttribute[id][3])
+            player.partnerLv[id]+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功赏赐 "+partnerAttribute[id][0]+" "+count+"次")
+        }
+    }
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){
@@ -516,21 +574,59 @@ function sha256(message) {
 }
 function DealExchangeCode(){
     sha256(document.getElementById("exchangeCode").value).then(hash=>{
+        let monthCardList=[
+            "d132043a3d2fdc0907b66263b79eb0e7dd3305be7b8888e6a9d87ba7f42949d5",
+            "4d9430730f1089aaf48980e93a25115d49c8b3c7765bd5ef52ab704b10246122",
+            "7955bcc921625d37f646363a34d2a2120e1386aee60588bcad3d0a8a7cd49d7b",
+            "811bd1b974923857e43ab723fef191ac025d6595535d94a3d1c7cb8b30d68757",
+            "50ea654b35849512a07f23401f283beee045bb7ab41ce29244235e342b25fc63",
+            "e3cd2bfcce7e583dfb596ef1b8bf48c9f905d0a9833a5c64661b74c0953bd185"
+        ]
         if(hash=="b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70"){//x2
-            player.exchangeCodeList.push("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70");
-            logs.push("兑换码 - 小小支持一下 已成功激活")
+            if(player.exchangeCodeList.includes(hash)){
+                logs.push("该兑换码已经使用过")
+            }
+            else{
+                player.exchangeCodeList.push(hash);
+                logs.push("兑换码 - 小小支持一下 已成功激活")
+            }
         }
         else if(hash=="e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875"){//x2.5
-            player.exchangeCodeList.push("e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875");
-            logs.push("兑换码 - 大力支持 已成功激活")
+            if(player.exchangeCodeList.includes(hash)){
+                logs.push("该兑换码已经使用过")
+            }
+            else{
+                player.exchangeCodeList.push(hash);
+                logs.push("兑换码 - 大力支持 已成功激活")
+            }
         }
         else if(hash=="69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b"){//x3
-            player.exchangeCodeList.push("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b");
-            logs.push("兑换码 - 超级大力支持 已成功激活")
+            if(player.exchangeCodeList.includes(hash)){
+                logs.push("该兑换码已经使用过")
+            }
+            else{
+                player.exchangeCodeList.push(hash);
+                logs.push("兑换码 - 超级大力支持 已成功激活")
+            }
         }
         else if(hash=="98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c"){//x3
-            player.exchangeCodeList.push("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c");
-            logs.push("兑换码 - 冠名支持 已成功激活")
+            if(player.exchangeCodeList.includes(hash)){
+                logs.push("该兑换码已经使用过")
+            }
+            else{
+                player.exchangeCodeList.push(hash);
+                logs.push("兑换码 - 冠名支持 已成功激活")
+            }
+        }
+        else if(monthCardList.includes(hash)){
+            if(player.exchangeCodeList.includes(hash)){
+                logs.push("该兑换码已经使用过")
+            }
+            else{
+                player.exchangeCodeList.push(hash);
+                player.monthCardTime+=3600*720
+                logs.push("小月卡时间增加 720小时")
+            }
         }
         else{
             logs.push("兑换码 无效")

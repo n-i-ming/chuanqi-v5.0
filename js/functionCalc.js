@@ -150,6 +150,12 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(player.infinityLv[i]==0?0:n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).mul(mul).sub(1)))
         }
     }
+    for(let i=0;i<partnerAttribute.length;i++){
+        let mul=Math.max(0,Math.min(100,player.partnerLv[i]))*Math.max(1,Math.min(100,player.partnerLv[i]-99))*(1+0.01*player.partnerUpgradeLv)
+        for(let id in partnerAttribute[i][1]){
+            player[id]=player[id].mul(n(1).add(n(partnerAttribute[i][1][id]).mul(mul).div(100)))
+        }
+    }
 }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
@@ -172,8 +178,12 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=1.62488
+    player.hangingSpeed+=2.29488
     player.hangingSpeed*=player.separationLv*0.5+1
+
+    player.dropLuck=1
+    player.dropMul=1
+
     if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
         player.hangingSpeed*=2
     }
@@ -182,10 +192,17 @@ function CalcAttribute(){
     }
     if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
         player.hangingSpeed*=3
+        player.dropLuck*=2
     }
     if(player.exchangeCodeList.includes("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c")){
         player.hangingSpeed*=5
+        player.dropMul*=2
     }
+    if(player.monthCardTime>0){
+        player.hangingSpeed*=2
+        player.dropMul*=2
+    }
+
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
@@ -265,7 +282,8 @@ function SpiritUpgrade(id,type){
 }
 const transmigrationNeed=[
     [10,n(10000)],[20,n(100000)],[30,n(1e6)],[45,n(1e7)],[60,n(1e8)],[80,n(1e9)],[100,n(1e10)],[120,n(1e11)],[150,n(1e12)],[200,n(1e13)],
-    [300,n(1e14)],[400,n(1e15)],[500,n(1e16)],[600,n(1e17)],[700,n(1e18)],[800,n(1e19)],[900,n(1e20)],[1000,n(1e21)]
+    [300,n(1e14)],[400,n(1e15)],[500,n(1e16)],[600,n(1e17)],[700,n(1e18)],[800,n(1e19)],[900,n(1e20)],[1000,n(1e21)],[1100,n(1e22)],[1200,n(1e23)],
+    [1300,n(1e24)],[1400,n(1e25)]
 ]
 function CalcTransmigrationNeed(id){
     for(let i=0;i<transmigrationNeed.length;i++){
@@ -306,7 +324,8 @@ function TransmigrationUpgrade(id,type){
 }
 const divineNeed=[
     [20,n(30000)],[50,n(100000)],[100,n(1e6)],[150,n(1e7)],[200,n(1e8)],[300,n(1e9)],[400,n(1e10)],[500,n(1e11)],[600,n(1e12)],[800,n(1e13)],
-    [1200,n(1e14)],[1600,n(1e15)],[2000,n(1e16)],[2400,n(1e17)],[2800,n(1e18)],[3200,n(1e19)],[3600,n(1e20)],[4000,n(1e21)]
+    [1200,n(1e14)],[1600,n(1e15)],[2000,n(1e16)],[2400,n(1e17)],[2800,n(1e18)],[3200,n(1e19)],[3600,n(1e20)],[4000,n(1e21)],[4400,n(1e22)],[4800,n(1e23)],
+    [5200,n(1e24)],[5600,n(1e25)]
 ]
 function CalcDivineNeed(){
     for(let i=0;i<divineNeed.length;i++){
@@ -389,7 +408,8 @@ function TempleUpgrade(id,type){
 const ConcealNeed=[
     [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000],[900,2500],[1000,3000],
     [1200,3500],[1400,4000],[1600,4500],[1800,5000],[2000,6000],[2500,7000],[3000,8000],[3500,9000],[4000,10000],[4500,12000],[5000,14000],
-    [5500,16000],[6000,18000],[6500,20000],[7000,25000],[8000,30000],[9000,35000],[10000,40000]
+    [5500,16000],[6000,18000],[6500,20000],[7000,25000],[8000,30000],[9000,35000],[10000,40000],[11000,50000],[12000,60000],[13000,70000],[14000,80000],
+    [15000,90000],[16000,1e5],[17000,1.2e5],[18000,1.4e5],[19000,1.6e5],[20000,1.8e5]
 ]
 function CalcConcealNeed(){
     for(let i=0;i<ConcealNeed.length;i++){
@@ -428,6 +448,7 @@ function ConcealUpgrade(type){
 const ZonghengNeed=[
     [100,n(1e7)],[200,n(2e7)],[500,n(5e7)],[1000,n(1e8)],[2000,n(1e9)],[3000,n(1e10)],[4000,n(1e11)],[5000,n(1e12)],[6000,n(1e13)],
     [7000,n(1e14)],[8000,n(1e15)],[9000,n(1e16)],[10000,n(1e17)],[12000,n(1e18)],[14000,n(1e19)],[16000,n(1e20)],[18000,n(1e21)],[20000,n(1e22)],
+    [22000,n(1e23)],[25000,n(1e24)],[30000,n(1e25)]
 ]
 function CalcZonghengNeed(id){
     for(let i=0;i<ZonghengNeed.length;i++){
@@ -487,7 +508,8 @@ function ZonghengUpgrade(id,type){
     }
 }
 const SoulcircleNeed=[
-    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000],[1200,1500],[1500,2000],[2000,3000],[2500,4000],[3000,5000],[3500,6500],[4000,8000]
+    [100,100],[200,200],[300,300],[400,400],[500,500],[700,750],[1000,1000],[1200,1500],[1500,2000],[2000,3000],[2500,4000],[3000,5000],[3500,6500],[4000,8000],
+    [5000,10000],[6000,15000],[7000,20000],[8000,30000],[9000,45000],[10000,60000]
 ]
 function CalcSoulcircleNeed(){
     for(let i=0;i<SoulcircleNeed.length;i++){
@@ -524,7 +546,8 @@ function SoulcircleUpgrade(type){
     }
 }
 const SoulboneNeed=[
-    [100,100],[200,200],[300,500],[400,1000],[500,1500],[700,2000],[1000,3000],[1200,4000],[1500,5000],[2000,7000],[2500,9000],[3000,12000],[3500,15000]
+    [100,100],[200,200],[300,500],[400,1000],[500,1500],[700,2000],[1000,3000],[1200,4000],[1500,5000],[2000,7000],[2500,9000],[3000,12000],[3500,15000],
+    [4000,20000],[4500,30000],[5000,50000],[5500,75000],[6000,1e5],[6500,1.5e5],[7000,2e5]
 ]
 function CalcSoulboneNeed(){
     for(let i=0;i<SoulboneNeed.length;i++){
@@ -563,7 +586,7 @@ function SoulboneUpgrade(type){
 const BookNeed=[
     [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
     [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
-    [4500,25000],[5000,30000]
+    [4500,25000],[5000,30000],[6000,45000],[7000,60000],[8000,80000],[9000,1e5],[10000,1.2e5],[11000,1.5e5],[12000,2e5]
 ]
 function CalcBookNeed(){
     for(let i=0;i<BookNeed.length;i++){
@@ -602,7 +625,8 @@ function BookUpgrade(type){
 const PetNeed=[
     [100,200],[200,500],[300,750],[400,1000],[500,1250],[600,1500],[700,1750],[800,2000],[900,2500],[1000,3000],
     [1200,3500],[1400,4000],[1600,4500],[1800,5000],[2000,6000],[2500,7000],[3000,8000],[3500,9000],[4000,10000],[4500,12000],[5000,14000],
-    [5500,16000],[6000,18000],[6500,20000],[7000,25000],[8000,30000],[9000,35000],[10000,40000]
+    [5500,16000],[6000,18000],[6500,20000],[7000,25000],[8000,30000],[9000,35000],[10000,40000],[11000,50000],[12000,60000],[13000,70000],[14000,80000],
+    [15000,90000],[16000,1e5],[17000,1.2e5],[18000,1.4e5],[19000,1.6e5],[20000,1.8e5]
 ]
 function CalcPetNeed(){
     for(let i=0;i<PetNeed.length;i++){
@@ -641,7 +665,7 @@ function PetUpgrade(type){
 const SkillNeed=[
     [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
     [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
-    [4500,25000],[5000,30000]
+    [4500,25000],[5000,30000],[6000,45000],[7000,60000],[8000,80000],[9000,1e5],[10000,1.2e5],[11000,1.5e5],[12000,2e5]
 ]
 function CalcSkillNeed(){
     for(let i=0;i<SkillNeed.length;i++){
@@ -711,6 +735,45 @@ function InfinityUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 无限宝石强化")
+        }
+    }
+}
+const PartnerNeed=[
+    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
+    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
+    [4500,25000],[5000,30000],[6000,45000],[7000,60000],[8000,80000],[9000,1e5],[10000,1.2e5],[11000,1.5e5],[12000,2e5]
+]
+function CalcPartnerNeed(){
+    for(let i=0;i<PartnerNeed.length;i++){
+        if(player.partnerUpgradeLv<PartnerNeed[i][0]){
+            return PartnerNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function PartnerUpgrade(type){
+    if(type==0){
+        if(player.bag[56]<CalcPartnerNeed()){
+            NotEnough(56)
+        }
+        else{
+            player.bag[56]-=CalcPartnerNeed()
+            player.partnerUpgradeLv+=1
+            logs.push("成功升级 1级 后宫强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[56]>=CalcPartnerNeed()){
+            player.bag[56]-=CalcPartnerNeed()
+            player.partnerUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(56)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 后宫强化")
         }
     }
 }

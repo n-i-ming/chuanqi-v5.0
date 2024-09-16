@@ -50,7 +50,8 @@ function getZoneSubTabDisplay(){
         str+="</tr><tr>"
         for(let i=0;i<zoneMonster[id].dropList.length;i++){
             str+="</tr><tr>"
-            str+="<td colspan=3 style='text-align:left'>"+idToName[zoneMonster[id].dropList[i][1]]+"×"+format(zoneMonster[id].dropList[i][2],0)+" 1/"+format(zoneMonster[id].dropList[i][0],0)+"</td>"
+            str+="<td colspan=3 style='text-align:left'>"+idToName[zoneMonster[id].dropList[i][1]]+"×"+format(zoneMonster[id].dropList[i][2]*player.dropMul,0)
+            +" 1/"+format(zoneMonster[id].dropList[i][0]/player.dropLuck,0)+"</td>"
         }
         str+="</tr></table><br>"
         str+="<button onclick='player.zoneTabId=Math.floor(player.zoneTabId/10)'>返回战斗</button>"
@@ -88,13 +89,13 @@ function QuitFightZone(){
             let sqrtTimes=Math.min(player.hangingTimeZone,10000),sqrtNum=Math.floor(player.hangingTimeZone/sqrtTimes)
             let re=player.hangingTimeZone-sqrtNum*sqrtTimes
             for(let j=0;j<sqrtTimes;j++){
-                if(random()<=1/ii[0]){
-                    count+=ii[2]*sqrtNum
+                if(random()<=1*player.dropLuck/ii[0]){
+                    count+=ii[2]*sqrtNum*player.dropMul
                 }
             }
             for(let j=0;j<re;j++){
-                if(random()<=1/ii[0]){
-                    count+=ii[2]
+                if(random()<=1*player.dropLuck/ii[0]){
+                    count+=ii[2]*player.dropMul
                 }
             }
             if(count>0){

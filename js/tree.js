@@ -93,6 +93,9 @@ addLayer("tree-tab",{
         while(player.infinityLv.length<infinityAttribute.length){
             player.infinityLv.push(0)
         }
+        while(player.partnerLv.length<partnerAttribute.length){
+            player.partnerLv.push(0)
+        }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])
         }
@@ -107,6 +110,7 @@ addLayer("tree-tab",{
         let dif=(Date.now()/1e3-player.tmtmtm)
         // dif*=1000
         player.tmtmtm=Date.now()/1e3
+        player.monthCardTime=Math.max(0,player.monthCardTime-dif)
         CalcAttribute()
         if(document.getElementById("difficulty")!==undefined && document.getElementById("difficulty")!==null && document.getElementById("difficulty").value.length==0){
             document.getElementById("difficulty").value=player.nowDifficulty
@@ -237,10 +241,10 @@ addLayer("tree-tab",{
                     str+="大力支持 : 挂机速度×2.5<br>"
                 }
                 if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
-                    str+="超级大力支持 : 挂机速度×3<br>"
+                    str+="超级大力支持 : 挂机速度×3 材料掉落率x2<br>"
                 }
                 if(player.exchangeCodeList.includes("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c")){
-                    str+="冠名支持 : 挂机速度×5<br>"
+                    str+="冠名支持 : 挂机速度×5 材料掉落数量x2<br>"
                 }
             }
             return str

@@ -11,6 +11,11 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'>伤害减免</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.damageMinus,0)+"%</td></tr>"
         str+="<tr><td style='text-align:left'>　</td></tr>"
         str+="<tr><td style='text-align:left'>挂机速度</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.hangingSpeed,3)+"</td></tr>"
+        str+="<tr><td style='text-align:left'>材料掉落幸运</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.dropLuck,2)+"</td></tr>"
+        str+="<tr><td style='text-align:left'>材料掉落倍率</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.dropMul,2)+"</td></tr>"
+        str+="<tr><td style='text-align:left'>　</td></tr>"
+        str+="<tr><td style='text-align:left'>小月卡剩余时长</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+formatTime(player.monthCardTime,2)+"</td></tr>"
+        str+="<tr><td style='text-align:left'>小月卡效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2 材料掉落倍率x2</td></tr>"
         str+="</table>"
         str+="<br>"
         str+="<button onclick='AutoUpgrade()'>一键升级</button><br>"
@@ -145,12 +150,12 @@ function getMainSubTabDisplay(){
         if(player.meridianLv[0][0]!=meridianAttribute.length-1 || player.meridianLv[1][0]!=meridianAttribute.length-1){
             str+="<tr>"
             if(player.meridianLv[0][0]!=meridianAttribute.length-1)
-            str+="<td>消耗 "+(player.meridianLv[0][1]==10?"金币×"+(10000*meridianAttribute[player.meridianLv[0][0]][0]):"银针×"+(meridianAttribute[player.meridianLv[0][0]][0]))+"</td>"
+            str+="<td>消耗 "+(player.meridianLv[0][1]==10?"金币×"+(format(10000*meridianAttribute[player.meridianLv[0][0]][0],0)):"银针×"+format((meridianAttribute[player.meridianLv[0][0]][0]),0))+"</td>"
             else
             str+="<td>　</td>"
             str+="<td style='width:200px'></td>"
             if(player.meridianLv[1][0]!=meridianAttribute.length-1)
-            str+="<td>消耗 "+(player.meridianLv[1][1]==10?"金币×"+(10000*meridianAttribute[player.meridianLv[1][0]][0]):"银针×"+(meridianAttribute[player.meridianLv[1][0]][0]))+"</td>"
+            str+="<td>消耗 "+(player.meridianLv[1][1]==10?"金币×"+(format(10000*meridianAttribute[player.meridianLv[1][0]][0],0)):"银针×"+format((meridianAttribute[player.meridianLv[1][0]][0]),0))+"</td>"
             else
             str+="<td>　</td>"
             str+="</tr>"
@@ -701,6 +706,49 @@ function getMainSubTabDisplay(){
         str+="下一尊分身需要 达到"+format((player.separationLv+1)*1e5,0)+"级 , 并消耗 金币×"+format(n(1e10).mul(n(1e5).pow(player.separationLv)),0)+"<br>"
         str+="<br><button onclick='TryBuildSeparation()'>凝聚</button><br>"
     }
+    else if(player.mainTabId==21){//后宫
+        str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>后宫强化 "+format(player.partnerUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有后宫增益+"+format(player.partnerUpgradeLv,0)+"%</td>"
+        if(CalcPartnerNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 仕女图×"+format(CalcPartnerNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='PartnerUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='PartnerUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
+        for(let i=0;i<partnerAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='width:250px;text-align:left'>"+partnerAttribute[i][0]+" "
+            str+="亲密 "+(Math.max(0,Math.min(100,player.partnerLv[i])))+"% "
+            str+="魅力 "+(Math.max(0,Math.min(100,player.partnerLv[i]-99)))+"%</td>"
+            let mul=Math.max(0,Math.min(100,player.partnerLv[i]))*Math.max(1,Math.min(100,player.partnerLv[i]-99))*(1+0.01*player.partnerUpgradeLv)
+            str+="<td style='text-align:left;'>"
+            for(let id in partnerAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(partnerAttribute[i][1][id]).mul(mul),1)+"% "
+            }
+            str+="</td>"
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.partnerLv[i]==199)str+=" colspan=2"
+            str+=">"
+            if(player.partnerLv[i]<100){
+                str+="消耗 仕女图×"+format(partnerAttribute[i][2],0)
+                +"</td>"
+                str+="<td style='text-align:right'><button onclick='TryUpgradePartner("+i+",0)'>宠幸</button></td>"
+                str+="<td style='text-align:left'><button onclick='TryUpgradePartner("+i+",1)' style='margin-left:-10px'>一键宠幸</button></td>"
+            }
+            else if(player.partnerLv[i]<199){
+                str+="消耗 金币×"+format(partnerAttribute[i][3],0)
+                +"</td>"
+                str+="<td style='text-align:right'><button onclick='TryGivePartner("+i+",0)'>赏赐</button></td>"
+                str+="<td style='text-align:left'><button onclick='TryGivePartner("+i+",1)' style='margin-left:-10px'>一键赏赐</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -761,7 +809,8 @@ function getFightSubTabDisplay(){
         str+="<td colspan=3 style='text-align:left'>修为×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul),0)+"</td>"
         for(let i=0;i<monster[id].dropList.length;i++){
             str+="</tr><tr>"
-            str+="<td colspan=3 style='text-align:left'>"+idToName[monster[id].dropList[i][1]]+"×"+format(monster[id].dropList[i][2],0)+" 1/"+format(monster[id].dropList[i][0],0)+"</td>"
+            str+="<td colspan=3 style='text-align:left'>"+idToName[monster[id].dropList[i][1]]+"×"+format(monster[id].dropList[i][2]*player.dropMul,0)
+            +" 1/"+format(monster[id].dropList[i][0]/player.dropLuck,0)+"</td>"
         }
         str+="</tr></table><br>"
         str+="<button onclick='player.fightTabId=Math.floor(player.fightTabId/10)'>返回战斗</button>"
@@ -805,13 +854,13 @@ function QuitFight(){
             let sqrtTimes=Math.min(player.hangingTime,10000),sqrtNum=Math.floor(player.hangingTime/sqrtTimes)
             let re=player.hangingTime-sqrtNum*sqrtTimes
             for(let j=0;j<sqrtTimes;j++){
-                if(random()<=1/ii[0]){
-                    count+=ii[2]*sqrtNum
+                if(random()<=1*player.dropLuck/ii[0]){
+                    count+=ii[2]*sqrtNum*player.dropMul
                 }
             }
             for(let j=0;j<re;j++){
-                if(random()<=1/ii[0]){
-                    count+=ii[2]
+                if(random()<=1*player.dropLuck/ii[0]){
+                    count+=ii[2]*player.dropMul
                 }
             }
             if(count>0){
