@@ -50,7 +50,8 @@ function getZoneSubTabDisplay(){
         str+="</tr><tr>"
         for(let i=0;i<zoneMonster[id].dropList.length;i++){
             str+="</tr><tr>"
-            str+="<td colspan=3 style='text-align:left'>"+idToName[zoneMonster[id].dropList[i][1]]+"×"+format(zoneMonster[id].dropList[i][2]*player.dropMul,0)
+            str+="<td colspan=3 style='text-align:left'>"+idToName[zoneMonster[id].dropList[i][1]]+"×"
+            +format(zoneMonster[id].dropList[i][2]*player.dropMul*player.bagMulList[zoneMonster[id].dropList[i][1]],0)
             +" 1/"+format(zoneMonster[id].dropList[i][0]/player.dropLuck,0)+"</td>"
         }
         str+="</tr></table><br>"
@@ -99,8 +100,8 @@ function QuitFightZone(){
                 }
             }
             if(count>0){
-                dropList.push([ii[1],count])
-                player.bag[ii[1]]+=count
+                dropList.push([ii[1],count*player.bagMulList[ii[1]]])
+                player.bag[ii[1]]+=count*player.bagMulList[ii[1]]
             }
         }
         for(let i=0;i<dropList.length;i++){

@@ -585,16 +585,16 @@ function sha256(message) {
         ).join('');
       });
 }
+const monthCardList=[
+    "d132043a3d2fdc0907b66263b79eb0e7dd3305be7b8888e6a9d87ba7f42949d5",
+    "4d9430730f1089aaf48980e93a25115d49c8b3c7765bd5ef52ab704b10246122",
+    "7955bcc921625d37f646363a34d2a2120e1386aee60588bcad3d0a8a7cd49d7b",
+    "811bd1b974923857e43ab723fef191ac025d6595535d94a3d1c7cb8b30d68757",
+    "50ea654b35849512a07f23401f283beee045bb7ab41ce29244235e342b25fc63",
+    "e3cd2bfcce7e583dfb596ef1b8bf48c9f905d0a9833a5c64661b74c0953bd185"
+]
 function DealExchangeCode(){
     sha256(document.getElementById("exchangeCode").value).then(hash=>{
-        let monthCardList=[
-            "d132043a3d2fdc0907b66263b79eb0e7dd3305be7b8888e6a9d87ba7f42949d5",
-            "4d9430730f1089aaf48980e93a25115d49c8b3c7765bd5ef52ab704b10246122",
-            "7955bcc921625d37f646363a34d2a2120e1386aee60588bcad3d0a8a7cd49d7b",
-            "811bd1b974923857e43ab723fef191ac025d6595535d94a3d1c7cb8b30d68757",
-            "50ea654b35849512a07f23401f283beee045bb7ab41ce29244235e342b25fc63",
-            "e3cd2bfcce7e583dfb596ef1b8bf48c9f905d0a9833a5c64661b74c0953bd185"
-        ]
         if(hash=="b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70"){//x2
             if(player.exchangeCodeList.includes(hash)){
                 logs.push("该兑换码已经使用过")

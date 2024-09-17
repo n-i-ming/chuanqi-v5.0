@@ -111,6 +111,13 @@ addLayer("tree-tab",{
         player.meridianLv[0][0]=Math.min(player.meridianLv[0][0],meridianAttribute.length-1)
         player.meridianLv[1][0]=Math.min(player.meridianLv[1][0],meridianAttribute.length-1)
         player.wingLv[1]=Math.min(player.wingLv[1],10)
+        let ccc=0
+        for(let i=0;i<monthCardList.length;i++){
+            if(player.exchangeCodeList.includes(monthCardList[i])){
+                ccc+=1
+            }
+        }
+        player.monthCardTime=Math.min(player.monthCardTime,ccc*3600*720)
         }
         player.devSpeed=1
         let dif=(Date.now()/1e3-player.tmtmtm)

@@ -905,8 +905,8 @@ function QuitFight(){
                 }
             }
             if(count>0){
-                dropList.push([ii[1],count])
-                player.bag[ii[1]]+=count
+                dropList.push([ii[1],count*player.bagMulList[ii[1]]])
+                player.bag[ii[1]]+=count*player.bagMulList[ii[1]]
             }
         }
         for(let i=0;i<dropList.length;i++){
