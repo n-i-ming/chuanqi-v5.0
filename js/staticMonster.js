@@ -545,7 +545,7 @@ const monster=[
     {name:"刺背猎手9",num:n(1.8e35),drop:n(1.22e8),dropList:[[10,2,2500],[10,3,2500],[10,6,65],[10,8,65],[10,10,65],[10,17,34],[10,36,19],[10,50,19],[10,56,3],[10,63,3],[100,62,1]]},
 ]
 const zoneSubTabList=[
-    [[0,1,2,3,4],[5,6,7,8,9],[15,16,17,18,19],[20,21,22,23,24]],[[10,11,12,13,14],[25,26,27,28,29]]
+    [[0,1,2,3,4],[5,6,7,8,9],[15,16,17,18,19],[20,21,22,23,24],[30,31,32,33,34]],[[10,11,12,13,14],[25,26,27,28,29],[35,36,37,38,39]]
 ]
 const zoneMonster=[
     {name:"人面魔蛛",hpmax:n(100),atk:n(20),def:n(15),hit:n(10),drop:n(1),dropList:[[100,24,1],[100,25,1]]},
@@ -578,4 +578,14 @@ const zoneMonster=[
     {name:"闪电侠",hpmax:n(1400),atk:n(300),def:n(300),hit:n(250),drop:n(0),dropList:[[25,40,8]]},
     {name:"蚁人",hpmax:n(1700),atk:n(350),def:n(350),hit:n(300),drop:n(0),dropList:[[25,40,9]]},
     {name:"奇异博士",hpmax:n(2000),atk:n(400),def:n(400),hit:n(350),drop:n(0),dropList:[[25,40,10]]},
+    {name:"狂暴鸡蛇",hpmax:n(2400),atk:n(480),def:n(440),hit:n(330),drop:n(250),dropList:[[100,24,60],[100,25,60]]},
+    {name:"狂暴甲兽",hpmax:n(2600),atk:n(520),def:n(480),hit:n(360),drop:n(300),dropList:[[100,24,65],[100,25,65]]},
+    {name:"狂陀罗蛇",hpmax:n(2800),atk:n(560),def:n(520),hit:n(390),drop:n(350),dropList:[[100,24,70],[100,25,70]]},
+    {name:"狂暴巨猿",hpmax:n(3000),atk:n(600),def:n(560),hit:n(420),drop:n(400),dropList:[[100,24,80],[100,25,80]]},
+    {name:"狂暴玄龟",hpmax:n(3500),atk:n(650),def:n(600),hit:n(450),drop:n(450),dropList:[[100,24,90],[100,25,90]]},
+    {name:"毁灭博士",hpmax:n(2300),atk:n(450),def:n(450),hit:n(400),drop:n(0),dropList:[[25,40,12]]},
+    {name:"毒液",hpmax:n(2600),atk:n(500),def:n(500),hit:n(450),drop:n(0),dropList:[[25,40,14]]},
+    {name:"死侍",hpmax:n(3000),atk:n(550),def:n(550),hit:n(500),drop:n(0),dropList:[[25,40,16]]},
+    {name:"夜魔侠",hpmax:n(3500),atk:n(600),def:n(600),hit:n(550),drop:n(0),dropList:[[25,40,18]]},
+    {name:"幻视",hpmax:n(4000),atk:n(650),def:n(650),hit:n(600),drop:n(0),dropList:[[25,40,20]]},
 ]
