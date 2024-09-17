@@ -24,30 +24,30 @@ let changelog = `<h1>赞助鸣谢:</h1><br>
 	<h3>爱发电用户_f2d12</h3><br>
 	<h3>F</h3><br>
 	<h3>爱发电用户_cE6v</h3><br>
+	<h3>latumu啦啦啦</h3><br>
+	<h3>夜色如残阳</h3><br>
 	<h3>浪荡</h3><br>
-	<h3>爱发电用户_mpGA</h3><br>
+	<h3>爱发电用户_3Avr</h3><br>
 	<h3>嘤嘤嘤（默默无闻）</h3><br>
 	<h3>Fye</h3><br>
 	<h3>爱发电用户_kp4V</h3><br>
 	<h3>加哥</h3><br>
-	<h3>latumu啦啦啦</h3><br>
+	<h3>黑狗冲</h3><br>
+	<h3>李嘉图</h3><br>
+	<h3>CCC</h3><br>
+	<h3>郝人</h3><br>
 	<h3>爱发电用户_02da8</h3><br>
 	<h3>鸭梨山大菠萝</h3><br>
-	<h3>CCC</h3><br>
 	<h3>Allen</h3><br>
-	<h3>郝人</h3><br>
 	<h3>jiu jie</h3><br>
-	<h3>李嘉图</h3><br>
 	<h3>MOC_华</h3><br>
 	<h3>爱发电用户_5f32a</h3><br>
 	<h3>酴醾</h3><br>
-	<h3>黑狗冲</h3><br>
 	<h3>梦浮生</h3><br>
 	<h3>呵呵哒</h3><br>
 	<h3>pwping</h3><br>
-	<h3>爱发电用户_kvg9</h3><br>
-	<h3>吾心吾行澄如明镜</h3><br>
 	<h3>爱发电用户_xseX</h3><br>
+	<h3>wei</h3><br>
 	<br>
 		`
 
