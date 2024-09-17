@@ -147,7 +147,7 @@ addLayer("tree-tab",{
             str+="<td style='width:50px'></td>"
             str+="<td>战力"+format(player.fightAbility,0)+"</td>"
             str+="<td style='width:50px'></td>"
-            str+="<td>经验 "+format(player.exp,0)+"/"+format(CalcExpNeed(),0)+"</td>"
+            str+="<td>经验 "+format(player.exp,0)+"/"+(player.lv<3e5?format(CalcExpNeed(),0):format(CalcBigExpNeed()[1],0))+"</td>"
             str+="<td style='width:50px'></td>"
             str+="<td>金币 "+format(player.money,0)+"</td>"
             str+="<td style='width:50px'></td>"

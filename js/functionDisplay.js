@@ -556,12 +556,12 @@ function getMainSubTabDisplay(){
             }
             str+="</td>"
             str+="<td style='width:300px;text-align:right'"
-            if(player.soulcircleLv[i]==2006)str+=" colspan=2"
+            if(player.soulcircleLv[i]==5006)str+=" colspan=2"
             str+=">"
             if(player.soulcircleLv[i]<6){
                 str+="消耗 魂环碎片×"+format((player.soulcircleLv[i]+1)*soulcircleAttribute[i][3],0)+"</td><td><button onclick='TryUpgradeSoulcircle("+i+",0)'>升级</button></td>"
             }
-            else if(player.soulcircleLv[i]<2006){
+            else if(player.soulcircleLv[i]<5006){
                 str+="消耗 魂力×"+format(soulcircleAttribute[i][3]*2*(player.soulcircleLv[i]-5),0)+"</td><td style='text-align:right'><button onclick='TryUpgradeSoulcircle("+i+",0)'>升级</button></td>"
                 str+="<td><button style='margin-left:-10px' onclick='TryUpgradeSoulcircle("+i+",1)'>一键升级</button></td>"
             }

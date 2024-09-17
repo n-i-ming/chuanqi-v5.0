@@ -11,7 +11,7 @@ function AutoUpgrade(){
             }
         }
         if(i==expNeed.length){
-            break
+            nd=CalcBigExpNeed()
         }
         let cost=nd[1].mul(nd[0]-player.lv)
         if(player.exp.gte(cost)){
@@ -319,7 +319,7 @@ function TryUpgradePet(id,wh){
     }
 }
 function TryUpgradeSoulcircle(id,wh){
-    if(player.soulcircleLv[id]==2006){
+    if(player.soulcircleLv[id]==5006){
         return
     }
     if(player.soulcircleLv[id]<6){
@@ -346,7 +346,7 @@ function TryUpgradeSoulcircle(id,wh){
         }
         else{
             let count=0
-            while(player.soulPower.gte((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3]) && player.soulcircleLv[id]<2006){
+            while(player.soulPower.gte((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3]) && player.soulcircleLv[id]<5006){
                 player.soulPower=player.soulPower.sub((player.soulcircleLv[id]-5)*2*soulcircleAttribute[id][3])
                 player.soulcircleLv[id]+=1
                 count+=1
