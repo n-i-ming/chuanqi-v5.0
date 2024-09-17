@@ -63,6 +63,9 @@ addLayer("tree-tab",{
         while(player.bag.length<bagDisplayList.length){
             player.bag.push(0)
         }
+        while(player.bagMulList.length<bagDisplayList.length){
+            player.bagMulList.push(0)
+        }
         while(player.pelletNum.length<pelletAttribute.length){
             player.pelletNum.push([0,0,0])
         }
@@ -95,6 +98,9 @@ addLayer("tree-tab",{
         }
         while(player.partnerLv.length<partnerAttribute.length){
             player.partnerLv.push(0)
+        }
+        while(player.heroLv.length<heroAttribute.length){
+            player.heroLv.push(0)
         }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])

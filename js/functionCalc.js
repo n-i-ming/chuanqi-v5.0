@@ -171,6 +171,23 @@ function CalcAttribute(){
             player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(soulboneAttribute[i][1][id]).mul(mul).mul(player.soulboneUpgradeLv/1000+1).div(100)))
         }
     }
+    for(let i=0;i<heroAttribute.length;i++){
+        let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
+        for(let id in heroAttribute[i][1]){
+            player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(heroAttribute[i][1][id]).mul(mul).div(100)))
+        }
+    }
+
+    for(let i=0;i<player.bagMulList.length;i++){
+        player.bagMulList[i]=1
+    }
+    for(let i=0;i<heroAttribute.length;i++){
+        let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
+        for(let j=0;j<heroAttribute[i][2].length;j++){
+            let id=heroAttribute[i][2][j][0]
+            player.bagMulList[id]=player.bagMulList[id]*(1+heroAttribute[i][2][j][1]*mul/100)
+        }
+    }
 
     player.zoneHpmax=n(player.transmigrationLv.hpmax).mul(5)
     player.zoneAtk=n(player.transmigrationLv.atk)
@@ -803,6 +820,47 @@ function PartnerUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 后宫强化")
+        }
+    }
+}
+const HeroNeed=[
+    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
+    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
+    [4500,25000],[5000,30000],[6000,45000],[7000,60000],[8000,80000],[9000,1e5],[10000,1.2e5],[11000,1.5e5],[12000,2e5],
+    [13000,2.5e5],[14000,3e5],[15000,3.5e5],[16000,4e5],[17000,4.5e5],[18000,5e5],[20000,6e5],[22000,7e5],[24000,8e5],[26000,9e5],
+    [28000,1e6],[30000,1.2e6],[32000,1.4e6],[34000,1.6e6],[36000,1.8e6],[38000,2e6],[40000,2.5e6]
+]
+function CalcHeroNeed(){
+    for(let i=0;i<HeroNeed.length;i++){
+        if(player.heroUpgradeLv<HeroNeed[i][0]){
+            return HeroNeed[i][1]
+        }
+    }
+    return n(1e308)
+}
+function HeroUpgrade(type){
+    if(type==0){
+        if(player.bag[63]<CalcHeroNeed()){
+            NotEnough(63)
+        }
+        else{
+            player.bag[63]-=CalcHeroNeed()
+            player.heroUpgradeLv+=1
+            logs.push("成功升级 1级 英雄强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[63]>=CalcHeroNeed()){
+            player.bag[63]-=CalcHeroNeed()
+            player.heroUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(63)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 英雄强化")
         }
     }
 }

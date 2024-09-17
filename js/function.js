@@ -548,6 +548,19 @@ function TryGivePartner(id,wh){
         }
     }
 }
+function TryActiveHero(id){
+    if(player.heroLv[id]==1){
+        return
+    }
+    if(player.bag[heroAttribute[id][3]]>=heroAttribute[id][4]){
+        player.bag[heroAttribute[id][3]]-=heroAttribute[id][4]
+        player.heroLv[id]+=1
+        logs.push("成功激活 英雄-"+heroAttribute[id][0])
+    }
+    else{
+        NotEnough(heroAttribute[id][3])
+    }
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){

@@ -751,6 +751,44 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
+    else if(player.mainTabId==22){//英雄
+        str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>英雄强化 "+format(player.heroUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有英雄增益+"+format(player.heroUpgradeLv*0.1,0)+"%</td>"
+        if(CalcHeroNeed()<1e100){
+            str+="<td style='text-align:right;'>消耗 英雄元魂×"+format(CalcHeroNeed(),0)+"</td>"
+            str+="<td style='text-align:right;'><button onclick='HeroUpgrade(0)'>升级</button></td>"
+            str+="<td style='text-align:left;'><button onclick='HeroUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        }
+        str+="</tr>"
+        for(let i=0;i<heroAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='width:250px;text-align:left'>"+heroAttribute[i][0]+" "+(player.heroLv[i]>0?"已激活":"未激活")+"</td>"
+            let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
+            str+="<td style='text-align:left;'>"
+            for(let id in heroAttribute[i][1]){
+                str+=attributeToName[id]+"+"+format(n(heroAttribute[i][1][id]).mul(mul),1)+"% "
+            }
+            for(let j=0;j<heroAttribute[i][2].length;j++){
+                let id=heroAttribute[i][2][j][0]
+                str+=idToName[id]+"+"+format(n(heroAttribute[i][2][j][1]).mul(mul),1)+"% "
+            }
+            str+="</td>"
+            str+="</td>"
+            str+="<td style='width:300px;text-align:right'"
+            if(player.heroLv[i]==1)str+=" colspan=2"
+            str+=">"
+            if(player.heroLv[i]<1){
+                str+="消耗 "+heroAttribute[i][0]+"-碎片×"+format(heroAttribute[i][4],0)
+                +"</td>"
+                str+="<td style='text-align:right'><button onclick='TryActiveHero("+i+")'>激活</button></td>"
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -811,7 +849,8 @@ function getFightSubTabDisplay(){
         str+="<td colspan=3 style='text-align:left'>修为×"+format(monster[id].drop.mul(n(1.01).pow(player.inFightDifficulty)).mul(player.cultivationMul),0)+"</td>"
         for(let i=0;i<monster[id].dropList.length;i++){
             str+="</tr><tr>"
-            str+="<td colspan=3 style='text-align:left'>"+idToName[monster[id].dropList[i][1]]+"×"+format(monster[id].dropList[i][2]*player.dropMul,0)
+            str+="<td colspan=3 style='text-align:left'>"+idToName[monster[id].dropList[i][1]]+"×"
+            +format(monster[id].dropList[i][2]*player.dropMul*player.bagMulList[monster[id].dropList[i][1]],0)
             +" 1/"+format(monster[id].dropList[i][0]/player.dropLuck,0)+"</td>"
         }
         str+="</tr></table><br>"
