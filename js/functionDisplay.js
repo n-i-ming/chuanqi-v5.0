@@ -755,7 +755,7 @@ function getMainSubTabDisplay(){
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>英雄强化 "+format(player.heroUpgradeLv,0)+"级</td>"
-        str+="<td style='text-align:left;'>所有英雄增益+"+format(player.heroUpgradeLv*0.1,0)+"%</td>"
+        str+="<td style='text-align:left;'>所有英雄增益+"+format(player.heroUpgradeLv*0.1,1)+"%</td>"
         if(CalcHeroNeed()<1e100){
             str+="<td style='text-align:right;'>消耗 英雄元魂×"+format(CalcHeroNeed(),0)+"</td>"
             str+="<td style='text-align:right;'><button onclick='HeroUpgrade(0)'>升级</button></td>"
