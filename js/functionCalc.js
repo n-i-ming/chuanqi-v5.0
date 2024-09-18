@@ -181,13 +181,6 @@ function CalcAttribute(){
     for(let i=0;i<player.bagMulList.length;i++){
         player.bagMulList[i]=1
     }
-    for(let i=0;i<heroAttribute.length;i++){
-        let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
-        for(let j=0;j<heroAttribute[i][2].length;j++){
-            let id=heroAttribute[i][2][j][0]
-            player.bagMulList[id]=player.bagMulList[id]*(1+heroAttribute[i][2][j][1]*mul/100)
-        }
-    }
 
     player.zoneHpmax=n(player.transmigrationLv.hpmax).mul(5)
     player.zoneAtk=n(player.transmigrationLv.atk)
@@ -220,6 +213,16 @@ function CalcAttribute(){
         player.dropMul*=2
     }
     player.hangingSpeed*=2
+    for(let i=0;i<heroAttribute.length;i++){
+        let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
+        for(let j=0;j<heroAttribute[i][2].length;j++){
+            let id=heroAttribute[i][2][j][0]
+            if(id=="挂机速度")
+            player.hangingSpeed*=(1+heroAttribute[i][2][j][1]*mul/100)
+            else
+            player.bagMulList[id]=player.bagMulList[id]*(1+heroAttribute[i][2][j][1]*mul/100)
+        }
+    }
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],

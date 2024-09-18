@@ -772,7 +772,7 @@ function getMainSubTabDisplay(){
             }
             for(let j=0;j<heroAttribute[i][2].length;j++){
                 let id=heroAttribute[i][2][j][0]
-                str+=idToName[id]+"+"+format(n(heroAttribute[i][2][j][1]).mul(mul),1)+"% "
+                str+=(id!="挂机速度"?idToName[id]:"挂机速度")+"+"+format(n(heroAttribute[i][2][j][1]).mul(mul),1)+"% "
             }
             str+="</td>"
             str+="</td>"
