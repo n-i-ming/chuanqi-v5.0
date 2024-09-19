@@ -150,17 +150,8 @@ var systemComponents = {
             </tr>
             <tr>
                 <td><button class="opt" onclick="exportSaveFile()">导出存档(保存为文件,推荐)</button></td>
-                <td><button class="opt" onclick="toggleOpt('offlineProd')">离线进度: {{ options.offlineProd?"已开启":"已关闭" }}</button></td>
                 <td><button class="opt" onclick="switchTheme()">背景主题: {{ getThemeName() }}</button></td>
             </tr>
-            <tr>
-                <td><button class="opt" onclick="adjustMSDisp()">显示里程碑: {{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hqTree')">高质量树: {{ options.hqTree?"已开启":"已关闭" }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战: {{ options.hideChallenges?"隐藏":"显示" }}</button></td>
-			</tr> 
-			<tr>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">节点内容占据整个屏幕: {{ options.forceOneTab?"永远这样":"自动调节" }}</button></td>
-			</tr>
         </table>`
     },
 
