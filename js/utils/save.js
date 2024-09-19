@@ -283,10 +283,13 @@ function setupModInfo() {
 	modInfo.winText = winText ? winText : `Congratulations! You have reached the end and beaten this game, but for now...`;
 
 }
-function exportSave() {
+function exportSaveProtocol() {
 	let str = JSON.stringify(player);
 	str = "eydXRvc2F2ZSI6dHJ1ZSwibXNEaXNwbGF5IjoiYWx3YXlzIiwidGhlbWUiOm51bGwsImhxVHJlZSI6ZmFsc2UsIm9mZmxpbmVQcm9kIjp0cnVlLCJoaWRlQ2hhbGxlbmdlcyI6ZmFsc2UsInNob3dTdG9yeSI6dHJ1ZSwiZm9yY2VPbmVUYWIiOmZhbHNlLCJvbGRTdHlsZSI6ZmFsc2V9"+LZString.compressToBase64(str);
-
+	return str;
+}
+function exportSave() {
+	let str = exportSaveProtocol();
 	const el = document.createElement("textarea");
 	el.value = str;
 	document.body.appendChild(el);
@@ -295,10 +298,7 @@ function exportSave() {
 	document.execCommand("copy");
 	document.body.removeChild(el);
 }
-function importSave(imported = undefined, forced = false) {
-	if (imported === undefined){
-		imported = prompt("Paste your save here")
-	};
+function importSaveProtocal(imported, forced) {
 	try {
 		var a = LZString.decompressFromBase64(imported.substr(214));
 		if(a[0] != "{"){a = atob(imported)};
@@ -314,6 +314,49 @@ function importSave(imported = undefined, forced = false) {
 	} catch (e) {
 		return;
 	}
+}
+function importSave() {
+	let imported = undefined, forced = false;
+	if (imported === undefined){
+		imported = prompt("Paste your save here");
+	}
+	importSaveProtocal(imported, forced)
+}
+function triggerFileInput() {
+    document.getElementById('fileInput').click();
+}
+function importSaveFile() {
+	const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+			importSaveProtocal(event.target.result, false);
+        };
+
+        reader.onerror = function(event) {
+            console.error('文件读取失败', event);
+        };
+
+        reader.readAsText(file);
+    } else {
+        alert('请先选择一个文件！');
+    }
+}
+function exportSaveFile() {
+	const content = exportSaveProtocol();
+    const blob = new Blob([content], { type: 'text/plain' }); // 创建Blob对象
+    const url = URL.createObjectURL(blob); // 创建一个URL用于下载
+    // 创建一个下载链接
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'chuanqi.saves'; // 指定文件名
+    document.body.appendChild(a); // 将链接添加到DOM
+    a.click(); // 触发点击事件下载文件
+    document.body.removeChild(a); // 下载后从DOM中移除链接
+    URL.revokeObjectURL(url); // 释放URL对象
 }
 function versionCheck() {
 	let setVersion = true;
