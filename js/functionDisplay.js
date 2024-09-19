@@ -116,11 +116,9 @@ function getMainSubTabDisplay(){
             str+="<tr>"
             str+="<td style='text-align:left;width:200px'>"+attributeToName[list[i]]+"修炼 "+format(player.spiritLv[i],0)+"级</td>"
             str+="<td style='text-align:left;width:150px'>"+attributeToName[list[i]]+"+"+format(n(player.spiritLv[i]).mul(n(1.1).pow(CalcSpiritStage(i))),0)+"%</td>"
-            if(CalcSpiritNeed(i)<1e100){
-                str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+CalcSpiritNeed(i)+"</td>"
-                str+="<td style='text-align:left;'><button onclick='SpiritUpgrade("+i+",0)'>修炼</button></td>"
-                str+="<td style='text-align:left;'><button onclick='SpiritUpgrade("+i+",1)' style='margin-left:-10px;'>一键修炼</button></td>"
-            }
+            str+="<td style='text-align:left;width:300px'>下一级需要 "+idToName[2]+"×"+format(CalcSpiritNeed(i),0)+"</td>"
+            str+="<td style='text-align:left;'><button onclick='SpiritUpgrade("+i+",0)'>修炼</button></td>"
+            str+="<td style='text-align:left;'><button onclick='SpiritUpgrade("+i+",1)' style='margin-left:-10px;'>一键修炼</button></td>"
             str+="</tr>"
         }
         str+="</table>"

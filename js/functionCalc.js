@@ -270,9 +270,7 @@ const spiritNeed=[
     [7.2e5,6e6],[7.3e5,6.5e6],[7.4e5,7e6],[7.5e5,8e6],[7.6e5,9e6],[7.7e5,1e7],[7.8e5,1.2e7],[7.9e5,1.4e7],[8e5,1.6e7],
     [8.1e5,1.8e7],[8.2e5,2e7],[8.3e5,2.5e7],[8.4e5,3e7],[8.5e5,3.5e7],[8.6e5,4e7],[8.7e5,4.5e7],[8.8e5,5e7],[8.9e5,6e7],
     [9e5,7e7],[9.1e5,8e7],[9.2e5,9e7],[9.3e5,1e8],[9.4e5,1.2e8],[9.5e5,1.4e8],[9.6e5,1.6e8],[9.7e5,1.8e8],[9.8e5,2e8],[9.9e5,2.5e8],
-    [1e6,3e8],[1.01e6,3.5e8],[1.02e6,4e8],[1.03e6,4.5e8],[1.04e6,5e8],[1.05e6,6e8],[1.06e6,7e8],[1.07e6,8e8],[1.08e6,9e8],[1.09e6,1e9],
-    [1.10e6,1.2e9],[1.11e6,1.4e9],[1.12e6,1.6e9],[1.13e6,1.8e9],[1.14e6,2e9],[1.15e6,2.5e9],[1.16e6,3e9],[1.17e6,3.5e9],[1.18e6,4e9],
-    [1.19e6,4.5e9],[1.20e6,5e9]
+    [1e6,3e8],
 ]
 function CalcSpiritNeed(id){
     for(let i=0;i<spiritNeed.length;i++){
@@ -280,7 +278,13 @@ function CalcSpiritNeed(id){
             return spiritNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigSpiritNeed(id)[1]
+}
+function CalcBigSpiritNeed(id){
+    let m=player.spiritLv[id]-1e6
+    let ls=[3.5,4,4.5,5,6,7,8,9,10,12,14,16,18,20,25,30],bs=n(1e8)
+    let mx=1e6+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-1e6)/(10000*ls.length)))).mul(ls[Math.floor((mx-1e6-Math.floor((mx-1e6)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function CalcSpiritStage(id){
     for(let i=0;i<spiritNeed.length;i++){
@@ -288,7 +292,7 @@ function CalcSpiritStage(id){
             return i
         }
     }
-    return spiritNeed.length
+    return spiritNeed.length+Math.floor((player.spiritLv[id]-1e6)/10000)
 }
 function SpiritUpgrade(id,type){
     if(type==0){
@@ -328,7 +332,13 @@ function CalcTransmigrationNeed(id){
             return transmigrationNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigTransmigrationNeed(id)[1]
+}
+function CalcBigTransmigrationNeed(id){
+    let m=player.transmigrationLv[id]-300
+    let bs=n(1e14)
+    let mx=300+Math.ceil((m+1)/100)*100,nd=bs.mul(n(10).pow(Math.floor((mx-300)/100)))
+    return [mx,nd]
 }
 function TransmigrationUpgrade(id,type){
     if(n(player.transmigrationLv[id]).gte(player[id].logBase(2).floor())){
@@ -371,7 +381,13 @@ function CalcDivineNeed(){
             return divineNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigDivineNeed(id)[1]
+}
+function CalcBigDivineNeed(id){
+    let m=player.divineLv[id]-1200
+    let bs=n(1e14)
+    let mx=1200+Math.ceil((m+1)/400)*400,nd=bs.mul(n(10).pow(Math.floor((mx-1200)/400)))
+    return [mx,nd]
 }
 function DivineUpgrade(type){
     let mx=player.transmigrationLv["hpmax"]+player.transmigrationLv["atk"]+player.transmigrationLv["def"]+player.transmigrationLv["hit"]
@@ -422,7 +438,13 @@ function CalcTempleNeed(id){
             return templeNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigTempleNeed(id)[1]
+}
+function CalcBigTempleNeed(id){
+    let m=player.templeLv[id]-80000
+    let ls=[6,7,8,9,10,12,14,16,18,20,25,30,35,40,45,50],bs=n(1e9)
+    let mx=80000+Math.ceil((m+1)/1000)*1000,nd=bs.mul(n(10).pow(Math.floor((mx-80000)/(1000*ls.length)))).mul(ls[Math.floor((mx-80000-Math.floor((mx-80000)/(1000*ls.length))*(1000*ls.length))/1000)])
+    return [mx,nd]
 }
 function TempleUpgrade(id,type){
     if(type==0){
@@ -467,7 +489,13 @@ function CalcConcealNeed(){
             return ConcealNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigConcealNeed()[1]
+}
+function CalcBigConcealNeed(){
+    let m=player.concealLv-2e5
+    let ls=[3,3.5,4,4.5,5,6,7,8,9,10,12,14,16,18,20,25],bs=n(1e8)
+    let mx=2e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-2e5)/(10000*ls.length)))).mul(ls[Math.floor((mx-2e5-Math.floor((mx-2e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function ConcealUpgrade(type){
     if(type==0){
@@ -508,7 +536,13 @@ function CalcZonghengNeed(id){
             return ZonghengNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigZonghengNeed(id)[1]
+}
+function CalcBigZonghengNeed(id){
+    let m=player.zonghengLv[id]-2e5
+    let bs=n(1e45)
+    let mx=2e5+Math.ceil((m+1)/20000)*20000,nd=bs.mul(n(10).pow(Math.floor((mx-2e5)/(20000)))).mul(ls[Math.floor((mx-2e5-Math.floor((mx-2e5)/(20000))*(20000))/20000)])
+    return [mx,nd]
 }
 function ZonghengUpgrade(id,type){
     let mx=1e100
@@ -572,7 +606,13 @@ function CalcSoulcircleNeed(){
             return SoulcircleNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigSoulcircleNeed()[1]
+}
+function CalcBigSoulcircleNeed(){
+    let m=player.soulcircleUpgradeLv-1e5
+    let ls=[1.8,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10,12,14,16],bs=n(1e7)
+    let mx=1e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-1e5)/(10000*ls.length)))).mul(ls[Math.floor((mx-1e5-Math.floor((mx-1e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function SoulcircleUpgrade(type){
     if(type==0){
@@ -615,7 +655,13 @@ function CalcSoulboneNeed(){
             return SoulboneNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigSoulboneNeed()[1]
+}
+function CalcBigSoulboneNeed(){
+    let m=player.soulboneUpgradeLv-50000
+    let ls=[5,6,7,8,9,10,12,14,16,18,20,25,30,35,40,45],bs=n(1e7)
+    let mx=50000+Math.ceil((m+1)/2000)*2000,nd=bs.mul(n(10).pow(Math.floor((mx-50000)/(2000*ls.length)))).mul(ls[Math.floor((mx-50000-Math.floor((mx-50000)/(2000*ls.length))*(2000*ls.length))/2000)])
+    return [mx,nd]
 }
 function SoulboneUpgrade(type){
     if(type==0){
@@ -658,7 +704,13 @@ function CalcBookNeed(){
             return BookNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigBookNeed()[1]
+}
+function CalcBigBookNeed(){
+    let m=player.bookUpgradeLv-1e5
+    let ls=[6,7,8,9,10,12,14,16,18,20,25,30,35,40,45,50],bs=n(1e7)
+    let mx=1e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-100000)/(10000*ls.length)))).mul(ls[Math.floor((mx-1e5-Math.floor((mx-1e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function BookUpgrade(type){
     if(type==0){
@@ -703,7 +755,13 @@ function CalcPetNeed(){
             return PetNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigPetNeed()[1]
+}
+function CalcBigPetNeed(){
+    let m=player.petUpgradeLv-2e5
+    let ls=[3,3.5,4,4.5,5,6,7,8,9,10,12,14,16,18,20,25],bs=n(1e8)
+    let mx=2e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-2e5)/(10000*ls.length)))).mul(ls[Math.floor((mx-2e5-Math.floor((mx-2e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function PetUpgrade(type){
     if(type==0){
@@ -746,7 +804,13 @@ function CalcSkillNeed(){
             return SkillNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigSkillNeed()[1]
+}
+function CalcBigSkillNeed(){
+    let m=player.skillUpgradeLv-1e5
+    let ls=[6,7,8,9,10,12,14,16,18,20,25,30,35,40,45,50],bs=n(1e7)
+    let mx=1e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-100000)/(10000*ls.length)))).mul(ls[Math.floor((mx-1e5-Math.floor((mx-1e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function SkillUpgrade(type){
     if(type==0){
@@ -788,7 +852,13 @@ function CalcInfinityNeed(){
             return InfinityNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigInfinityNeed()[1]
+}
+function CalcBigInfinityNeed(){
+    let m=player.infinityUpgradeLv-80000
+    let ls=[1.6,1.8,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10,12,14],bs=n(1e7)
+    let mx=80000+Math.ceil((m+1)/5000)*5000,nd=bs.mul(n(10).pow(Math.floor((mx-80000)/(5000*ls.length)))).mul(ls[Math.floor((mx-80000-Math.floor((mx-80000)/(5000*ls.length))*(5000*ls.length))/5000)])
+    return [mx,nd]
 }
 function InfinityUpgrade(type){
     if(type==0){
@@ -831,7 +901,13 @@ function CalcPartnerNeed(){
             return PartnerNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigPartnerNeed()[1]
+}
+function CalcBigPartnerNeed(){
+    let m=player.partnerUpgradeLv-1e5
+    let ls=[6,7,8,9,10,12,14,16,18,20,25,30,35,40,45,50],bs=n(1e7)
+    let mx=1e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-100000)/(10000*ls.length)))).mul(ls[Math.floor((mx-1e5-Math.floor((mx-1e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
 }
 function PartnerUpgrade(type){
     if(type==0){
@@ -874,7 +950,13 @@ function CalcHeroNeed(){
             return HeroNeed[i][1]
         }
     }
-    return n(1e308)
+    return CalcBigHeroNeed()[1]
+}
+function CalcBigHeroNeed(){
+    let m=player.heroUpgradeLv-50000
+    let ls=[5,6,7,8,9,10,12,14,16,18,20,25,30,35,40,45],bs=n(1e7)
+    let mx=50000+Math.ceil((m+1)/2000)*2000,nd=bs.mul(n(10).pow(Math.floor((mx-50000)/(2000*ls.length)))).mul(ls[Math.floor((mx-50000-Math.floor((mx-50000)/(2000*ls.length))*(2000*ls.length))/2000)])
+    return [mx,nd]
 }
 function HeroUpgrade(type){
     if(type==0){
