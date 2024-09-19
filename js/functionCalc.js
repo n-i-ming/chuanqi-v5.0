@@ -188,7 +188,7 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=3.55
+    player.hangingSpeed+=4.2
     player.hangingSpeed*=player.separationLv*0.5+1
 
     player.dropLuck=1
