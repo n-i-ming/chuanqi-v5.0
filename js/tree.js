@@ -256,8 +256,17 @@ addLayer("tree-tab",{
                 if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
                     str+="超级大力支持 : 挂机速度×3 材料掉落率x2<br>"
                 }
+                if(player.exchangeCodeList.includes("61d76ba854558116517c822fefa55ba9b42d0e50e46d852e63589b78d6809c33")){
+                    str+="巨力支持 : 挂机速度×4<br>"
+                }
                 if(player.exchangeCodeList.includes("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c")){
-                    str+="冠名支持 : 挂机速度×5 材料掉落数量x2<br>"
+                    str+="超级巨力支持 : 挂机速度×5 材料掉落数量x2<br>"
+                }
+                if(player.exchangeCodeList.includes("1632b66a0c5a7ebf4ddf43636001472922536b0a6db6215cd7c117bd54c512fc")){
+                    str+="钻石支持 : 挂机速度×5 材料掉落率x2.5<br>"
+                }
+                if(player.exchangeCodeList.includes("d91d4221eaf4856528d3768c01dea80b3ce73922a276407c5e82ee5728ad9d6c")){
+                    str+="冠名支持 : 挂机速度×6 材料掉落数量x2.5<br>"
                 }
             }
             return str
