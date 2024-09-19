@@ -541,7 +541,7 @@ function CalcZonghengNeed(id){
 function CalcBigZonghengNeed(id){
     let m=player.zonghengLv[id]-2e5
     let bs=n(1e45)
-    let mx=2e5+Math.ceil((m+1)/20000)*20000,nd=bs.mul(n(10).pow(Math.floor((mx-2e5)/(20000)))).mul(ls[Math.floor((mx-2e5-Math.floor((mx-2e5)/(20000))*(20000))/20000)])
+    let mx=2e5+Math.ceil((m+1)/20000)*20000,nd=bs.mul(n(10).pow(Math.floor((mx-2e5)/(20000))))
     return [mx,nd]
 }
 function ZonghengUpgrade(id,type){
