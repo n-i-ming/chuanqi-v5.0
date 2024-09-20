@@ -246,11 +246,9 @@ function getMainSubTabDisplay(){
             str+="<td style='text-align:left;width:150px'>"+list[i]+"神庙 "+format(player.templeLv[i],0)+"级</td>"
             str+="<td style='text-align:left;width:150px'>"+list[i]+"+"
             +format(n(player.templeLv[i]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[i]/100))).sub(100),0)+"%</td>"
-            if(CalcTempleNeed(i)<=1e100){
-                str+="<td style='text-align:right'>消耗 琥珀×"+format(CalcTempleNeed(i),0)+"</td>"
-                str+="<td style='text-align:right'><button onclick='TempleUpgrade("+i+",0)'>升级</button></td>"
-                str+="<td style='text-align:left'><button onclick='TempleUpgrade("+i+",1)' style='margin-left:-10px'>一键升级</button></td>"
-            }
+            str+="<td style='text-align:right'>消耗 琥珀×"+format(CalcTempleNeed(i),0)+"</td>"
+            str+="<td style='text-align:right'><button onclick='TempleUpgrade("+i+",0)'>升级</button></td>"
+            str+="<td style='text-align:left'><button onclick='TempleUpgrade("+i+",1)' style='margin-left:-10px'>一键升级</button></td>"
             str+="</tr>"
         }
         str+="</table>"
@@ -261,11 +259,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有暗器增益+"+format(player.concealLv,0)+"%</td>"
-        if(CalcConcealNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 陨铁×"+format(CalcConcealNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='ConcealUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='ConcealUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 陨铁×"+format(CalcConcealNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='ConcealUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='ConcealUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         let mul=n(1).add(0.01*player.concealLv)
         str+="<tr><td>　</td></tr>"
@@ -339,11 +335,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>功法强化 "+format(player.bookUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有功法增益+"+format(player.bookUpgradeLv,0)+"%</td>"
-        if(CalcBookNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 功法精粹×"+format(CalcBookNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='BookUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='BookUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 功法精粹×"+format(CalcBookNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='BookUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='BookUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<bookAttribute.length;i++){
             str+="<tr>"
@@ -378,11 +372,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>宠物强化 "+format(player.petUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有宠物增益+"+format(player.petUpgradeLv,0)+"%</td>"
-        if(CalcPetNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 肉块×"+format(CalcPetNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='PetUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='PetUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 肉块×"+format(CalcPetNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='PetUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='PetUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<petAttribute.length;i++){
             str+="<tr>"
@@ -499,11 +491,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>魂环强化 "+format(player.soulcircleUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有魂环增益+"+format(player.soulcircleUpgradeLv,0)+"%</td>"
-        if(CalcSoulcircleNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 魂环碎片×"+format(CalcSoulcircleNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='SoulcircleUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='SoulcircleUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 魂环碎片×"+format(CalcSoulcircleNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='SoulcircleUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='SoulcircleUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<soulcircleAttribute.length;i++){
             str+="<tr>"
@@ -538,11 +528,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>魂骨强化 "+format(player.soulboneUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有魂骨获取类增益+"+format(player.soulboneUpgradeLv/10,1)+"% 所有魂骨属性类增益+"+format(player.soulboneUpgradeLv,0)+"%</td>"
-        if(CalcSoulboneNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 魂骨碎片×"+format(CalcSoulboneNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='SoulboneUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='SoulboneUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 魂骨碎片×"+format(CalcSoulboneNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='SoulboneUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='SoulboneUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<soulboneAttribute.length;i++){
             str+="<tr>"
@@ -592,11 +580,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>绝技强化 "+format(player.skillUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有绝技增益+"+format(player.skillUpgradeLv,0)+"%</td>"
-        if(CalcSkillNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 绝技图册×"+format(CalcSkillNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='SkillUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='SkillUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 绝技图册×"+format(CalcSkillNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='SkillUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='SkillUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<skillAttribute.length;i++){
             str+="<tr>"
@@ -631,11 +617,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>无限宝石强化 "+format(player.infinityUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有无限宝石增益+"+format(player.infinityUpgradeLv,0)+"%</td>"
-        if(CalcInfinityNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 无限宝石碎片×"+format(CalcInfinityNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='InfinityUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='InfinityUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 无限宝石碎片×"+format(CalcInfinityNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='InfinityUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='InfinityUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<infinityAttribute.length;i++){
             str+="<tr>"
@@ -675,11 +659,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>后宫强化 "+format(player.partnerUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有后宫增益+"+format(player.partnerUpgradeLv,0)+"%</td>"
-        if(CalcPartnerNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 仕女图×"+format(CalcPartnerNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='PartnerUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='PartnerUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 仕女图×"+format(CalcPartnerNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='PartnerUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='PartnerUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<partnerAttribute.length;i++){
             str+="<tr>"
@@ -718,11 +700,9 @@ function getMainSubTabDisplay(){
         str+="<tr>"
         str+="<td style='text-align:left;'>英雄强化 "+format(player.heroUpgradeLv,0)+"级</td>"
         str+="<td style='text-align:left;'>所有英雄增益+"+format(player.heroUpgradeLv*0.1,1)+"%</td>"
-        if(CalcHeroNeed()<1e100){
-            str+="<td style='text-align:right;'>消耗 英雄元魂×"+format(CalcHeroNeed(),0)+"</td>"
-            str+="<td style='text-align:right;'><button onclick='HeroUpgrade(0)'>升级</button></td>"
-            str+="<td style='text-align:left;'><button onclick='HeroUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
-        }
+        str+="<td style='text-align:right;'>消耗 英雄元魂×"+format(CalcHeroNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='HeroUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='HeroUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
         for(let i=0;i<heroAttribute.length;i++){
             str+="<tr>"
