@@ -511,6 +511,18 @@ const immortalAttribute=[
     ["2990条大道之主",{hpmax:n(1.2e24),atk:n(5e23),def:n(5e23),hit:n(1.8e23)},{damageAdd:n(9.2e10),damageMinus:n(9.2e10)},n(1e55),4000],
     ["3000条大道之主",{hpmax:n(1.4e24),atk:n(6e23),def:n(6e23),hit:n(2e23)},{damageAdd:n(9.4e10),damageMinus:n(9.4e10)},n(1.2e55),5000],
 ]
+function CalcImmortalAttribute(){
+    let m=player.immortalLv-immortalAttribute.length
+    let bs=n(1e55)
+    let ls1=[1,1.2,1.4,1.6,1.8,2,2.5,3,3.5,4,4.5,5,6,7,8,9]
+    let ls2=[1,1.05,1.1,1.15,1.20,1.25,1.30,1.35,1.40,1.45,1.50,1.55,1.60,1.65,1.70,1.75,1.80,1.85,1.90,1.95,2,
+        2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3.0,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4.0,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,5,
+        5.2,5.4,5.6,5.8,6,6.2,6.4,6.6,6.8,7,7.2,7.4,7.6,7.8,8,8.2,8.4,8.6,8.8,9,9.2,9.4,9.6,9.8
+    ]
+    let ls3=[1,1.2,1.5,2,3,5,7]
+    let name="超脱·"+m+"阶",nd=bs.mul(n(10).pow(Math.floor(mx/(ls3.length)))).mul(ls[Math.floor((mx-Math.floor(mx/(ls.length))*(ls.length)))])
+    return [mx,nd]
+}
 const concealFrontName=[
     "","<text style='color:green'>一阶</text>·","<text style='color:blue'>二阶</text>·","<text style='color:red'>三阶</text>·"
 ]
