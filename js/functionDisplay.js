@@ -174,41 +174,41 @@ function getMainSubTabDisplay(){
         str+="</table>"
     }
     else if(player.mainTabId==6){//飞升
+        let attr=(player.immortalLv<immortalAttribute.length?immortalAttribute[player.immortalLv]:CalcImmortalAttribute(player.immortalLv))
+        let attr1=(player.immortalLv+1<immortalAttribute.length?immortalAttribute[player.immortalLv+1]:CalcImmortalAttribute(player.immortalLv+1))
         str+="<table>"
-        str+="<tr><td colspan=4 style='text-align:left'>当前仙阶 "+immortalAttribute[player.immortalLv][0]+"</td></tr>"
+        str+="<tr><td colspan=4 style='text-align:left'>当前仙阶 "+attr[0]+"</td></tr>"
         str+="<tr>"
-        for(let id in immortalAttribute[player.immortalLv][1]){
-            str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv][1][id],0)+"%</td>"
+        for(let id in attr[1]){
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+format(attr[1][id],0)+"%</td>"
         }
         str+="</tr>"
         str+="<tr>"
-        for(let id in immortalAttribute[player.immortalLv][2]){
-            str+="<td style='text-align:left'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv][2][id],0)+"</td>"
+        for(let id in attr[2]){
+            str+="<td style='text-align:left'>"+attributeToName[id]+"+"+format(attr[2][id],0)+"</td>"
         }
         str+="</tr>"
         str+="<tr>"
-        str+="<td style='text-align:left'>挂机难度系数上限+"+immortalAttribute[player.immortalLv][4]+"</td>"
+        str+="<td style='text-align:left'>挂机难度系数上限+"+attr[4]+"</td>"
         str+="</tr>"
         str+="<tr><td>　</td></tr>"
-        if(player.immortalLv<immortalAttribute.length-1){
-            str+="<tr><td colspan=4 style='text-align:left'>下一仙阶 "+immortalAttribute[player.immortalLv+1][0]+"</td></tr>"
-            str+="<tr>"
-            for(let id in immortalAttribute[player.immortalLv+1][1]){
-                str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv+1][1][id],0)+"%</td>"
-            }
-            str+="</tr>"
-            str+="<tr>"
-            for(let id in immortalAttribute[player.immortalLv+1][2]){
-                str+="<td style='text-align:left'>"+attributeToName[id]+"+"+format(immortalAttribute[player.immortalLv+1][2][id],0)+"</td>"
-            }
-            str+="</tr>"
-            str+="<tr>"
-            str+="<td style='text-align:left'>挂机难度系数上限+"+immortalAttribute[player.immortalLv+1][4]+"</td>"
-            str+="</tr>"
-            str+="<tr><td style='text-align:left'>消耗 修为×"+format(immortalAttribute[player.immortalLv][3],0)+"</td>"
-            str+="<td style='text-align:left'>成功率"+format(10*(1+player.immortalTimes),0)+"%</td></tr>"
-            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeImmortal(0)'>飞升</button><button style='margin-left:-8px' onclick='TryUpgradeImmortal(1)'>一键飞升</button></td></tr>"
+        str+="<tr><td colspan=4 style='text-align:left'>下一仙阶 "+attr1[0]+"</td></tr>"
+        str+="<tr>"
+        for(let id in attr1[1]){
+            str+="<td style='text-align:left;width:200px'>"+attributeToName[id]+"+"+format(attr1[1][id],0)+"%</td>"
         }
+        str+="</tr>"
+        str+="<tr>"
+        for(let id in attr1[2]){
+            str+="<td style='text-align:left'>"+attributeToName[id]+"+"+format(attr1[2][id],0)+"</td>"
+        }
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td style='text-align:left'>挂机难度系数上限+"+attr1[4]+"</td>"
+        str+="</tr>"
+        str+="<tr><td style='text-align:left'>消耗 修为×"+format(attr[3],0)+"</td>"
+        str+="<td style='text-align:left'>成功率"+format(10*(1+player.immortalTimes),0)+"%</td></tr>"
+        str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeImmortal(0)'>飞升</button><button style='margin-left:-8px' onclick='TryUpgradeImmortal(1)'>一键飞升</button></td></tr>"
         str+="</table>"
     }
     else if(player.mainTabId==7){//转生

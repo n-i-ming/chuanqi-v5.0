@@ -156,7 +156,8 @@ addLayer("tree-tab",{
         ["display-text",function(){
             let str=""
             str+="<table><tr>"
-            str+="<td>"+immortalAttribute[player.immortalLv][0]+"·"+format(player.lv,0)+"级</td>"
+            let attr=(player.immortalLv<immortalAttribute.length?immortalAttribute[player.immortalLv]:CalcImmortalAttribute(player.immortalLv))
+            str+="<td>"+attr[0]+"·"+format(player.lv,0)+"级</td>"
             str+="<td style='width:50px'></td>"
             str+="<td>战力"+format(player.fightAbility,0)+"</td>"
             str+="<td style='width:50px'></td>"

@@ -7,7 +7,8 @@ function CalcAttribute(){
     player.criticalDamage=n(200)
     player.damageAdd=n(100)
     player.damageMinus=n(0)
-    player.maxDifficulty=immortalAttribute[player.immortalLv][4]
+    let attr=(player.immortalLv<immortalAttribute.length?immortalAttribute[player.immortalLv]:CalcImmortalAttribute(player.immortalLv))
+    player.maxDifficulty=attr[4]
 
     {//add
     for(let i=0;i<pelletAttribute.length;i++){
@@ -22,8 +23,8 @@ function CalcAttribute(){
     }
     player.damageAdd=player.damageAdd.add(n(10).mul(player.meridianLv[0][0]))
     player.damageMinus=player.damageMinus.add(n(10).mul(player.meridianLv[1][0]))
-    for(let id in immortalAttribute[player.immortalLv][2]){
-        player[id]=player[id].add(immortalAttribute[player.immortalLv][2][id])
+    for(let id in attr[2]){
+        player[id]=player[id].add(attr[2][id])
     }
     for(let i=0;i<concealAttribute.length;i++){
         let mul=n(1).add(0.01*player.concealLv)
@@ -87,8 +88,8 @@ function CalcAttribute(){
     player.hit=player.hit.mul(n(1).add(n(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2)).div(100)))
     player.hpmax=player.hpmax.mul(n(1).add(n(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.ceil(player.meridianLv[1][1]/2)).div(100)))
     player.def=player.def.mul(n(1).add(n(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.floor(player.meridianLv[1][1]/2)).div(100)))
-    for(let id in immortalAttribute[player.immortalLv][1]){
-        player[id]=player[id].mul(n(1).add(n(immortalAttribute[player.immortalLv][1][id]).div(100)))
+    for(let id in attr[1]){
+        player[id]=player[id].mul(n(1).add(n(attr[1][id]).div(100)))
     }
     for(let id in player.transmigrationLv){
         player[id]=player[id].mul(n(1.01).pow(player.transmigrationLv[id]))
