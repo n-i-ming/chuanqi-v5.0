@@ -134,11 +134,12 @@ function TryUpgradeMeridian(id,wh){
         }
     }
 }
-function TryUpgradeImmortal(){
+function TryUpgradeImmortal(type){
     if(player.cultivation.lt(immortalAttribute[player.immortalLv][3])){
         logs.push("修为不够")
+        return
     }
-    else{
+    if(type==0){
         player.cultivation=player.cultivation.sub(immortalAttribute[player.immortalLv][3])
         if(random()<=0.1*(player.immortalTimes+1)){
             player.immortalLv+=1
@@ -148,6 +149,20 @@ function TryUpgradeImmortal(){
         else{
             player.immortalTimes+=1
             logs.push("飞升 "+immortalAttribute[player.immortalLv+1][0]+" 失败 , 再接再厉")
+        }
+    }
+    else{
+        while(player.cultivation.gte(immortalAttribute[player.immortalLv][3]) && player.immortalLv<immortalAttribute.length){
+            player.cultivation=player.cultivation.sub(immortalAttribute[player.immortalLv][3])
+            if(random()<=0.1*(player.immortalTimes+1)){
+                player.immortalLv+=1
+                player.immortalTimes=0
+                logs.push("飞升 "+immortalAttribute[player.immortalLv][0]+" 成功")
+            }
+            else{
+                player.immortalTimes+=1
+                logs.push("飞升 "+immortalAttribute[player.immortalLv+1][0]+" 失败 , 再接再厉")
+            }
         }
     }
 }

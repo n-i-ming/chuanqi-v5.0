@@ -207,7 +207,7 @@ function getMainSubTabDisplay(){
             str+="</tr>"
             str+="<tr><td style='text-align:left'>消耗 修为×"+format(immortalAttribute[player.immortalLv][3],0)+"</td>"
             str+="<td style='text-align:left'>成功率"+format(10*(1+player.immortalTimes),0)+"%</td></tr>"
-            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeImmortal()'>飞升</button></td></tr>"
+            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeImmortal(0)'>飞升</button><button style='margin-left:-8px' onclick='TryUpgradeImmortal(1)'>一键飞升</button></td></tr>"
         }
         str+="</table>"
     }
@@ -441,12 +441,12 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(0).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(0,0)'>升级</button><button onclick='ZonghengUpgrade(0,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(0,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(0,3)' style='margin-left:-8px'>升1万级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(0,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(0,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(0,3)' style='margin-left:-8px'>升1万级</button><button onclick='ZonghengUpgrade(0,4)' style='margin-left:-8px'>升10万级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="<td style='width:20px'></td>"
         if(CalcZonghengNeed(1).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(1,0)'>升级</button><button onclick='ZonghengUpgrade(1,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(1,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(1,3)' style='margin-left:-8px'>升1万级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(1,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(1,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(1,3)' style='margin-left:-8px'>升1万级</button><button onclick='ZonghengUpgrade(1,4)' style='margin-left:-8px'>升10万级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="</tr>"
@@ -478,12 +478,12 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(2).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(2,0)'>升级</button><button onclick='ZonghengUpgrade(2,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(2,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(2,3)' style='margin-left:-8px'>升1万级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(2,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(2,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(2,3)' style='margin-left:-8px'>升1万级</button><button onclick='ZonghengUpgrade(2,4)' style='margin-left:-8px'>升10万级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="<td style='width:20px'></td>"
         if(CalcZonghengNeed(3).lt(1e100))
-        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(3,0)'>升级</button><button onclick='ZonghengUpgrade(3,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(3,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(3,3)' style='margin-left:-8px'>升1万级</button></td>"
+        str+="<td style='width:300px;text-align:right'><button onclick='ZonghengUpgrade(3,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(3,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(3,3)' style='margin-left:-8px'>升1万级</button><button onclick='ZonghengUpgrade(3,4)' style='margin-left:-8px'>升10万级</button></td>"
         else
         str+="<td style='width:300px;text-align:left'>　</td>"
         str+="</tr>"
@@ -504,7 +504,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(4).lt(1e100))
-        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(4,0)'>升级</button><button onclick='ZonghengUpgrade(4,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(4,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(4,3)' style='margin-left:-8px'>升1万级</button></td>"
+        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(4,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(4,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(4,3)' style='margin-left:-8px'>升1万级</button><button onclick='ZonghengUpgrade(4,4)' style='margin-left:-8px'>升10万级</button></td>"
         else
         str+="<td colspan=3>　</td>"
         str+="</tr>"
@@ -522,7 +522,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="<tr>"
         if(CalcZonghengNeed(5).lt(1e100))
-        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(5,0)'>升级</button><button onclick='ZonghengUpgrade(5,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(5,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(5,3)' style='margin-left:-8px'>升1万级</button></td>"
+        str+="<td colspan=3 style='text-align:right'><button onclick='ZonghengUpgrade(5,1)' style='margin-left:-8px'>升100级</button><button onclick='ZonghengUpgrade(5,2)' style='margin-left:-8px'>升1000级</button><button onclick='ZonghengUpgrade(5,3)' style='margin-left:-8px'>升1万级</button><button onclick='ZonghengUpgrade(5,4)' style='margin-left:-8px'>升10万级</button></td>"
         else
         str+="<td colspan=3>　</td>"
         str+="</tr>"
