@@ -432,6 +432,21 @@ const immortalAttribute=[
     ["2180条大道之主",{hpmax:n(1.4e19),atk:n(6e18),def:n(6e18),hit:n(2e18)},{damageAdd:n(8.6e9),damageMinus:n(8.6e9)},n(7e43),4000],
     ["2190条大道之主",{hpmax:n(1.6e19),atk:n(7e18),def:n(7e18),hit:n(2.5e18)},{damageAdd:n(8.8e9),damageMinus:n(8.8e9)},n(1e44),4000],
     ["2200条大道之主",{hpmax:n(1.8e19),atk:n(8e18),def:n(8e18),hit:n(3e18)},{damageAdd:n(9e9),damageMinus:n(9e9)},n(1.2e44),4000],
+    ["2210条大道之主",{hpmax:n(2e19),atk:n(9e18),def:n(9e18),hit:n(3.5e18)},{damageAdd:n(9.2e9),damageMinus:n(9.2e9)},n(1.5e44),4000],
+    ["2220条大道之主",{hpmax:n(2.5e19),atk:n(1e19),def:n(1e19),hit:n(4e18)},{damageAdd:n(9.4e9),damageMinus:n(9.4e9)},n(2e44),4000],
+    ["2230条大道之主",{hpmax:n(3e19),atk:n(1.2e19),def:n(1.2e19),hit:n(4.5e18)},{damageAdd:n(9.6e9),damageMinus:n(9.6e9)},n(3e44),4000],
+    ["2240条大道之主",{hpmax:n(3.5e19),atk:n(1.4e19),def:n(1.4e19),hit:n(5e18)},{damageAdd:n(9.8e9),damageMinus:n(9.8e9)},n(5e44),4000],
+    ["2250条大道之主",{hpmax:n(4e19),atk:n(1.6e19),def:n(1.6e19),hit:n(6e18)},{damageAdd:n(1e10),damageMinus:n(1e10)},n(7e44),4000],
+    ["2260条大道之主",{hpmax:n(4.5e19),atk:n(1.8e19),def:n(1.8e19),hit:n(7e18)},{damageAdd:n(1.05e10),damageMinus:n(1.05e10)},n(1e45),4000],
+    ["2270条大道之主",{hpmax:n(5e19),atk:n(2e19),def:n(2e19),hit:n(8e18)},{damageAdd:n(1.10e10),damageMinus:n(1.10e10)},n(1.2e45),4000],
+    ["2280条大道之主",{hpmax:n(6e19),atk:n(2.5e19),def:n(2.5e19),hit:n(9e18)},{damageAdd:n(1.15e10),damageMinus:n(1.15e10)},n(1.5e45),4000],
+    ["2290条大道之主",{hpmax:n(7e19),atk:n(3e19),def:n(3e19),hit:n(1e19)},{damageAdd:n(1.20e10),damageMinus:n(1.20e10)},n(2e45),4000],
+    ["2300条大道之主",{hpmax:n(8e19),atk:n(3.5e19),def:n(3.5e19),hit:n(1.2e19)},{damageAdd:n(1.25e10),damageMinus:n(1.25e10)},n(3e45),4000],
+    ["2310条大道之主",{hpmax:n(9e19),atk:n(4e19),def:n(4e19),hit:n(1.4e19)},{damageAdd:n(1.30e10),damageMinus:n(1.30e10)},n(5e45),4000],
+    ["2320条大道之主",{hpmax:n(1e20),atk:n(4.5e19),def:n(4.5e19),hit:n(1.6e19)},{damageAdd:n(1.35e10),damageMinus:n(1.35e10)},n(7e45),4000],
+    ["2330条大道之主",{hpmax:n(1.2e20),atk:n(5e19),def:n(5e19),hit:n(1.8e19)},{damageAdd:n(1.40e10),damageMinus:n(1.40e10)},n(1e46),4000],
+    ["2340条大道之主",{hpmax:n(1.4e20),atk:n(6e19),def:n(6e19),hit:n(2e19)},{damageAdd:n(1.45e10),damageMinus:n(1.45e10)},n(1.2e46),4000],
+    ["2350条大道之主",{hpmax:n(1.6e20),atk:n(7e19),def:n(7e19),hit:n(2.5e19)},{damageAdd:n(1.45e10),damageMinus:n(1.45e10)},n(1.2e46),4000],
 ]
 const concealFrontName=[
     "","<text style='color:green'>一阶</text>·","<text style='color:blue'>二阶</text>·","<text style='color:red'>三阶</text>·"
