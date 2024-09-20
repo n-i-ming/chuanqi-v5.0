@@ -509,7 +509,7 @@ const immortalAttribute=[
     ["2970条大道之主",{hpmax:n(9e23),atk:n(4e23),def:n(4e23),hit:n(1.4e23)},{damageAdd:n(8.8e10),damageMinus:n(8.8e10)},n(5e54),4000],
     ["2980条大道之主",{hpmax:n(1e24),atk:n(4.5e23),def:n(4.5e23),hit:n(1.6e23)},{damageAdd:n(9.0e10),damageMinus:n(9.0e10)},n(7e54),4000],
     ["2990条大道之主",{hpmax:n(1.2e24),atk:n(5e23),def:n(5e23),hit:n(1.8e23)},{damageAdd:n(9.2e10),damageMinus:n(9.2e10)},n(1e55),4000],
-    ["3000条大道之主",{hpmax:n(1.4e24),atk:n(6e23),def:n(6e23),hit:n(2e23)},{damageAdd:n(9.4e10),damageMinus:n(9.4e10)},n(1.2e55),4000],
+    ["3000条大道之主",{hpmax:n(1.4e24),atk:n(6e23),def:n(6e23),hit:n(2e23)},{damageAdd:n(9.4e10),damageMinus:n(9.4e10)},n(1.2e55),5000],
 ]
 const concealFrontName=[
     "","<text style='color:green'>一阶</text>·","<text style='color:blue'>二阶</text>·","<text style='color:red'>三阶</text>·"
