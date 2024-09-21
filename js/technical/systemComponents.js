@@ -149,7 +149,7 @@ var systemComponents = {
 				<pre id="fileContent"></pre>
             </tr>
             <tr>
-                <td><button class="opt" onclick="exportSaveFile()">导出存档(保存为文件,推荐)</button></td>
+                <td><button class="opt" onclick="exportSaveFile()">导出存档文件(推荐)</button></td>
                 <td><button class="opt" onclick="switchTheme()">背景主题: {{ getThemeName() }}</button></td>
             </tr>
         </table>`
