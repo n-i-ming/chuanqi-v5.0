@@ -270,6 +270,12 @@ function CalcAttribute(){
     if(player.fightAbility.gte(n("1e3500")))player.hangingSpeed*=2
     if(player.fightAbility.gte(n("1e4000")))player.hangingSpeed*=2
     if(player.fightAbility.gte(n("1e4500")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e5000")))player.hangingSpeed*=2.5
+    if(player.fightAbility.gte(n("1e6000")))player.hangingSpeed*=2.5
+    if(player.fightAbility.gte(n("1e7000")))player.hangingSpeed*=2.5
+    if(player.fightAbility.gte(n("1e8000")))player.hangingSpeed*=2.5
+    if(player.fightAbility.gte(n("1e9000")))player.hangingSpeed*=2.5
+    if(player.fightAbility.gte(n("1e10000")))player.hangingSpeed*=2.5
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
