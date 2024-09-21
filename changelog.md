@@ -11,3 +11,4 @@
 # v0.1 - 4/26/21
 - Converted the tree to ExpantaNum.
 - Fixed NaNs
+sync test
