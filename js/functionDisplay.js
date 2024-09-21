@@ -740,6 +740,24 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
+    else if(player.mainTabId==23){//成就
+        str+="真实挂机次数 "+format(player.hangingTimeReal)+"次<br>"
+        str+="<br><table>"
+        str+="<tr><td style='width:150px'><玩十分钟></td><td style='width:200px'>挂机600次</td><td style='width:100px'>挂机速度×2</td><td style='width:200px'>"+(player.hangingTimeReal>=600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩一小时></td><td>挂机3600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=3600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩六小时></td><td>挂机21600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=21600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩了一天></td><td>挂机86400次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=86400?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩了一周></td><td>挂机604800次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=604800?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td>　</td></tr>"
+        str+="<tr><td><初出茅庐></td><td>战力达到1e500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><初窥门径></td><td>战力达到1e1000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><略有所成></td><td>战力达到1e1500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><渐入佳境></td><td>战力达到1e2000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><登堂入室></td><td>战力达到1e2500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><融会贯通></td><td>战力达到1e3000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><出类拔萃></td><td>战力达到1e3500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3500"))?"已达成":"未达成")+"</td></tr>"
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){
@@ -831,6 +849,7 @@ function EnterFight(id){
 }
 function QuitFight(){
     if(player.inHanging==1){
+        player.hangingTimeReal+=Math.floor(player.hangingTime)
         player.hangingTime=Math.floor(Math.floor(player.hangingTime)*player.hangingSpeed)
         let expgain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.expMul)
         let moneygain=monster[player.onMonsterId].drop.mul(player.hangingTime).mul(n(1.01).pow(player.inFightDifficulty)).mul(player.moneyMul)

@@ -3,7 +3,7 @@ function addedPlayerData() { return {
     themeId:0,
     seed1:Math.floor(Math.random()*4294967296),seed2:Math.floor(Math.random()*4294967296),
     seed3:Math.floor(Math.random()*4294967296),seed4:Math.floor(Math.random()*4294967296),
-    exchangeCodeList:[],dropLuck:1,dropMul:1,monthCardTime:0,
+    exchangeCodeList:[],dropLuck:1,dropMul:1,monthCardTime:0,hangingTimeReal:0,
 
     fightAbility:n(0),
     atk:n(10),def:n(10),hp:n(100),hpmax:n(100),
@@ -42,7 +42,7 @@ const subTabList=[
     [
         "属性","背包","丹药","兵器","元神","经脉","飞升","转生","神力","神庙",
         "暗器","翅膀","功法","宠物","纵横","魂环","魂骨","吞噬","绝技","无限",
-        "分身","后宫","英雄"
+        "分身","后宫","英雄","成就"
     ],
     [
         "新手村","乱葬岗","山贼寨","土匪窝","强盗帮","昆仑山","奇来峰","大秦山","缥缈林","流沙地",

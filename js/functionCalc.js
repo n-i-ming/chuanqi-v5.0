@@ -252,6 +252,19 @@ function CalcAttribute(){
             player.bagMulList[id]=player.bagMulList[id]*(1+heroAttribute[i][2][j][1]*mul/100)
         }
     }
+    if(player.hangingTimeReal>=600)player.hangingSpeed*=2
+    if(player.hangingTimeReal>=3600)player.hangingSpeed*=2
+    if(player.hangingTimeReal>=21600)player.hangingSpeed*=2
+    if(player.hangingTimeReal>=86400)player.hangingSpeed*=2
+    if(player.hangingTimeReal>=604800)player.hangingSpeed*=2
+
+    if(player.fightAbility.gte(n("1e500")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e1000")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e1500")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e2000")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e2500")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e3000")))player.hangingSpeed*=2
+    if(player.fightAbility.gte(n("1e3500")))player.hangingSpeed*=2
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
