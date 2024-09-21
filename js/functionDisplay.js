@@ -756,6 +756,8 @@ function getMainSubTabDisplay(){
         str+="<tr><td><登堂入室></td><td>战力达到1e2500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2500"))?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><融会贯通></td><td>战力达到1e3000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3000"))?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><出类拔萃></td><td>战力达到1e3500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><炉火纯青></td><td>战力达到1e4000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e4000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><登峰造极></td><td>战力达到1e4500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e4500"))?"已达成":"未达成")+"</td></tr>"
         str+="</table>"
     }
     return str
