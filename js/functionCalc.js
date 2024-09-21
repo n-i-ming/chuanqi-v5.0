@@ -349,6 +349,11 @@ function SpiritUpgrade(id,type){
     }
     else{
         let count=0
+        while(player.bag[2]>=CalcSpiritNeed(id)*100){
+            player.bag[2]-=CalcSpiritNeed(id)*100
+            player.spiritLv[id]+=100
+            count+=100
+        }
         while(player.bag[2]>=CalcSpiritNeed(id)){
             player.bag[2]-=CalcSpiritNeed(id)
             player.spiritLv[id]+=1
@@ -501,6 +506,11 @@ function TempleUpgrade(id,type){
     }
     else{
         let count=0
+        while(player.bag[6]>=CalcTempleNeed(id)*100){
+            player.bag[6]-=CalcTempleNeed(id)*100
+            player.templeLv[id]+=100
+            count+=100
+        }
         while(player.bag[6]>=CalcTempleNeed(id)){
             player.bag[6]-=CalcTempleNeed(id)
             player.templeLv[id]+=1
@@ -552,6 +562,11 @@ function ConcealUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[8]>=CalcConcealNeed()*100){
+            player.bag[8]-=CalcConcealNeed()*100
+            player.concealLv+=100
+            count+=100
+        }
         while(player.bag[8]>=CalcConcealNeed()){
             player.bag[8]-=CalcConcealNeed()
             player.concealLv+=1
@@ -693,6 +708,11 @@ function SoulcircleUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[24]>=CalcSoulcircleNeed()*100){
+            player.bag[24]-=CalcSoulcircleNeed()*100
+            player.soulcircleUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[24]>=CalcSoulcircleNeed()){
             player.bag[24]-=CalcSoulcircleNeed()
             player.soulcircleUpgradeLv+=1
@@ -742,6 +762,11 @@ function SoulboneUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[25]>=CalcSoulboneNeed()*100){
+            player.bag[25]-=CalcSoulboneNeed()*100
+            player.soulboneUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[25]>=CalcSoulboneNeed()){
             player.bag[25]-=CalcSoulboneNeed()
             player.soulboneUpgradeLv+=1
@@ -791,6 +816,11 @@ function BookUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[50]>=CalcBookNeed()*100){
+            player.bag[50]-=CalcBookNeed()*100
+            player.bookUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[50]>=CalcBookNeed()){
             player.bag[50]-=CalcBookNeed()
             player.bookUpgradeLv+=1
@@ -842,6 +872,11 @@ function PetUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[17]>=CalcPetNeed()*100){
+            player.bag[17]-=CalcPetNeed()*100
+            player.petUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[17]>=CalcPetNeed()){
             player.bag[17]-=CalcPetNeed()
             player.petUpgradeLv+=1
@@ -891,6 +926,11 @@ function SkillUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[36]>=CalcSkillNeed()*100){
+            player.bag[36]-=CalcSkillNeed()*100
+            player.skillUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[36]>=CalcSkillNeed()){
             player.bag[36]-=CalcSkillNeed()
             player.skillUpgradeLv+=1
@@ -939,6 +979,11 @@ function InfinityUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[40]>=CalcInfinityNeed()*100){
+            player.bag[40]-=CalcInfinityNeed()*100
+            player.infinityUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[40]>=CalcInfinityNeed()){
             player.bag[40]-=CalcInfinityNeed()
             player.infinityUpgradeLv+=1
@@ -988,6 +1033,11 @@ function PartnerUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[56]>=CalcPartnerNeed()*100){
+            player.bag[56]-=CalcPartnerNeed()*100
+            player.partnerUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[56]>=CalcPartnerNeed()){
             player.bag[56]-=CalcPartnerNeed()
             player.partnerUpgradeLv+=1
@@ -1037,6 +1087,11 @@ function HeroUpgrade(type){
     }
     else{
         let count=0
+        while(player.bag[63]>=CalcHeroNeed()*100){
+            player.bag[63]-=CalcHeroNeed()*100
+            player.heroUpgradeLv+=100
+            count+=100
+        }
         while(player.bag[63]>=CalcHeroNeed()){
             player.bag[63]-=CalcHeroNeed()
             player.heroUpgradeLv+=1
