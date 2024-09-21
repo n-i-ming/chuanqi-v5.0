@@ -27,7 +27,7 @@ function CalcAttribute(){
         player[id]=player[id].add(attr[2][id])
     }
     for(let i=0;i<concealAttribute.length;i++){
-        let mul=n(1).add(0.01*player.concealLv)
+        let mul=n(1).add(0.01*player.concealLv).mul(n(1.05).pow(Math.floor(player.concealLv/10000)))
         if(player.concealType[i]>0)
         for(let id in concealAttribute[i][1]){
             player[id]=player[id].add(n(concealAttribute[i][1][id]).mul(n(2).pow(player.concealType[i]-1)).mul(mul))
@@ -38,6 +38,7 @@ function CalcAttribute(){
     for(let i=0;i<bookAttribute.length;i++){
         let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
         mul*=(1+0.01*player.bookUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.bookUpgradeLv/10000))
         for(let id in bookAttribute[i][1]){
             player[id]=player[id].add(n(bookAttribute[i][1][id]).mul(mul))
         }
@@ -45,6 +46,7 @@ function CalcAttribute(){
     for(let i=0;i<petAttribute.length;i++){
         let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
         mul*=(1+0.01*player.petUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.petUpgradeLv/10000))
         for(let id in petAttribute[i][1]){
             player[id]=player[id].add(n(petAttribute[i][1][id]).mul(mul))
         }
@@ -52,19 +54,22 @@ function CalcAttribute(){
     player.damageAdd=player.damageAdd.add(player.zonghengLv[2])
     player.damageMinus=player.damageMinus.add(player.zonghengLv[3])
     for(let i=0;i<soulcircleAttribute.length;i++){
-        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
+        let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
+        mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
         for(let id in soulcircleAttribute[i][1]){
             player[id]=player[id].add(n(soulcircleAttribute[i][1][id]).mul(mul))
         }
     }
     for(let i=0;i<skillAttribute.length;i++){
         let mul=player.skillLv[i]*(1+0.01*player.skillUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.skillUpgradeLv/10000))
         for(let id in skillAttribute[i][1]){
             player[id]=player[id].add(n(skillAttribute[i][1][id]).mul(mul))
         }
     }
     for(let i=0;i<infinityAttribute.length;i++){
         let mul=1+0.01*player.infinityUpgradeLv
+        mul*=Math.pow(1.05,Math.floor(player.infinityUpgradeLv/10000))
         for(let id in infinityAttribute[i][1]){
             player[id]=player[id].add(player.infinityLv[i]==0?0:n(infinityAttribute[i][1][id]).div(100).add(1).pow(player.infinityLv[i]).mul(mul).sub(1).mul(100))
         }
@@ -97,7 +102,7 @@ function CalcAttribute(){
     player.damageAdd=player.damageAdd.mul(n(1.005).pow(player.divineLv))
     player.damageMinus=player.damageMinus.mul(n(1.005).pow(player.divineLv))
     for(let i=0;i<concealAttribute.length;i++){
-        let mul=n(1).add(0.01*player.concealLv)
+        let mul=n(1).add(0.01*player.concealLv).mul(n(1.05).pow(Math.floor(player.concealLv/10000)))
         if(player.concealType[i]>0)
         for(let id in concealAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(concealAttribute[i][2][id]).mul(n(2).pow(player.concealType[i]-1)).div(100).mul(mul)))
@@ -109,6 +114,7 @@ function CalcAttribute(){
     for(let i=0;i<bookAttribute.length;i++){
         let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
         mul*=(1+0.01*player.bookUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.bookUpgradeLv/10000))
         for(let id in bookAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(bookAttribute[i][2][id]).mul(mul).div(100)))
         }
@@ -116,6 +122,7 @@ function CalcAttribute(){
     for(let i=0;i<petAttribute.length;i++){
         let mul=(player.petLv[i]==-1?0:player.petLv[i]<=2?player.petLv[i]+1:3*(1+0.1*(player.petLv[i]-2)))
         mul*=(1+0.01*player.petUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.petUpgradeLv/10000))
         for(let id in petAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(petAttribute[i][2][id]).mul(mul).div(100)))
         }
@@ -129,30 +136,36 @@ function CalcAttribute(){
     player.hit=player.hit.mul(n(1).add(n(player.zonghengLv[5]).div(100)))
     for(let i=0;i<soulcircleAttribute.length;i++){
         let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
         for(let id in soulcircleAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(soulcircleAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
     for(let i=0;i<soulboneAttribute.length;i++){
         let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
+        mul*=(1+0.01*player.soulboneUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.soulboneUpgradeLv/10000))
         for(let id in soulboneAttribute[i][2]){
-            player[id]=player[id].mul(n(1).add(n(soulboneAttribute[i][2][id]).mul(mul).mul(player.soulboneUpgradeLv/100+1).div(100)))
+            player[id]=player[id].mul(n(1).add(n(soulboneAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
     for(let i=0;i<skillAttribute.length;i++){
         let mul=player.skillLv[i]*(1+0.01*player.skillUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.skillUpgradeLv/10000))
         for(let id in skillAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(skillAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
     for(let i=0;i<infinityAttribute.length;i++){
         let mul=1+0.01*player.infinityUpgradeLv
+        mul*=Math.pow(1.05,Math.floor(player.infinityUpgradeLv/10000))
         for(let id in infinityAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(player.infinityLv[i]==0?0:n(infinityAttribute[i][2][id]).div(100).add(1).pow(player.infinityLv[i]).mul(mul).sub(1)))
         }
     }
     for(let i=0;i<partnerAttribute.length;i++){
         let mul=Math.max(0,Math.min(100,player.partnerLv[i]))*Math.max(1,Math.min(100,player.partnerLv[i]-99))*(1+0.01*player.partnerUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.partnerUpgradeLv/10000))
         for(let id in partnerAttribute[i][1]){
             player[id]=player[id].mul(n(1).add(n(partnerAttribute[i][1][id]).mul(mul).div(100)))
         }
@@ -168,12 +181,15 @@ function CalcAttribute(){
     player.cultivationMul=player.cultivationMul.mul(n(1).add(n(player.templeLv[2]).add(100).mul(n(1.05).pow(Math.floor(player.templeLv[2]/100))).sub(100).div(100)))
     for(let i=0;i<soulboneAttribute.length;i++){
         let mul=Math.min(1,player.soulboneLv[i])*(1+0.1*Math.max(0,player.soulboneLv[i]-1))
+        mul*=(1+0.001*player.soulboneUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.soulboneUpgradeLv/10000))
         for(let id in soulboneAttribute[i][1]){
-            player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(soulboneAttribute[i][1][id]).mul(mul).mul(player.soulboneUpgradeLv/1000+1).div(100)))
+            player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(soulboneAttribute[i][1][id]).mul(mul).div(100)))
         }
     }
     for(let i=0;i<heroAttribute.length;i++){
         let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.heroUpgradeLv/10000))
         for(let id in heroAttribute[i][1]){
             player[id+"Mul"]=player[id+"Mul"].mul(n(1).add(n(heroAttribute[i][1][id]).mul(mul).div(100)))
         }
@@ -227,6 +243,7 @@ function CalcAttribute(){
     player.hangingSpeed*=2
     for(let i=0;i<heroAttribute.length;i++){
         let mul=player.heroLv[i]*(1+0.001*player.heroUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.heroUpgradeLv/10000))
         for(let j=0;j<heroAttribute[i][2].length;j++){
             let id=heroAttribute[i][2][j][0]
             if(id=="挂机速度")
@@ -393,10 +410,10 @@ function CalcDivineNeed(){
             return divineNeed[i][1]
         }
     }
-    return CalcBigDivineNeed(id)[1]
+    return CalcBigDivineNeed()[1]
 }
-function CalcBigDivineNeed(id){
-    let m=player.divineLv[id]-1200
+function CalcBigDivineNeed(){
+    let m=player.divineLv-1200
     let bs=n(1e14)
     let mx=1200+Math.ceil((m+1)/400)*400,nd=bs.mul(n(10).pow(Math.floor((mx-1200)/400)))
     return [mx,nd]
@@ -543,6 +560,12 @@ const ZonghengNeed=[
     [1.5e5,n(1e39)],[1.6e5,n(1e40)],[1.7e5,n(1e41)],[1.8e5,n(1e42)],[1.9e5,n(1e43)],[2e5,n(1e44)]
 ]
 function CalcZonghengNeed(id){
+    let mx=1e100
+    if(id==2)mx=player.zonghengLv[0]
+    if(id==3)mx=player.zonghengLv[1]
+    if(id==4)mx=Math.min(player.zonghengLv[2],player.zonghengLv[3])
+    if(id==5)mx=player.zonghengLv[4]
+    player.zonghengLv[id]=Math.min(mx,player.zonghengLv[id])
     for(let i=0;i<ZonghengNeed.length;i++){
         if(player.zonghengLv[id]<ZonghengNeed[i][0]){
             return ZonghengNeed[i][1]
@@ -562,21 +585,11 @@ function ZonghengUpgrade(id,type){
     if(id==3)mx=player.zonghengLv[1]
     if(id==4)mx=Math.min(player.zonghengLv[2],player.zonghengLv[3])
     if(id==5)mx=player.zonghengLv[4]
-    if(player.zonghengLv[id]==mx){
+    if(player.zonghengLv[id]>=mx){
         logs.push(["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id]+"等级已达上限")
         return
     }
-    if(type==0){
-        if(player.money.lt(CalcZonghengNeed(id))){
-            logs.push("金币不够")
-        }
-        else{
-            player.money=player.money.sub(CalcZonghengNeed(id))
-            player.zonghengLv[id]+=1
-            logs.push("成功升级 1级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
-        }
-    }
-    else if(type==1){
+    if(type==1){
         let count=0
         while(player.money.gte(CalcZonghengNeed(id)) && count<100 && player.zonghengLv[id]<mx){
             player.money=player.money.sub(CalcZonghengNeed(id))
