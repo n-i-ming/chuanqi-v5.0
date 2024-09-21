@@ -51,8 +51,8 @@ function CalcAttribute(){
             player[id]=player[id].add(n(petAttribute[i][1][id]).mul(mul))
         }
     }
-    player.damageAdd=player.damageAdd.add(player.zonghengLv[2])
-    player.damageMinus=player.damageMinus.add(player.zonghengLv[3])
+    player.damageAdd=player.damageAdd.add(player.zonghengLv[2]*Math.pow(1.05,Math.floor(player.zonghengLv[2]/10000)))
+    player.damageMinus=player.damageMinus.add(player.zonghengLv[3]*Math.pow(1.05,Math.floor(player.zonghengLv[3]/10000)))
     for(let i=0;i<soulcircleAttribute.length;i++){
         let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
         mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
@@ -127,13 +127,13 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(petAttribute[i][2][id]).mul(mul).div(100)))
         }
     }
-    player.hpmax=player.hpmax.mul(n(1).add(n(player.zonghengLv[0]).div(100)))
-    player.def=player.def.mul(n(1).add(n(player.zonghengLv[1]).div(100)))
-    player.atk=player.atk.mul(n(1).add(n(player.zonghengLv[2]).div(200)))
-    player.atk=player.atk.mul(n(1).add(n(player.zonghengLv[3]).div(200)))
-    player.damageAdd=player.damageAdd.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
-    player.damageMinus=player.damageMinus.mul(n(1).add(n(player.zonghengLv[4]).div(1000)))
-    player.hit=player.hit.mul(n(1).add(n(player.zonghengLv[5]).div(100)))
+    player.hpmax=player.hpmax.mul(n(1).add(n(player.zonghengLv[0]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[0]/10000))).div(100)))
+    player.def=player.def.mul(n(1).add(n(player.zonghengLv[1]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[1]/10000))).div(100)))
+    player.atk=player.atk.mul(n(1).add(n(player.zonghengLv[2]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[2]/10000))).div(200)))
+    player.atk=player.atk.mul(n(1).add(n(player.zonghengLv[3]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[3]/10000))).div(200)))
+    player.damageAdd=player.damageAdd.mul(n(1).add(n(player.zonghengLv[4]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[4]/10000))).div(1000)))
+    player.damageMinus=player.damageMinus.mul(n(1).add(n(player.zonghengLv[4]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[4]/10000))).div(1000)))
+    player.hit=player.hit.mul(n(1).add(n(player.zonghengLv[5]).mul(Math.pow(1.05,Math.floor(player.zonghengLv[5]/10000))).div(100)))
     for(let i=0;i<soulcircleAttribute.length;i++){
         let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
         mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
