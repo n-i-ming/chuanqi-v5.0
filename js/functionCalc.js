@@ -54,6 +54,7 @@ function CalcAttribute(){
     for(let i=0;i<soulcircleAttribute.length;i++){
         let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))
         mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
+        mul*=Math.pow(1.01,player.soulPowerUpgradeLv)
         for(let id in soulcircleAttribute[i][1]){
             player[id]=player[id].add(n(soulcircleAttribute[i][1][id]).mul(mul))
         }
@@ -137,6 +138,7 @@ function CalcAttribute(){
     for(let i=0;i<soulcircleAttribute.length;i++){
         let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
         mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
+        mul*=Math.pow(1.01,player.soulPowerUpgradeLv)
         for(let id in soulcircleAttribute[i][2]){
             player[id]=player[id].mul(n(1).add(n(soulcircleAttribute[i][2][id]).mul(mul).div(100)))
         }
@@ -725,6 +727,32 @@ function SoulcircleUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 魂环强化")
+        }
+    }
+}
+function SoulpowerUpgrade(type){
+    if(type==0){
+        if(player.soulPower.lt(n(1e5).mul(n(1.1).pow(player.soulPowerUpgradeLv)))){
+            logs.push("魂力不够")
+        }
+        else{
+            player.soulPower=player.soulPower.sub(n(1e5).mul(n(1.1).pow(player.soulPowerUpgradeLv)))
+            player.soulPowerUpgradeLv+=1
+            logs.push("成功升级 1级 魂力强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.soulPower.gte(n(1e5).mul(n(1.1).pow(player.soulPowerUpgradeLv)))){
+            player.soulPower=player.soulPower.sub(n(1e5).mul(n(1.1).pow(player.soulPowerUpgradeLv)))
+            player.soulPowerUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("魂力不够")
+        }
+        else{
+            logs.push("成功升级 "+count+"级 魂力强化")
         }
     }
 }

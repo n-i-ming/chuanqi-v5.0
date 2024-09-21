@@ -480,11 +480,19 @@ function getMainSubTabDisplay(){
         str+="<td style='text-align:right;'><button onclick='SoulcircleUpgrade(0)'>升级</button></td>"
         str+="<td style='text-align:left;'><button onclick='SoulcircleUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
         str+="</tr>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>魂力强化 "+format(player.soulPowerUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有魂环增益+"+format(n(1.01).pow(player.soulPowerUpgradeLv).sub(1).mul(100),0)+"%</td>"
+        str+="<td style='text-align:right;'>消耗 魂力×"+format(n(1e5).mul(n(1.1).pow(player.soulPowerUpgradeLv)),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='SoulpowerUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='SoulpowerUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        str+="</tr>"
         for(let i=0;i<soulcircleAttribute.length;i++){
             str+="<tr>"
             str+="<td style='text-align:left;width:300px'>"+soulcircleFrontName[Math.min(6,player.soulcircleLv[i])]+soulcircleAttribute[i][0]+(player.soulcircleLv[i]>=6?(player.soulcircleLv[i]-6)+"级":"")+"</td>"
             let mul=Math.min(6,player.soulcircleLv[i])*(1+0.01*Math.max(0,player.soulcircleLv[i]-6))*(1+0.01*player.soulcircleUpgradeLv)
             mul*=Math.pow(1.05,Math.floor(player.soulcircleUpgradeLv/10000))
+            mul*=Math.pow(1.01,player.soulPowerUpgradeLv)
             str+="<td style='text-align:left;'>"
             for(let id in soulcircleAttribute[i][1]){
                 str+=attributeToName[id]+"+"+format(n(mul).mul(soulcircleAttribute[i][1][id]),1)+" "

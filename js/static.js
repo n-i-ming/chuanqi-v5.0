@@ -15,7 +15,7 @@ function addedPlayerData() { return {
     pelletNum:[],weaponType:[],spiritLv:[0,0,0,0],meridianLv:[[0,0],[0,0]],
     immortalLv:0,immortalTimes:0,transmigrationLv:{hpmax:0,atk:0,def:0,hit:0},divineLv:0,
     templeLv:[0,0,0],concealType:[],concealLv:0,wingLv:[0,0],bookLv:[],bookUpgradeLv:0,petLv:[],petUpgradeLv:0,petTimes:[],
-    zonghengLv:[0,0,0,0,0,0],soulcircleLv:[],soulcircleUpgradeLv:0,soulboneLv:[],soulboneUpgradeLv:0,
+    zonghengLv:[0,0,0,0,0,0],soulcircleLv:[],soulcircleUpgradeLv:0,soulPowerUpgradeLv:0,soulboneLv:[],soulboneUpgradeLv:0,
     eatPoint:0,skillLv:[],skillUpgradeLv:0,infinityLv:[],infinityUpgradeLv:0,separationLv:0,
     partnerLv:[],partnerUpgradeLv:0,heroLv:[],heroUpgradeLv:0,
 
