@@ -501,12 +501,12 @@ function getMainSubTabDisplay(){
             }
             str+="</td>"
             str+="<td style='width:300px;text-align:right'"
-            if(player.soulcircleLv[i]==5006)str+=" colspan=2"
+            if(player.soulcircleLv[i]==10006)str+=" colspan=2"
             str+=">"
             if(player.soulcircleLv[i]<6){
                 str+="消耗 魂环碎片×"+format((player.soulcircleLv[i]+1)*soulcircleAttribute[i][3],0)+"</td><td><button onclick='TryUpgradeSoulcircle("+i+",0)'>升级</button></td>"
             }
-            else if(player.soulcircleLv[i]<5006){
+            else if(player.soulcircleLv[i]<10006){
                 str+="消耗 魂力×"+format(soulcircleAttribute[i][3]*2*(player.soulcircleLv[i]-5),0)+"</td><td style='text-align:right'><button onclick='TryUpgradeSoulcircle("+i+",0)'>升级</button></td>"
                 str+="<td><button style='margin-left:-10px' onclick='TryUpgradeSoulcircle("+i+",1)'>一键升级</button></td>"
             }
@@ -631,7 +631,7 @@ function getMainSubTabDisplay(){
             }
             str+="</td>"
             str+="</td>"
-            str+="<td style='width:300px;text-align:right'"
+            str+="<td style='width:400px;text-align:right'"
             if(player.infinityLv[i]==100)str+=" colspan=2"
             str+=">"
             if(player.infinityLv[i]<100){
@@ -662,7 +662,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         for(let i=0;i<partnerAttribute.length;i++){
             str+="<tr>"
-            str+="<td style='width:250px;text-align:left'>"+partnerAttribute[i][0]+" "
+            str+="<td style='width:300px;text-align:left'>"+partnerAttribute[i][0]+" "
             str+="亲密 "+(Math.max(0,Math.min(100,player.partnerLv[i])))+"% "
             str+="魅力 "+(Math.max(0,Math.min(100,player.partnerLv[i]-99)))+"%</td>"
             let mul=Math.max(0,Math.min(100,player.partnerLv[i]))*Math.max(1,Math.min(100,player.partnerLv[i]-99))*(1+0.01*player.partnerUpgradeLv)
