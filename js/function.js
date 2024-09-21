@@ -186,52 +186,49 @@ function TryBuildConceal(id){
     }
 }
 function TryUpgradeWing(wh){
-    if(player.wingLv[0]==wingAttribute.length-1 && player.wingLv[1]==10){
-        return
-    }
-    if(player.wingLv[1]==10 && player.exp.lt(n(wingAttribute[player.wingLv[0]][4]).mul(100000))){
+    if(player.wingLv[1]==10 && player.exp.lt(n(CalcWingAttribute(player.wingLv[0])[4]).mul(100000))){
         logs.push("经验不够")
         return
     }
-    if(player.wingLv[1]<10 && player.bag[10]<(n(wingAttribute[player.wingLv[0]][4]))){
+    if(player.wingLv[1]<10 && player.bag[10]<(n(CalcWingAttribute(player.wingLv[0])[4]))){
         NotEnough(10)
         return
     }
     if(wh==0){
         let str=""
-        str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
+        str+=CalcWingAttribute(player.wingLv[0])[0]+"·"+player.wingLv[1]+"级"
         str+=" 成功升级成 "
         if(player.wingLv[1]==10){
-            player.exp=player.exp.sub(n(wingAttribute[player.wingLv[0]][4]).mul(100000))
+            player.exp=player.exp.sub(n(CalcWingAttribute(player.wingLv[0])[4]).mul(100000))
             player.wingLv[0]+=1
             player.wingLv[1]=0
         }
         else{
-            player.bag[10]-=wingAttribute[player.wingLv[0]][4]
+            player.bag[10]-=CalcWingAttribute(player.wingLv[0])[4]
             player.wingLv[1]+=1
         }
-        str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
+        str+=CalcWingAttribute(player.wingLv[0])[0]+"·"+player.wingLv[1]+"级"
         logs.push(str)
     }
     else{
         let str=""
-        str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
+        str+=CalcWingAttribute(player.wingLv[0])[0]+"·"+player.wingLv[1]+"级"
         str+=" 成功升级成 "
-        while(player.wingLv[0]<wingAttribute.length-1 || player.wingLv[1]<10){
-            if(player.wingLv[1]==10 && player.exp.gte(n(wingAttribute[player.wingLv[0]][4]).mul(100000))){
-                player.exp=player.exp.sub(n(wingAttribute[player.wingLv[0]][4]).mul(100000))
+        while(1){
+            if(player.wingLv[1]==10 && player.exp.gte(n(CalcWingAttribute(player.wingLv[0])[4]).mul(100000))){
+                player.exp=player.exp.sub(n(CalcWingAttribute(player.wingLv[0])[4]).mul(100000))
                 player.wingLv[0]+=1
                 player.wingLv[1]=0
             }
-            else if(player.wingLv[1]<10 && player.bag[10]>=(n(wingAttribute[player.wingLv[0]][4]))){
-                player.bag[10]-=wingAttribute[player.wingLv[0]][4]
+            else if(player.wingLv[1]<10 && player.bag[10]>=(n(CalcWingAttribute(player.wingLv[0])[4]))){
+                player.bag[10]-=CalcWingAttribute(player.wingLv[0])[4]
                 player.wingLv[1]+=1
             }
             else{
                 break
             }
         }
-        str+=wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级"
+        str+=CalcWingAttribute(player.wingLv[0])[0]+"·"+player.wingLv[1]+"级"
         logs.push(str)
     }
 }

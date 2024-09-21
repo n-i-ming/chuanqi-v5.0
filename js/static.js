@@ -716,6 +716,21 @@ const wingAttribute=[
     ["日耀圣翅",n(1.4e10),n(2e8),n(1.2e8),9e8],
     ["光影双翼",n(1.6e10),n(2e8),n(1.3e8),1e9],
 ]
+function CalcWingAttribute(lv){
+    if(lv<wingAttribute.length){
+        return wingAttribute[lv]
+    }
+    let m=lv-wingAttribute.length
+    let ls1=[1.8,2,2.5,3,3.5,4,4.5,5 ,6 ,7 ,8 ,9 ,10,12,14,16]
+    let ls2=[2  ,5,5  ,5,5  ,5,5  ,10,10,10,10,10,20,20,20,20]
+    let ls3=[1.4,1.5,1.6,1.7,1.8,1.9,2,2.2,2.4,2.6,2.8,3,3.5,4,4.5,5,5.5,6,6.5,7,8,9,10,11,12,13]
+    let ls4=[1.2,1.4,1.6,1.8,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10]
+    let num1=n(1e10).mul(n(10).pow(Math.floor(m/(ls1.length)))).mul(ls1[Math.floor((m-Math.floor((m)/ls1.length)*ls1.length))])
+    let num2=n(1e8).mul(n(10).pow(Math.floor(m/(ls2.length)))).mul(ls2[Math.floor((m-Math.floor((m)/ls2.length)*ls2.length))])
+    let num3=n(1e8).mul(n(10).pow(Math.floor(m/(ls3.length)))).mul(ls3[Math.floor((m-Math.floor((m)/ls3.length)*ls3.length))])
+    let num4=n(1e9).mul(n(10).pow(Math.floor(m/(ls4.length)))).mul(ls4[Math.floor((m-Math.floor((m)/ls4.length)*ls4.length))])
+    return ["神之翼·"+m+"阶",num1,num2,num3,num4]
+}
 const bookAttribute=[
     ["凝元功",{criticalDamage:n(5)},{atk:n(20)},n(1e7),13],
     ["象甲功",{damageMinus:n(40)},{def:n(20)},n(1.5e7),14],

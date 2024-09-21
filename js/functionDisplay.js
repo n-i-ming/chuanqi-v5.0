@@ -272,45 +272,44 @@ function getMainSubTabDisplay(){
         str+="</table>"
     }
     else if(player.mainTabId==11){//翅膀
+        let attr=CalcWingAttribute(player.wingLv[0])
         str+="<table>"
-        str+="<tr><td colspan=4 style='text-align:left'>当前翅膀 "+wingAttribute[player.wingLv[0]][0]+"·"+player.wingLv[1]+"级</td></tr>"
+        str+="<tr><td colspan=4 style='text-align:left'>当前翅膀 "+attr[0]+"·"+player.wingLv[1]+"级</td></tr>"
         str+="<tr>"
         let list=["生命","攻击","防御","命中"]
         let list1=["伤害穿透","伤害减免"]
         for(let i=0;i<list.length;i++){
-            str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+format((wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1]))),0)+"%</td>"
+            str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+format((attr[1].add(attr[2].mul(player.wingLv[1]))),0)+"%</td>"
         }
         str+="</tr>"
         str+="<tr>"
         for(let i=0;i<list1.length;i++){
-            str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+format((wingAttribute[player.wingLv[0]][3]),0)+"</td>"
+            str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+format((attr[3]),0)+"</td>"
         }
         str+="</tr>"
         str+="<tr><td>　</td></tr>"
-        if(player.wingLv[0]<wingAttribute.length-1 || player.wingLv[1]<10){
-            str+="<tr><td colspan=4 style='text-align:left'>下一级 "
-            +(player.wingLv[1]==10?wingAttribute[player.wingLv[0]+1][0]+"·0级":wingAttribute[player.wingLv[0]][0]+"·"+(player.wingLv[1]+1)+"级")+"</td></tr>"
-            str+="<tr>"
-            let a1=player.wingLv[0],a2=player.wingLv[1]
-            if(a2<10)a2+=1
-            else a1+=1,a2=0
-            for(let i=0;i<list.length;i++){
-                str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+format((wingAttribute[a1][1].add(wingAttribute[a1][2].mul(a2))),0)+"%</td>"
-            }
-            str+="</tr>"
-            str+="<tr>"
-            for(let i=0;i<list1.length;i++){
-                str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+format((wingAttribute[a1][3]),0)+"</td>"
-            }
-            str+="</tr>"
-            if(a2!=0){
-                str+="<tr><td style='text-align:left'>消耗 羽毛×"+format(wingAttribute[player.wingLv[0]][4],0)+"</td></tr>"
-            }
-            else{
-                str+="<tr><td style='text-align:left'>消耗 经验×"+format(n(wingAttribute[player.wingLv[0]][4]).mul(100000),0)+"</td></tr>"
-            }
-            str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeWing(0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeWing(1)'>一键升级</button></td></tr>"
+        str+="<tr><td colspan=4 style='text-align:left'>下一级 "
+        +(player.wingLv[1]==10?CalcWingAttribute(player.wingLv[0]+1)[0]+"·0级":attr[0]+"·"+(player.wingLv[1]+1)+"级")+"</td></tr>"
+        str+="<tr>"
+        let a1=player.wingLv[0],a2=player.wingLv[1]
+        if(a2<10)a2+=1
+        else a1+=1,a2=0
+        for(let i=0;i<list.length;i++){
+            str+="<td style='text-align:left;width:200px'>"+list[i]+"+"+format((CalcWingAttribute(a1)[1].add(CalcWingAttribute(a1)[2].mul(a2))),0)+"%</td>"
         }
+        str+="</tr>"
+        str+="<tr>"
+        for(let i=0;i<list1.length;i++){
+            str+="<td style='text-align:left;width:200px'>"+list1[i]+"+"+format((CalcWingAttribute(a1)[3]),0)+"</td>"
+        }
+        str+="</tr>"
+        if(a2!=0){
+            str+="<tr><td style='text-align:left'>消耗 羽毛×"+format(attr[4],0)+"</td></tr>"
+        }
+        else{
+            str+="<tr><td style='text-align:left'>消耗 经验×"+format(n(attr[4]).mul(100000),0)+"</td></tr>"
+        }
+        str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeWing(0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeWing(1)'>一键升级</button></td></tr>"
         str+="</table>"
     }
     else if(player.mainTabId==12){//功法

@@ -9,6 +9,7 @@ function CalcAttribute(){
     player.damageMinus=n(0)
     let attr=(player.immortalLv<immortalAttribute.length?immortalAttribute[player.immortalLv]:CalcImmortalAttribute(player.immortalLv))
     player.maxDifficulty=attr[4]
+    let attrWing=CalcWingAttribute(player.wingLv[0])
 
     {//add
     for(let i=0;i<pelletAttribute.length;i++){
@@ -31,8 +32,8 @@ function CalcAttribute(){
             player[id]=player[id].add(n(concealAttribute[i][1][id]).mul(n(2).pow(player.concealType[i]-1)).mul(mul))
         }
     }
-    player.damageAdd=player.damageAdd.add(wingAttribute[player.wingLv[0]][4])
-    player.damageMinus=player.damageMinus.add(wingAttribute[player.wingLv[0]][4])
+    player.damageAdd=player.damageAdd.add(attrWing[4])
+    player.damageMinus=player.damageMinus.add(attrWing[4])
     for(let i=0;i<bookAttribute.length;i++){
         let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
         mul*=(1+0.01*player.bookUpgradeLv)
@@ -110,7 +111,7 @@ function CalcAttribute(){
         }
     }
     for(let i=0;i<list.length;i++){
-        player[list[i]]=player[list[i]].mul(n(1).add(wingAttribute[player.wingLv[0]][1].add(wingAttribute[player.wingLv[0]][2].mul(player.wingLv[1])).div(100)))
+        player[list[i]]=player[list[i]].mul(n(1).add(attrWing[1].add(attrWing[2].mul(player.wingLv[1])).div(100)))
     }
     for(let i=0;i<bookAttribute.length;i++){
         let mul=(player.bookLv[i]==-1?0:(player.bookLv[i]*0.1+1))
