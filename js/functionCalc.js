@@ -21,8 +21,6 @@ function CalcAttribute(){
             player[id]=player[id].add(weaponAttribute[i][1][id]*player.weaponType[i])
         }
     }
-    player.damageAdd=player.damageAdd.add(n(10).mul(player.meridianLv[0][0]))
-    player.damageMinus=player.damageMinus.add(n(10).mul(player.meridianLv[1][0]))
     for(let id in attr[2]){
         player[id]=player[id].add(attr[2][id])
     }
@@ -89,10 +87,12 @@ function CalcAttribute(){
     for(let i=0;i<list.length;i++){
         player[list[i]]=player[list[i]].mul(n(1).add(n(0.01).mul(n(player.spiritLv[i]).mul(n(1.1).pow(CalcSpiritStage(i))))))
     }
-    player.atk=player.atk.mul(n(1).add(n(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.ceil(player.meridianLv[0][1]/2)).div(100)))
-    player.hit=player.hit.mul(n(1).add(n(meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2)).div(100)))
-    player.hpmax=player.hpmax.mul(n(1).add(n(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.ceil(player.meridianLv[1][1]/2)).div(100)))
-    player.def=player.def.mul(n(1).add(n(meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.floor(player.meridianLv[1][1]/2)).div(100)))
+    let attr3=CalcMeridianAttribute(player.meridianLv[0][0])
+    let attr4=CalcMeridianAttribute(player.meridianLv[1][0])
+    player.atk=player.atk.mul(n(1).add(n(attr3[1].add(attr3[2].mul(Math.ceil(player.meridianLv[0][1]/2)))).div(100)))
+    player.hit=player.hit.mul(n(1).add(n(attr3[1].add(attr3[2].mul(Math.floor(player.meridianLv[0][1]/2)))).div(100)))
+    player.hpmax=player.hpmax.mul(n(1).add(n(attr4[1].add(attr4[2].mul(Math.ceil(player.meridianLv[1][1]/2)))).div(100)))
+    player.def=player.def.mul(n(1).add(n(attr4[1].add(attr4[2].mul(Math.floor(player.meridianLv[1][1]/2)))).div(100)))
     for(let id in attr[1]){
         player[id]=player[id].mul(n(1).add(n(attr[1][id]).div(100)))
     }

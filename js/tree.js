@@ -108,8 +108,6 @@ addLayer("tree-tab",{
         for(let i=0;i<player.concealType.length;i++){
             player.concealType[i]=Math.min(3,player.concealType[i])
         }
-        player.meridianLv[0][0]=Math.min(player.meridianLv[0][0],meridianAttribute.length-1)
-        player.meridianLv[1][0]=Math.min(player.meridianLv[1][0],meridianAttribute.length-1)
         player.wingLv[1]=Math.min(player.wingLv[1],10)
         let ccc=0
         for(let i=0;i<monthCardList.length;i++){

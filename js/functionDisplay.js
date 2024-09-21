@@ -125,6 +125,8 @@ function getMainSubTabDisplay(){
         str+="<br>每一个阶段的元神独立提升属性加成10%<br>"
     }
     else if(player.mainTabId==5){//经脉
+        let attr=CalcMeridianAttribute(player.meridianLv[0][0])
+        let attr1=CalcMeridianAttribute(player.meridianLv[1][0])
         str+="<table>"
         str+="<tr>"
         str+="<td>阳脉"+(player.meridianLv[0][0]+1)+"-"+player.meridianLv[0][1]+"</td>"
@@ -132,45 +134,26 @@ function getMainSubTabDisplay(){
         str+="<td>阴脉"+(player.meridianLv[1][0]+1)+"-"+player.meridianLv[1][1]+"</td>"
         str+="</tr>"
         str+="<tr>"
-        str+="<td>攻击+"+format((meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.ceil(player.meridianLv[0][1]/2)),0)+"%</td>"
+        str+="<td>攻击+"+format(attr[1].add(attr[2].mul(Math.ceil(player.meridianLv[0][1]/2))),0)+"%</td>"
         str+="<td style='width:200px'></td>"
-        str+="<td>生命+"+format((meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.ceil(player.meridianLv[1][1]/2)),0)+"%</td>"
+        str+="<td>生命+"+format(attr1[1].add(attr1[2].mul(Math.ceil(player.meridianLv[1][1]/2))),0)+"%</td>"
         str+="</tr>"
         str+="<tr>"
-        str+="<td>命中+"+format((meridianAttribute[player.meridianLv[0][0]][1]+meridianAttribute[player.meridianLv[0][0]][2]*Math.floor(player.meridianLv[0][1]/2)),0)+"%</td>"
+        str+="<td>命中+"+format(attr[1].add(attr[2].mul(Math.floor(player.meridianLv[0][1]/2))),0)+"%</td>"
         str+="<td style='width:200px'></td>"
-        str+="<td>防御+"+format((meridianAttribute[player.meridianLv[1][0]][1]+meridianAttribute[player.meridianLv[1][0]][2]*Math.floor(player.meridianLv[1][1]/2)),0)+"%</td>"
-        str+="</tr>"
-        str+="<tr>"
-        str+="<td>伤害穿透+"+format((player.meridianLv[0][0]*10),0)+"</td>"
-        str+="<td style='width:200px'></td>"
-        str+="<td>伤害减免+"+format((player.meridianLv[1][0]*10),0)+"</td>"
+        str+="<td>防御+"+format(attr1[1].add(attr1[2].mul(Math.floor(player.meridianLv[1][1]/2))),0)+"%</td>"
         str+="</tr>"
         str+="<tr><td>　</td></tr>"
-        if(player.meridianLv[0][0]!=meridianAttribute.length-1 || player.meridianLv[1][0]!=meridianAttribute.length-1){
-            str+="<tr>"
-            if(player.meridianLv[0][0]!=meridianAttribute.length-1)
-            str+="<td>消耗 "+(player.meridianLv[0][1]==10?"金币×"+(format(10000*meridianAttribute[player.meridianLv[0][0]][0],0)):"银针×"+format((meridianAttribute[player.meridianLv[0][0]][0]),0))+"</td>"
-            else
-            str+="<td>　</td>"
-            str+="<td style='width:200px'></td>"
-            if(player.meridianLv[1][0]!=meridianAttribute.length-1)
-            str+="<td>消耗 "+(player.meridianLv[1][1]==10?"金币×"+(format(10000*meridianAttribute[player.meridianLv[1][0]][0],0)):"银针×"+format((meridianAttribute[player.meridianLv[1][0]][0]),0))+"</td>"
-            else
-            str+="<td>　</td>"
-            str+="</tr>"
-            str+="<tr>"
-            if(player.meridianLv[0][0]!=meridianAttribute.length-1)
-            str+="<td><button onclick='TryUpgradeMeridian(0,0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeMeridian(0,1)'>一键升级</button></td>"
-            else
-            str+="<td>　</td>"
-            str+="<td style='width:200px'></td>"
-            if(player.meridianLv[1][0]!=meridianAttribute.length-1)
-            str+="<td><button onclick='TryUpgradeMeridian(1,0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeMeridian(1,1)'>一键升级</button></td>"
-            else
-            str+="<td>　</td>"
-            str+="</tr>"
-        }
+        str+="<tr>"
+        str+="<td>消耗 "+(player.meridianLv[0][1]==10?"金币×"+(format(10000*attr[0],0)):"银针×"+format((attr[0]),0))+"</td>"
+        str+="<td style='width:200px'></td>"
+        str+="<td>消耗 "+(player.meridianLv[1][1]==10?"金币×"+(format(10000*attr1[0],0)):"银针×"+format((attr1[0]),0))+"</td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td><button onclick='TryUpgradeMeridian(0,0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeMeridian(0,1)'>一键升级</button></td>"
+        str+="<td style='width:200px'></td>"
+        str+="<td><button onclick='TryUpgradeMeridian(1,0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeMeridian(1,1)'>一键升级</button></td>"
+        str+="</tr>"
         str+="</table>"
     }
     else if(player.mainTabId==6){//飞升

@@ -159,8 +159,21 @@ const meridianAttribute=[
     [3.5e9,8e10,2e9],[4e9,9e10,2e9],[4.5e9,1e11,5e9],[5e9,1.25e11,5e9],[5.5e9,1.5e11,5e9],[6e9,1.75e11,5e9],[6.5e9,2e11,1e10],[7e9,2.5e11,1e10],
     [8e9,3.5e11,1e10],[9e9,4e11,1e10],[1e10,4.5e11,1e10],[1.2e10,5e11,2e10],[1.4e10,6e11,2e10],[1.6e10,7e11,2e10],[1.8e10,8e11,2e10],[2e10,9e11,2e10],
     [2.5e10,1e12,5e10],[3e10,1.25e12,5e10],[3.5e10,1.5e12,5e10],[4e10,1.75e12,5e10],[4.5e10,2e12,1e11],[5e10,2.5e12,1e11],[6e10,3e12,1e11],[7e10,3.5e12,1e11],
-    [8e10,4e12,1e11],[9e10,4.5e12,1e11],[1e11,5e12,2e11],[1.2e11,6e12,2e11],[1.4e11,7e12,2e11],[1.6e11,8e12,2e11],[1.8e11,9e12,2e11],[2e11,1e13,5e12]
+    [8e10,4e12,1e11],[9e10,4.5e12,1e11],[1e11,5e12,2e11],[1.2e11,6e12,2e11],[1.4e11,7e12,2e11],[1.6e11,8e12,2e11],[1.8e11,9e12,2e11],[2e11,1e13,5e11]
 ]
+function CalcMeridianAttribute(lv){
+    if(lv<meridianAttribute.length){
+        return [meridianAttribute[lv][0],n(meridianAttribute[lv][1]),n(meridianAttribute[lv][2])]
+    }
+    let m=lv-meridianAttribute.length
+    let ls1=[2.5,3,3.5,4,4.5,5,6,7,8,9,10,12,14,16,18,20]
+    let ls2=[1.25,1.5,1.75,2 ,2.5,3 ,3.5,4 ,4.5,5 ,6 ,7 ,8 ,9 ,10]
+    let ls3=[5   ,5  ,5   ,10,10 ,10,10 ,10,10 ,20,20,20,20,20,50]
+    let num1=n(1e11).mul(n(10).pow(Math.floor(m/(ls1.length)))).mul(ls1[Math.floor((m-Math.floor((m)/ls1.length)*ls1.length))])
+    let num2=n(1e13).mul(n(10).pow(Math.floor(m/(ls2.length)))).mul(ls2[Math.floor((m-Math.floor((m)/ls2.length)*ls2.length))])
+    let num3=n(1e11).mul(n(10).pow(Math.floor(m/(ls3.length)))).mul(ls3[Math.floor((m-Math.floor((m)/ls3.length)*ls3.length))])
+    return [num1,num2,num3]
+}
 const immortalAttribute=[
     ["无",{},{},n(1000),0],
     ["散仙",{hpmax:n(10),atk:n(5)},{damageAdd:n(10)},n(3000),10],

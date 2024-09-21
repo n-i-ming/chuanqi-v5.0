@@ -79,18 +79,15 @@ function NotEnough(id){
     logs.push("材料不够 ("+idToName[id]+" 出自 "+idFrom[id]+")")
 }
 function TryUpgradeMeridian(id,wh){
-    if(player.meridianLv[id][0]==meridianAttribute.length-1){
-        return
-    }
     if(wh==0){
-        if(player.meridianLv[id][1]==10 && player.money.gte(n(10000).mul(meridianAttribute[player.meridianLv[id][0]][0]))){
-            player.money=player.money.sub(n(10000).mul(meridianAttribute[player.meridianLv[id][0]][0]))
+        if(player.meridianLv[id][1]==10 && player.money.gte(n(10000).mul(CalcMeridianAttribute(player.meridianLv[id][0])[0]))){
+            player.money=player.money.sub(n(10000).mul(CalcMeridianAttribute(player.meridianLv[id][0])[0]))
             player.meridianLv[id][0]+=1
             player.meridianLv[id][1]=0
             logs.push("成功升级 1级经脉")
         }
-        else if(player.meridianLv[id][1]<10 && player.bag[3]>=meridianAttribute[player.meridianLv[id][0]][0]){
-            player.bag[3]-=meridianAttribute[player.meridianLv[id][0]][0]
+        else if(player.meridianLv[id][1]<10 && player.bag[3]>=CalcMeridianAttribute(player.meridianLv[id][0])[0]){
+            player.bag[3]-=CalcMeridianAttribute(player.meridianLv[id][0])[0]
             player.meridianLv[id][1]+=1
             logs.push("成功升级 1级经脉")
         }
@@ -105,15 +102,15 @@ function TryUpgradeMeridian(id,wh){
     }
     else{
         let count=0
-        while(player.meridianLv[id][0]<meridianAttribute.length-1){
-            if(player.meridianLv[id][1]==10 && player.money.gte(n(10000).mul(meridianAttribute[player.meridianLv[id][0]][0]))){
-                player.money=player.money.sub(n(10000).mul(meridianAttribute[player.meridianLv[id][0]][0]))
+        while(1){
+            if(player.meridianLv[id][1]==10 && player.money.gte(n(10000).mul(CalcMeridianAttribute(player.meridianLv[id][0])[0]))){
+                player.money=player.money.sub(n(10000).mul(CalcMeridianAttribute(player.meridianLv[id][0])[0]))
                 player.meridianLv[id][0]+=1
                 player.meridianLv[id][1]=0
                 count++
             }
-            else if(player.meridianLv[id][1]<10 && player.bag[3]>=meridianAttribute[player.meridianLv[id][0]][0]){
-                player.bag[3]-=meridianAttribute[player.meridianLv[id][0]][0]
+            else if(player.meridianLv[id][1]<10 && player.bag[3]>=CalcMeridianAttribute(player.meridianLv[id][0])[0]){
+                player.bag[3]-=CalcMeridianAttribute(player.meridianLv[id][0])[0]
                 player.meridianLv[id][1]+=1
                 count++
             }
