@@ -756,6 +756,41 @@ function getMainSubTabDisplay(){
         str+="<tr><td><傲视群雄></td><td>战力达到1e10000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e10000"))?"已达成":"未达成")+"</td></tr>"
         str+="</table>"
     }
+    else if(player.mainTabId==24){//星宿
+        str+="<table>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>星宿强化 "+format(player.starUpgradeLv,0)+"级</td>"
+        str+="<td style='text-align:left;'>所有星宿增益+"+format(player.starUpgradeLv*Math.pow(1.05,Math.floor(player.starUpgradeLv/10000)),0)+"%</td>"
+        str+="<td style='text-align:right;'>消耗 星宿碎片×"+format(CalcStarNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='StarUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='StarUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        str+="</tr>"
+        for(let i=0;i<starAttribute.length;i++){
+            str+="<tr>"
+            str+="<td style='width:150px;text-align:left'>"+starAttribute[i][0]+"·"+player.starLv[i][2]+"阶</td>"
+            let mul=Math.pow(2,player.starLv[i][2])*(1+0.01*player.starUpgradeLv)
+            mul*=Math.pow(1.05,Math.floor(player.starUpgradeLv/10000))
+            let j=0
+            str+="<td style='text-align:left'>"
+            let ls=[]
+            for(let id in starAttribute[i][1]){
+                str+=attributeToName[id]+"+"+(player.starLv[i][j]==-1?0:format(starAttribute[i][1][id][player.starLv[i][j]]*mul,0))+"% "
+                j+=1
+                ls.push(id)
+            }
+            str+="</td>"
+            if(player.starLv[i][0]<starAttribute[i][1][ls[0]].length-1 || player.starLv[i][1]<starAttribute[i][1][ls[1]].length-1){
+                str+="<td style='width:200px;text-align:right'>消耗 星宿碎片×"+format(starAttribute[i][3],0)+"</td>"
+                str+="<td><button onclick='TryWashStar("+i+")'>洗炼</button></td>"
+            }
+            else if(player.starLv[i][2]<5){
+                str+="<td style='width:200px;text-align:right'>消耗 星宿碎片×"+format(starAttribute[i][3]*10*Math.pow(2,player.starLv[i][2]),0)+"</td>"
+                str+="<td><button onclick='TryUpgradeStar("+i+")'>升阶</button></td>"
+            }
+            str+="</tr>"
+        }
+        str+="</table>"
+    }
     return str
 }
 function getFightSubTabDisplay(){

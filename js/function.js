@@ -574,6 +574,32 @@ function TryActiveHero(id){
         NotEnough(heroAttribute[id][3])
     }
 }
+function TryWashStar(id){
+    if(player.starLv[id][0]==starAttribute[id][1][starAttribute[id][2][0]].length-1
+     &&player.starLv[id][1]==starAttribute[id][1][starAttribute[id][2][1]].length-1){
+        return
+    }
+    if(player.bag[75]<starAttribute[id][3]){
+        NotEnough(75)
+        return
+    }
+    player.bag[75]-=starAttribute[id][3]
+    player.starLv[id][0]=Math.floor(random()*(starAttribute[id][1][starAttribute[id][2][0]].length))
+    player.starLv[id][1]=Math.floor(random()*(starAttribute[id][1][starAttribute[id][2][0]].length))
+    logs.push("洗炼成功")
+}
+function TryUpgradeStar(id){
+    if(player.starLv[id][2]==5){
+        return
+    }
+    if(player.bag[75]<starAttribute[id][3]*10*Math.pow(2,player.starLv[id][2])){
+        NotEnough(75)
+        return
+    }
+    player.bag[75]-=starAttribute[id][3]*10*Math.pow(2,player.starLv[id][2])
+    player.starLv[id][2]+=1
+    logs.push(starAttribute[id][0]+" 升阶成功")
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){

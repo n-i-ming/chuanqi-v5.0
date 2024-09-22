@@ -102,6 +102,9 @@ addLayer("tree-tab",{
         while(player.heroLv.length<heroAttribute.length){
             player.heroLv.push(0)
         }
+        while(player.starLv.length<starAttribute.length){
+            player.starLv.push([-1,-1,0])
+        }
         for(let i=0;i<player.weaponType.length;i++){
             player.weaponType[i]=Math.min(4,player.weaponType[i])
         }

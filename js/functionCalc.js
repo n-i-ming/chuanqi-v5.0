@@ -173,6 +173,15 @@ function CalcAttribute(){
             player[id]=player[id].mul(n(1).add(n(partnerAttribute[i][1][id]).mul(mul).div(100)))
         }
     }
+    for(let i=0;i<starAttribute.length;i++){
+        let mul=Math.pow(2,player.starLv[i][2])*(1+0.01*player.starUpgradeLv)
+        mul*=Math.pow(1.05,Math.floor(player.starUpgradeLv/10000))
+        let j=0
+        for(let id in starAttribute[i][1]){
+            player[id]=player[id].mul(n(1).add(n(player.starLv[i][j]==-1?0:starAttribute[i][1][id][player.starLv[i][j]]).mul(mul).div(100)))
+            j+=1
+        }
+    }
 }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
@@ -1139,6 +1148,60 @@ function HeroUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 英雄强化")
+        }
+    }
+}
+const StarNeed=[
+    [100,100],[200,150],[300,200],[400,300],[500,400],[600,500],[700,650],[800,800],[900,1000],[1000,1200],
+    [1200,1500],[1400,2000],[1600,3000],[1800,4000],[2000,5000],[2200,6000],[2400,8000],[2600,10000],[3000,12000],[3500,15000],[4000,20000],
+    [4500,25000],[5000,30000],[6000,45000],[7000,60000],[8000,80000],[9000,1e5],[10000,1.2e5],[11000,1.5e5],[12000,2e5],
+    [13000,2.5e5],[14000,3e5],[15000,3.5e5],[16000,4e5],[17000,4.5e5],[18000,5e5],[20000,6e5],[22000,7e5],[24000,8e5],[26000,9e5],
+    [28000,1e6],[30000,1.2e6],[32000,1.4e6],[34000,1.6e6],[36000,1.8e6],[38000,2e6],[40000,2.5e6],[42000,3e6],[44000,3.5e6],[46000,4e6],
+    [48000,4.5e6],[50000,5e6],[52000,6e6],[54000,7e6],[56000,8e6],[58000,9e6],[60000,1e7],[62000,1.2e7],[64000,1.4e7],[66000,1.6e7],
+    [68000,1.8e7],[70000,2e7],[75000,2.5e7],[80000,3e7],[85000,3.5e7],[90000,4e7],[95000,4.5e7],[1e5,5e7]
+]
+function CalcStarNeed(){
+    for(let i=0;i<StarNeed.length;i++){
+        if(player.starUpgradeLv<StarNeed[i][0]){
+            return StarNeed[i][1]
+        }
+    }
+    return CalcBigStarNeed()[1]
+}
+function CalcBigStarNeed(){
+    let m=player.starUpgradeLv-1e5
+    let ls=[6,7,8,9,10,12,14,16,18,20,25,30,35,40,45,50],bs=n(1e7)
+    let mx=1e5+Math.ceil((m+1)/10000)*10000,nd=bs.mul(n(10).pow(Math.floor((mx-100000)/(10000*ls.length)))).mul(ls[Math.floor((mx-1e5-Math.floor((mx-1e5)/(10000*ls.length))*(10000*ls.length))/10000)])
+    return [mx,nd]
+}
+function StarUpgrade(type){
+    if(type==0){
+        if(player.bag[75]<CalcStarNeed()){
+            NotEnough(75)
+        }
+        else{
+            player.bag[75]-=CalcStarNeed()
+            player.starUpgradeLv+=1
+            logs.push("成功升级 1级 星宿强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.bag[75]>=CalcStarNeed()*100){
+            player.bag[75]-=CalcStarNeed()*100
+            player.starUpgradeLv+=100
+            count+=100
+        }
+        while(player.bag[75]>=CalcStarNeed()){
+            player.bag[75]-=CalcStarNeed()
+            player.starUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            NotEnough(75)
+        }
+        else{
+            logs.push("成功升级 "+count+"级 星宿强化")
         }
     }
 }
