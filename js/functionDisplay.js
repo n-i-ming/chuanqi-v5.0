@@ -647,8 +647,9 @@ function getMainSubTabDisplay(){
     }
     else if(player.mainTabId==20){//分身
         str+="你拥有 "+format(player.separationLv,0)+" 尊分身<br>"
-        str+="使你的挂机速度×"+format(player.separationLv*0.5+1,1)+"<br><br>"
+        str+="使你的挂机速度×"+format((player.separationLv*0.5+1)*(Math.pow(1.1,player.separationLv)),1)+"<br><br>"
         str+="下一尊分身需要 达到"+format((player.separationLv+1)*1e5,0)+"级 , 并消耗 金币×"+format(n(1e10).mul(n(1e5).pow(player.separationLv)),0)+"<br>"
+        str+="<br>每尊分身独立提升1.1倍挂机速度<br>"
         str+="<br><button onclick='TryBuildSeparation()'>凝聚</button><br>"
     }
     else if(player.mainTabId==21){//后宫

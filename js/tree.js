@@ -54,6 +54,11 @@ addLayer("tree-tab",{
         else{
             document.getElementById("text")["style"]["left"]=(document.getElementsByClassName("upgTable")[0].getBoundingClientRect().width-document.getElementById("text").getBoundingClientRect().width)/2+"px"
         }
+        if(player.haventFixed20240924==false){
+            player.haventFixed20240924=true
+            player.separationLv=0
+            player.moneyTotal=player.money
+        }
         while(player.maxKillDifficulty.length<monster.length){
             player.maxKillDifficulty.push(-1)
         }

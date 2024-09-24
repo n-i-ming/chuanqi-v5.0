@@ -4,6 +4,7 @@ function addedPlayerData() { return {
     seed1:Math.floor(Math.random()*4294967296),seed2:Math.floor(Math.random()*4294967296),
     seed3:Math.floor(Math.random()*4294967296),seed4:Math.floor(Math.random()*4294967296),
     exchangeCodeList:[],dropLuck:1,dropMul:1,monthCardTime:0,hangingTimeReal:0,
+    haventFixed20240924:false,moneyTotal:n(0),
 
     fightAbility:n(0),
     atk:n(10),def:n(10),hp:n(100),hpmax:n(100),

@@ -218,7 +218,7 @@ function CalcAttribute(){
 
     player.hangingSpeed=1
     player.hangingSpeed+=4.5
-    player.hangingSpeed*=player.separationLv*0.5+1
+    player.hangingSpeed*=(player.separationLv*0.5+1)*(Math.pow(1.1,player.separationLv))
 
     player.dropLuck=1
     player.dropMul=1
