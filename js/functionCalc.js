@@ -248,7 +248,7 @@ function CalcAttribute(){
         player.hangingSpeed*=6
         player.dropMul*=2.5
     }
-    if(player.exchangeCodeList.includes("ed1f06d37f654b9fd446e8bb2abad8c5b32aa456d9f46c42a56654ec0217cb76")){
+    if(player.buchangTime>0){
         player.hangingSpeed*=2
     }
     if(player.monthCardTime>0){
