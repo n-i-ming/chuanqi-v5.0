@@ -18,6 +18,9 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'>小月卡效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2 材料掉落倍率x2</td></tr>"
         str+="<tr><td style='text-align:left'>　</td></tr>"
         str+="<tr><td style='text-align:left'>中秋节福利效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2 (9.17~9.23)</td></tr>"
+        str+="<tr><td style='text-align:left'>　</td></tr>"
+        if(player.buchangTime>0)
+        str+="<tr><td style='text-align:left'>2倍补偿时长</td><td style='width:5px'></td><td style='width:250px;text-align:left'>"+formatTime(Math.floor(player.buchangTime))+"</td></tr>"
         str+="</table>"
         str+="<br>"
         str+="<button onclick='AutoUpgrade()'>一键升级</button><br>"

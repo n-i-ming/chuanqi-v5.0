@@ -697,6 +697,16 @@ function DealExchangeCode(){
                 logs.push("兑换码 - 冠名支持 已成功激活")
             }
         }
+        else if(hash=="ed1f06d37f654b9fd446e8bb2abad8c5b32aa456d9f46c42a56654ec0217cb76"){//x2
+            if(player.exchangeCodeList.includes(hash)){
+                logs.push("该兑换码已经使用过")
+            }
+            else{
+                player.exchangeCodeList.push(hash);
+                player.buchangTime+=3600*24
+                logs.push("2倍补偿+1天")
+            }
+        }
         else if(monthCardList.includes(hash)){
             if(player.exchangeCodeList.includes(hash)){
                 logs.push("该兑换码已经使用过")

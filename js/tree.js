@@ -130,6 +130,7 @@ addLayer("tree-tab",{
         // dif*=1000
         player.tmtmtm=Date.now()/1e3
         player.monthCardTime=Math.max(0,player.monthCardTime-dif)
+        player.buchangTime=Math.max(0,player.buchangTime-dif)
         CalcAttribute()
         if(document.getElementById("difficulty")!==undefined && document.getElementById("difficulty")!==null && document.getElementById("difficulty").value.length==0){
             document.getElementById("difficulty").value=player.nowDifficulty
