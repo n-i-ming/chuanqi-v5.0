@@ -15,9 +15,9 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'>材料掉落倍率</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+format(player.dropMul,2)+"</td></tr>"
         str+="<tr><td style='text-align:left'>　</td></tr>"
         str+="<tr><td style='text-align:left'>小月卡剩余时长</td><td style='width:5px'></td><td style='width:100px;text-align:left'>"+formatTime(Math.floor(player.monthCardTime),2)+"</td></tr>"
-        str+="<tr><td style='text-align:left'>小月卡效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2 材料掉落倍率x2</td></tr>"
+        str+="<tr><td style='text-align:left'>小月卡效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x4 材料掉落倍率x4</td></tr>"
         str+="<tr><td style='text-align:left'>　</td></tr>"
-        str+="<tr><td style='text-align:left'>中秋节福利效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2 (9.17~9.23)</td></tr>"
+        str+="<tr><td style='text-align:left'>国庆节福利效果</td><td style='width:5px'></td><td style='width:250px;text-align:left'>挂机速度x2</td></tr>"
         str+="<tr><td style='text-align:left'>　</td></tr>"
         if(player.buchangTime>0)
         str+="<tr><td style='text-align:left'>2倍补偿时长</td><td style='width:5px'></td><td style='width:250px;text-align:left'>"+formatTime(Math.floor(player.buchangTime))+"</td></tr>"
@@ -742,6 +742,7 @@ function getMainSubTabDisplay(){
         str+="<tr><td><玩六小时></td><td>挂机21600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=21600?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><玩了一天></td><td>挂机86400次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=86400?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><玩了一周></td><td>挂机604800次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=604800?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩了两周></td><td>挂机604800次</td><td>挂机速度×2.5</td><td>"+(player.hangingTimeReal>=1209600?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td>　</td></tr>"
         str+="<tr><td><初出茅庐></td><td>战力达到1e500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e500"))?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><初窥门径></td><td>战力达到1e1000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1000"))?"已达成":"未达成")+"</td></tr>"
@@ -758,6 +759,11 @@ function getMainSubTabDisplay(){
         str+="<tr><td><一鸣惊人></td><td>战力达到1e8000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e8000"))?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><名扬四海></td><td>战力达到1e9000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e9000"))?"已达成":"未达成")+"</td></tr>"
         str+="<tr><td><傲视群雄></td><td>战力达到1e10000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e10000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><威震八方></td><td>战力达到1e12000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e12000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><独步天下></td><td>战力达到1e14000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e14000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><无可匹敌></td><td>战力达到1e16000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e16000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><傲视天下></td><td>战力达到1e18000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e18000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><笑傲江湖></td><td>战力达到1e20000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e20000"))?"已达成":"未达成")+"</td></tr>"
         str+="</table>"
     }
     else if(player.mainTabId==24){//星宿
@@ -794,6 +800,38 @@ function getMainSubTabDisplay(){
             str+="</tr>"
         }
         str+="</table>"
+    }
+    else if(player.mainTabId==25){//天书
+        str+="<table>"
+        str+="<tr>"
+        let skyBookMul=n(1+player.skyBookUpgradeLv*0.1*Math.pow(1.05,Math.floor(player.skyBookUpgradeLv/10000))/100)
+        skyBookMul=skyBookMul.pow(player.skyBookList[0].length+player.skyBookList[1].length+player.skyBookList[2].length+player.skyBookList[3].length)
+        str+="<td style='text-align:left;'>天书强化 "+format(player.skyBookUpgradeLv,0)+"级"
+        str+=" 每本天书增加四维+"+format(player.skyBookUpgradeLv*0.1*Math.pow(1.05,Math.floor(player.skyBookUpgradeLv/10000)),1)+"%</td>"
+        str+="<td style='text-align:right;'>消耗 金币×"+format(CalcSkyBookNeed(),0)+"</td>"
+        str+="<td style='text-align:right;'><button onclick='SkyBookUpgrade(0)'>升级</button></td>"
+        str+="<td style='text-align:left;'><button onclick='SkyBookUpgrade(1)' style='margin-left:-10px'>一键升级</button></td>"
+        str+="</tr>"
+        str+="<tr>"
+        str+="<td style='text-align:left;'>累计增加四维+"+format(skyBookMul,1)+"%</td>"
+        str+="</tr>"
+        str+="<tr><td>　</td></tr>"
+        for(let i=0;i<4;i++){
+            if(player.skyBookList[i].length<[9,18,36,72][i]){
+                str+="<tr><td style='text-align:left;width:500px'>消耗 金币×"+["1e100","1e200","1e300","1e400"][i]+" 随机学习一种"+["下","中","上","超"][i]+"等天书</td><td>"
+                str+="<button onclick='TryLearnSkyBook("+i+",0)'>学习</button><button style='margin-left:-8px' onclick='TryLearnSkyBook("+i+",1)'>学习100次</button></td></tr>"
+            }
+            str+="<tr>"
+            str+="<td style='text-align:left;width:500px'>"+["下","中","上","超"][i]+"等天书("+player.skyBookList[i].length+"/"+[9,18,36,72][i]+")</td></tr><tr><td style='text-align:left'>"
+            for(let j=0;j<skyBookName[i].length;j++){
+                if(player.skyBookList[i].includes(j)){
+                    str+=" "+skyBookName[i][j]
+                }
+            }
+            str+="</td>"
+            str+="</tr>"
+        }
+        str+="<table>"
     }
     return str
 }

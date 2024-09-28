@@ -600,6 +600,28 @@ function TryUpgradeStar(id){
     player.starLv[id][2]+=1
     logs.push(starAttribute[id][0]+" 升阶成功")
 }
+function TryLearnSkyBook(id,type){
+    if(player.skyBookList[id].length==skyBookName[id].length){
+        return
+    }
+    let cost=n(["1e100","1e200","1e300","1e400"][id])
+    if(player.money.lte(cost)){
+        logs.push("金币不够")
+        return
+    }
+    let str="成功学习"
+    for(let i=0;i<[1,100][type];i++){
+        if(player.money.gte(cost)){
+            player.money=player.money.sub(cost)
+            let idd=Math.floor(random()*[9,18,36,72][id])
+            if(!player.skyBookList[id].includes(idd)){
+                player.skyBookList[id].push(idd)
+                str+=" "+skyBookName[id][idd]
+            }
+        }
+    }
+    logs.push(str)
+}
 function validateNumber(event) {
     var input = event.target;
     if(input.value.length==0){

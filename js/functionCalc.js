@@ -182,6 +182,12 @@ function CalcAttribute(){
             j+=1
         }
     }
+    let skyBookMul=n(1+player.skyBookUpgradeLv*0.1*Math.pow(1.05,Math.floor(player.skyBookUpgradeLv/10000))/100)
+    skyBookMul=skyBookMul.pow(player.skyBookList[0].length+player.skyBookList[1].length+player.skyBookList[2].length+player.skyBookList[3].length)
+    player.hpmax=player.hpmax.mul(skyBookMul)
+    player.atk=player.atk.mul(skyBookMul)
+    player.def=player.def.mul(skyBookMul)
+    player.hit=player.hit.mul(skyBookMul)
 }
     player.fightAbility=n(1).mul(player.hpmax).mul(player.atk).mul(player.def).mul(player.hit).mul(player.criticalDamage).mul(player.damageAdd.add(100)).mul(player.damageMinus.add(100))
 
@@ -217,43 +223,44 @@ function CalcAttribute(){
     player.zoneHit=n(player.transmigrationLv.hit)
 
     player.hangingSpeed=1
-    player.hangingSpeed+=4.5
+    player.hangingSpeed+=5
     player.hangingSpeed*=(player.separationLv*0.5+1)*(Math.pow(1.1,player.separationLv))
 
     player.dropLuck=1
     player.dropMul=1
 
     if(player.exchangeCodeList.includes("b15ae4e2ced7c192fe4acb5783fa57d336b963253950a8b7d2ff180876f4cc70")){
-        player.hangingSpeed*=2
+        player.hangingSpeed*=3
     }
     if(player.exchangeCodeList.includes("e5087192b1d924ad4fe535688e00b9d1d5ef4f0db60174dbaa070cc62c229875")){
-        player.hangingSpeed*=2.5
+        player.hangingSpeed*=4
     }
     if(player.exchangeCodeList.includes("69d86d4352e601f6db8580ad5224b12d4910115c015e03d07fd0311df94bef1b")){
-        player.hangingSpeed*=3
+        player.hangingSpeed*=5
         player.dropLuck*=2
     }
     if(player.exchangeCodeList.includes("61d76ba854558116517c822fefa55ba9b42d0e50e46d852e63589b78d6809c33")){
-        player.hangingSpeed*=4
+        player.hangingSpeed*=6
+        player.dropMul*=2
     }
     if(player.exchangeCodeList.includes("98d4c0c71f6671b4426c7fc604f63d97926587be5908153e95619fc971a70a5c")){
-        player.hangingSpeed*=5
+        player.hangingSpeed*=7.5
         player.dropMul*=2
     }
     if(player.exchangeCodeList.includes("1632b66a0c5a7ebf4ddf43636001472922536b0a6db6215cd7c117bd54c512fc")){
-        player.hangingSpeed*=5
+        player.hangingSpeed*=10
         player.dropLuck*=2.5
     }
     if(player.exchangeCodeList.includes("d91d4221eaf4856528d3768c01dea80b3ce73922a276407c5e82ee5728ad9d6c")){
-        player.hangingSpeed*=6
+        player.hangingSpeed*=10
         player.dropMul*=2.5
     }
     if(player.buchangTime>0){
         player.hangingSpeed*=2
     }
     if(player.monthCardTime>0){
-        player.hangingSpeed*=2
-        player.dropMul*=2
+        player.hangingSpeed*=4
+        player.dropMul*=4
     }
     player.hangingSpeed*=2
     for(let i=0;i<heroAttribute.length;i++){
@@ -272,6 +279,7 @@ function CalcAttribute(){
     if(player.hangingTimeReal>=21600)player.hangingSpeed*=2
     if(player.hangingTimeReal>=86400)player.hangingSpeed*=2
     if(player.hangingTimeReal>=604800)player.hangingSpeed*=2
+    if(player.hangingTimeReal>=1209600)player.hangingSpeed*=2.5
 
     if(player.fightAbility.gte(n("1e500")))player.hangingSpeed*=2
     if(player.fightAbility.gte(n("1e1000")))player.hangingSpeed*=2
@@ -288,6 +296,11 @@ function CalcAttribute(){
     if(player.fightAbility.gte(n("1e8000")))player.hangingSpeed*=2.5
     if(player.fightAbility.gte(n("1e9000")))player.hangingSpeed*=2.5
     if(player.fightAbility.gte(n("1e10000")))player.hangingSpeed*=2.5
+    if(player.fightAbility.gte(n("1e12000")))player.hangingSpeed*=3
+    if(player.fightAbility.gte(n("1e14000")))player.hangingSpeed*=3
+    if(player.fightAbility.gte(n("1e16000")))player.hangingSpeed*=3
+    if(player.fightAbility.gte(n("1e18000")))player.hangingSpeed*=3
+    if(player.fightAbility.gte(n("1e20000")))player.hangingSpeed*=3
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
@@ -1205,6 +1218,40 @@ function StarUpgrade(type){
         }
         else{
             logs.push("成功升级 "+count+"级 星宿强化")
+        }
+    }
+}
+function CalcSkyBookNeed(){
+    return n(1e100).mul(n(1.001).pow(player.skyBookUpgradeLv))
+}
+function SkyBookUpgrade(type){
+    if(type==0){
+        if(player.money.lte(CalcSkyBookNeed())){
+            logs.push("金币不够")
+        }
+        else{
+            player.money=player.money.sub(CalcSkyBookNeed())
+            player.skyBookUpgradeLv+=1
+            logs.push("成功升级 1级 天书强化")
+        }
+    }
+    else{
+        let count=0
+        while(player.money.gte(CalcSkyBookNeed().mul(100))){
+            player.money=player.money.sub(CalcSkyBookNeed().mul(100))
+            player.skyBookUpgradeLv+=100
+            count+=100
+        }
+        while(player.money.gte(CalcSkyBookNeed())){
+            player.money=player.money.sub(CalcSkyBookNeed())
+            player.skyBookUpgradeLv+=1
+            count+=1
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功升级 "+count+"级 天书强化")
         }
     }
 }
