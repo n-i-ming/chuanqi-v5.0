@@ -34,7 +34,39 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==2){//丹药
+    else if(player.mainTabId==2){//成就
+        str+="真实挂机次数 "+format(player.hangingTimeReal)+"次<br>"
+        str+="<br><table>"
+        str+="<tr><td style='width:150px'><玩十分钟></td><td style='width:200px'>挂机600次</td><td style='width:100px'>挂机速度×2</td><td style='width:200px'>"+(player.hangingTimeReal>=600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩一小时></td><td>挂机3600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=3600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩六小时></td><td>挂机21600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=21600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩了一天></td><td>挂机86400次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=86400?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩了一周></td><td>挂机604800次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=604800?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><玩了两周></td><td>挂机604800次</td><td>挂机速度×2.5</td><td>"+(player.hangingTimeReal>=1209600?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td>　</td></tr>"
+        str+="<tr><td><初出茅庐></td><td>战力达到1e500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><初窥门径></td><td>战力达到1e1000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><略有所成></td><td>战力达到1e1500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><渐入佳境></td><td>战力达到1e2000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><登堂入室></td><td>战力达到1e2500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><融会贯通></td><td>战力达到1e3000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><出类拔萃></td><td>战力达到1e3500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><炉火纯青></td><td>战力达到1e4000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e4000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><登峰造极></td><td>战力达到1e4500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e4500"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><超凡脱俗></td><td>战力达到1e5000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e5000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><绝世无双></td><td>战力达到1e6000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e6000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><技压群雄></td><td>战力达到1e7000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e7000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><一鸣惊人></td><td>战力达到1e8000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e8000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><名扬四海></td><td>战力达到1e9000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e9000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><傲视群雄></td><td>战力达到1e10000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e10000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><威震八方></td><td>战力达到1e12000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e12000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><独步天下></td><td>战力达到1e14000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e14000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><无可匹敌></td><td>战力达到1e16000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e16000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><傲视天下></td><td>战力达到1e18000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e18000"))?"已达成":"未达成")+"</td></tr>"
+        str+="<tr><td><笑傲江湖></td><td>战力达到1e20000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e20000"))?"已达成":"未达成")+"</td></tr>"
+        str+="</table>"
+    }
+    else if(player.mainTabId==3){//丹药
         str+="<table>"
         let all=0
         for(let i=0;i<player.pelletNum.length;i++){
@@ -88,7 +120,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==3){//兵器
+    else if(player.mainTabId==4){//兵器
         str+="<table>"
         for(let i=0;i<weaponAttribute.length;i++){
             str+="<tr>"
@@ -112,7 +144,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==4){//元神
+    else if(player.mainTabId==5){//元神
         str+="<table>"
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
@@ -127,7 +159,7 @@ function getMainSubTabDisplay(){
         str+="</table>"
         str+="<br>每一个阶段的元神独立提升属性加成10%<br>"
     }
-    else if(player.mainTabId==5){//经脉
+    else if(player.mainTabId==6){//经脉
         let attr=CalcMeridianAttribute(player.meridianLv[0][0])
         let attr1=CalcMeridianAttribute(player.meridianLv[1][0])
         str+="<table>"
@@ -159,7 +191,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="</table>"
     }
-    else if(player.mainTabId==6){//飞升
+    else if(player.mainTabId==7){//飞升
         let attr=(player.immortalLv<immortalAttribute.length?immortalAttribute[player.immortalLv]:CalcImmortalAttribute(player.immortalLv))
         let attr1=(player.immortalLv+1<immortalAttribute.length?immortalAttribute[player.immortalLv+1]:CalcImmortalAttribute(player.immortalLv+1))
         str+="<table>"
@@ -197,7 +229,7 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeImmortal(0)'>飞升</button><button style='margin-left:-8px' onclick='TryUpgradeImmortal(1)'>一键飞升</button></td></tr>"
         str+="</table>"
     }
-    else if(player.mainTabId==7){//转生
+    else if(player.mainTabId==8){//转生
         str+="<table>"
         let list=["hpmax","atk","def","hit"]
         for(let i=0;i<list.length;i++){
@@ -211,7 +243,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==8){//神力
+    else if(player.mainTabId==9){//神力
         str+="<table>"
         let mx=player.transmigrationLv["hpmax"]+player.transmigrationLv["atk"]+player.transmigrationLv["def"]+player.transmigrationLv["hit"]
         str+="<tr>"
@@ -224,7 +256,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="</table>"
     }
-    else if(player.mainTabId==9){//神庙
+    else if(player.mainTabId==10){//神庙
         str+="<table>"
         let list=["经验","金币","修为"]
         for(let i=0;i<list.length;i++){
@@ -240,7 +272,7 @@ function getMainSubTabDisplay(){
         str+="</table>"
         str+="<br>每100级神庙 , 独立提升对应收益5%<br>"
     }
-    else if(player.mainTabId==10){//暗器
+    else if(player.mainTabId==11){//暗器
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>暗器强化 "+format(player.concealLv,0)+"级</td>"
@@ -274,7 +306,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==11){//翅膀
+    else if(player.mainTabId==12){//翅膀
         let attr=CalcWingAttribute(player.wingLv[0])
         str+="<table>"
         str+="<tr><td colspan=4 style='text-align:left'>当前翅膀 "+attr[0]+"·"+player.wingLv[1]+"级</td></tr>"
@@ -315,7 +347,7 @@ function getMainSubTabDisplay(){
         str+="<tr><td style='text-align:left'><button style='margin-left:0px' onclick='TryUpgradeWing(0)'>升级</button><button style='margin-left:-8px' onclick='TryUpgradeWing(1)'>一键升级</button></td></tr>"
         str+="</table>"
     }
-    else if(player.mainTabId==12){//功法
+    else if(player.mainTabId==13){//功法
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>功法强化 "+format(player.bookUpgradeLv,0)+"级</td>"
@@ -353,7 +385,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==13){//宠物
+    else if(player.mainTabId==14){//宠物
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>宠物强化 "+format(player.petUpgradeLv,0)+"级</td>"
@@ -395,7 +427,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==14){//纵横
+    else if(player.mainTabId==15){//纵横
         str+="<table>"
         str+="<tr>"
         str+="<td style='width:300px;text-align:left'>纵剑术 "+player.zonghengLv[0]+"级</td>"
@@ -471,7 +503,7 @@ function getMainSubTabDisplay(){
         str+="</tr>"
         str+="</table>"
     }
-    else if(player.mainTabId==15){//魂环
+    else if(player.mainTabId==16){//魂环
         str+="拥有魂环碎片 "+format(player.bag[24],0)+"<br>"
         str+="拥有魂力 "+format(player.soulPower,0)+"<br><br>"
         str+="<table>"
@@ -518,7 +550,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==16){//魂骨
+    else if(player.mainTabId==17){//魂骨
         str+="拥有魂骨碎片 "+format(player.bag[25],0)+"<br><br>"
         str+="<table>"
         str+="<tr>"
@@ -557,7 +589,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==17){//吞噬
+    else if(player.mainTabId==18){//吞噬
         str+="吞噬点 "+format(player.eatPoint,0)+"<br>"
         str+="等级属性×"+format(n(player.eatPoint).add(1).pow(0.25))+"<br><br>"
         str+="<table>"
@@ -573,7 +605,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==18){//绝技
+    else if(player.mainTabId==19){//绝技
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>绝技强化 "+format(player.skillUpgradeLv,0)+"级</td>"
@@ -610,7 +642,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==19){//无限
+    else if(player.mainTabId==20){//无限
         str+="拥有无限宝石碎片 "+format(player.bag[40],0)+"<br><br>"
         str+="<table>"
         str+="<tr>"
@@ -648,14 +680,14 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==20){//分身
+    else if(player.mainTabId==21){//分身
         str+="你拥有 "+format(player.separationLv,0)+" 尊分身<br>"
         str+="使你的挂机速度×"+format((player.separationLv*0.5+1)*(Math.pow(1.1,player.separationLv)),1)+"<br><br>"
         str+="下一尊分身需要 达到"+format((player.separationLv+1)*1e5,0)+"级 , 并消耗 金币×"+format(n(1e10).mul(n(1e5).pow(player.separationLv)),0)+"<br>"
         str+="<br>每尊分身独立提升1.1倍挂机速度<br>"
         str+="<br><button onclick='TryBuildSeparation()'>凝聚</button><br>"
     }
-    else if(player.mainTabId==21){//后宫
+    else if(player.mainTabId==22){//后宫
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>后宫强化 "+format(player.partnerUpgradeLv,0)+"级</td>"
@@ -697,7 +729,7 @@ function getMainSubTabDisplay(){
         }
         str+="</table>"
     }
-    else if(player.mainTabId==22){//英雄
+    else if(player.mainTabId==23){//英雄
         str+="<table>"
         str+="<tr>"
         str+="<td style='text-align:left;'>英雄强化 "+format(player.heroUpgradeLv,0)+"级</td>"
@@ -732,38 +764,6 @@ function getMainSubTabDisplay(){
             str+="</td>"
             str+="</tr>"
         }
-        str+="</table>"
-    }
-    else if(player.mainTabId==23){//成就
-        str+="真实挂机次数 "+format(player.hangingTimeReal)+"次<br>"
-        str+="<br><table>"
-        str+="<tr><td style='width:150px'><玩十分钟></td><td style='width:200px'>挂机600次</td><td style='width:100px'>挂机速度×2</td><td style='width:200px'>"+(player.hangingTimeReal>=600?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><玩一小时></td><td>挂机3600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=3600?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><玩六小时></td><td>挂机21600次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=21600?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><玩了一天></td><td>挂机86400次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=86400?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><玩了一周></td><td>挂机604800次</td><td>挂机速度×2</td><td>"+(player.hangingTimeReal>=604800?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><玩了两周></td><td>挂机604800次</td><td>挂机速度×2.5</td><td>"+(player.hangingTimeReal>=1209600?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td>　</td></tr>"
-        str+="<tr><td><初出茅庐></td><td>战力达到1e500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e500"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><初窥门径></td><td>战力达到1e1000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><略有所成></td><td>战力达到1e1500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e1500"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><渐入佳境></td><td>战力达到1e2000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><登堂入室></td><td>战力达到1e2500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e2500"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><融会贯通></td><td>战力达到1e3000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><出类拔萃></td><td>战力达到1e3500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e3500"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><炉火纯青></td><td>战力达到1e4000</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e4000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><登峰造极></td><td>战力达到1e4500</td><td>挂机速度×2</td><td>"+(player.fightAbility.gte(n("1e4500"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><超凡脱俗></td><td>战力达到1e5000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e5000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><绝世无双></td><td>战力达到1e6000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e6000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><技压群雄></td><td>战力达到1e7000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e7000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><一鸣惊人></td><td>战力达到1e8000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e8000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><名扬四海></td><td>战力达到1e9000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e9000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><傲视群雄></td><td>战力达到1e10000</td><td>挂机速度×2.5</td><td>"+(player.fightAbility.gte(n("1e10000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><威震八方></td><td>战力达到1e12000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e12000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><独步天下></td><td>战力达到1e14000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e14000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><无可匹敌></td><td>战力达到1e16000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e16000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><傲视天下></td><td>战力达到1e18000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e18000"))?"已达成":"未达成")+"</td></tr>"
-        str+="<tr><td><笑傲江湖></td><td>战力达到1e20000</td><td>挂机速度×3</td><td>"+(player.fightAbility.gte(n("1e20000"))?"已达成":"未达成")+"</td></tr>"
         str+="</table>"
     }
     else if(player.mainTabId==24){//星宿
