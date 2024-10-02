@@ -280,6 +280,8 @@ function CalcAttribute(){
     if(player.hangingTimeReal>=86400)player.hangingSpeed*=2
     if(player.hangingTimeReal>=604800)player.hangingSpeed*=2
     if(player.hangingTimeReal>=1209600)player.hangingSpeed*=2.5
+    if(player.hangingTimeReal>=1814400)player.hangingSpeed*=3
+    if(player.hangingTimeReal>=2419200)player.hangingSpeed*=5
 
     if(player.fightAbility.gte(n("1e500")))player.hangingSpeed*=2
     if(player.fightAbility.gte(n("1e1000")))player.hangingSpeed*=2
@@ -301,6 +303,12 @@ function CalcAttribute(){
     if(player.fightAbility.gte(n("1e16000")))player.hangingSpeed*=3
     if(player.fightAbility.gte(n("1e18000")))player.hangingSpeed*=3
     if(player.fightAbility.gte(n("1e20000")))player.hangingSpeed*=3
+    if(player.fightAbility.gte(n("1e25000")))player.hangingSpeed*=5
+    if(player.fightAbility.gte(n("1e30000")))player.hangingSpeed*=5
+    if(player.fightAbility.gte(n("1e35000")))player.hangingSpeed*=5
+    if(player.fightAbility.gte(n("1e40000")))player.hangingSpeed*=5
+    if(player.fightAbility.gte(n("1e45000")))player.hangingSpeed*=5
+    if(player.fightAbility.gte(n("1e50000")))player.hangingSpeed*=5
 
     player.hangingSpeed*=Math.pow(2,Math.floor(player.maxDifficulty/1000))
 }
@@ -671,21 +679,7 @@ function ZonghengUpgrade(id,type){
     }
     else if(type==2){
         let count=0
-        while(player.money.gte(CalcZonghengNeed(id).mul(10)) && count<1000 && player.zonghengLv[id]<mx){
-            player.money=player.money.sub(CalcZonghengNeed(id).mul(10))
-            player.zonghengLv[id]+=10
-            count+=10
-        }
-        if(count==0){
-            logs.push("金币不够")
-        }
-        else{
-            logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
-        }
-    }
-    else if(type==3){
-        let count=0
-        while(player.money.gte(CalcZonghengNeed(id).mul(100)) && count<10000 && player.zonghengLv[id]<mx){
+        while(player.money.gte(CalcZonghengNeed(id).mul(10)) && count<10000 && player.zonghengLv[id]<mx){
             player.money=player.money.sub(CalcZonghengNeed(id).mul(100))
             player.zonghengLv[id]+=100
             count+=100
@@ -697,12 +691,26 @@ function ZonghengUpgrade(id,type){
             logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
         }
     }
+    else if(type==3){
+        let count=0
+        while(player.money.gte(CalcZonghengNeed(id).mul(100)) && count<1000000 && player.zonghengLv[id]<mx){
+            player.money=player.money.sub(CalcZonghengNeed(id).mul(10000))
+            player.zonghengLv[id]+=10000
+            count+=10000
+        }
+        if(count==0){
+            logs.push("金币不够")
+        }
+        else{
+            logs.push("成功升级 "+count+"级 "+["纵剑术","横剑术","长虹贯日","横贯四方","合纵连横","九龙真诀"][id])
+        }
+    }
     else if(type==4){
         let count=0
-        while(player.money.gte(CalcZonghengNeed(id).mul(1000)) && count<100000 && player.zonghengLv[id]<mx){
-            player.money=player.money.sub(CalcZonghengNeed(id).mul(1000))
-            player.zonghengLv[id]+=1000
-            count+=1000
+        while(player.money.gte(CalcZonghengNeed(id).mul(1000)) && count<100000000 && player.zonghengLv[id]<mx){
+            player.money=player.money.sub(CalcZonghengNeed(id).mul(1000000))
+            player.zonghengLv[id]+=1000000
+            count+=1000000
         }
         if(count==0){
             logs.push("金币不够")
