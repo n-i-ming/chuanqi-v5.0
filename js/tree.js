@@ -127,6 +127,7 @@ addLayer("tree-tab",{
         if(player.nowDifficulty===null || player.nowDifficulty===NaN){
             player.nowDifficulty=0
         }
+        player.money=player.money.max(0)
         }
         player.devSpeed=1
         let dif=(Date.now()/1e3-player.tmtmtm)

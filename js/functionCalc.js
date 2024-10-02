@@ -679,7 +679,7 @@ function ZonghengUpgrade(id,type){
     }
     else if(type==2){
         let count=0
-        while(player.money.gte(CalcZonghengNeed(id).mul(10)) && count<10000 && player.zonghengLv[id]<mx){
+        while(player.money.gte(CalcZonghengNeed(id).mul(100)) && count<10000 && player.zonghengLv[id]<mx){
             player.money=player.money.sub(CalcZonghengNeed(id).mul(100))
             player.zonghengLv[id]+=100
             count+=100
@@ -693,7 +693,7 @@ function ZonghengUpgrade(id,type){
     }
     else if(type==3){
         let count=0
-        while(player.money.gte(CalcZonghengNeed(id).mul(100)) && count<1000000 && player.zonghengLv[id]<mx){
+        while(player.money.gte(CalcZonghengNeed(id).mul(10000)) && count<1000000 && player.zonghengLv[id]<mx){
             player.money=player.money.sub(CalcZonghengNeed(id).mul(10000))
             player.zonghengLv[id]+=10000
             count+=10000
@@ -707,7 +707,7 @@ function ZonghengUpgrade(id,type){
     }
     else if(type==4){
         let count=0
-        while(player.money.gte(CalcZonghengNeed(id).mul(1000)) && count<100000000 && player.zonghengLv[id]<mx){
+        while(player.money.gte(CalcZonghengNeed(id).mul(1000000)) && count<100000000 && player.zonghengLv[id]<mx){
             player.money=player.money.sub(CalcZonghengNeed(id).mul(1000000))
             player.zonghengLv[id]+=1000000
             count+=1000000
