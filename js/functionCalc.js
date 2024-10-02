@@ -301,6 +301,8 @@ function CalcAttribute(){
     if(player.fightAbility.gte(n("1e16000")))player.hangingSpeed*=3
     if(player.fightAbility.gte(n("1e18000")))player.hangingSpeed*=3
     if(player.fightAbility.gte(n("1e20000")))player.hangingSpeed*=3
+
+    player.hangingSpeed*=Math.pow(2,Math.floor(player.maxDifficulty/1000))
 }
 const expNeed=[
     [100,n(10)],[200,n(100)],[500,n(500)],[1000,n(1000)],[1500,n(2000)],[2000,n(3000)],[3000,n(5000)],[4000,n(7000)],[5000,n(10000)],
